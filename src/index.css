@@ -1,0 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ToyLand Treasures Design System - Playful & Vibrant Colors 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 43 100% 97%; /* Cream white background */
+    --foreground: 220 25% 20%; /* Dark blue-gray for text */
+
+    /* Card & Surface Colors */
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 220 25% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 20%;
+
+    /* Primary Colors - Coral Red */
+    --primary: 6 100% 69%; /* #FF6F61 Coral Red */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary Colors - Sky Blue */
+    --secondary: 217 100% 66%; /* #4D96FF Sky Blue */
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted Colors - Light Pink */
+    --muted: 8 100% 92%; /* #FFE4E1 Light Pink */
+    --muted-foreground: 220 25% 45%;
+
+    /* Accent Colors - Mint Green */
+    --accent: 137 60% 58%; /* #6BCB77 Mint Green */
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Interactive Elements */
+    --border: 43 50% 90%;
+    --input: 43 50% 95%;
+    --ring: 6 100% 69%;
+
+    /* Design System Tokens */
+    --radius: 1rem; /* More rounded for playful feel */
+
+    /* ToyLand Custom Colors */
+    --toy-yellow: 51 100% 59%; /* #FFD93D Yellow */
+    --toy-yellow-foreground: 220 25% 20%;
+    
+    --toy-mint: 137 60% 58%; /* #6BCB77 Mint Green */
+    --toy-mint-foreground: 0 0% 100%;
+    
+    --toy-sky: 217 100% 66%; /* #4D96FF Sky Blue */
+    --toy-sky-foreground: 0 0% 100%;
+    
+    --toy-cream: 51 100% 87%; /* #FFF5C3 Cream Yellow */
+    --toy-cream-foreground: 220 25% 20%;
+    
+    --toy-pale-blue: 199 100% 87%; /* #C1EFFF Pale Blue */
+    --toy-pale-blue-foreground: 220 25% 20%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--toy-yellow)) 50%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--toy-cream)) 100%);
+    --gradient-button: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+
+    /* Shadows */
+    --shadow-playful: 0 8px 32px hsl(var(--primary) / 0.15);
+    --shadow-toy: 0 4px 20px hsl(var(--accent) / 0.2);
+    --shadow-glow: 0 0 30px hsl(var(--toy-yellow) / 0.3);
+
+    /* Animation Variables */
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode with playful colors */
+    --background: 220 25% 8%; /* Dark blue-gray */
+    --foreground: 43 100% 97%;
+
+    --card: 220 25% 12%;
+    --card-foreground: 43 100% 97%;
+
+    --popover: 220 25% 12%;
+    --popover-foreground: 43 100% 97%;
+
+    --primary: 6 100% 69%; /* Keep coral red bright */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 100% 66%; /* Keep sky blue bright */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 25% 18%;
+    --muted-foreground: 43 50% 75%;
+
+    --accent: 137 60% 58%; /* Keep mint green bright */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 20%;
+    --input: 220 25% 18%;
+    --ring: 6 100% 69%;
+
+    /* Dark mode toy colors */
+    --toy-yellow: 51 100% 65%;
+    --toy-cream: 51 50% 25%;
+    --toy-pale-blue: 199 50% 25%;
+
+    /* Dark gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--toy-yellow)) 50%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--toy-cream)) 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-poppins;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-baloo;
+  }
+}
+
+/* Playful Animations & Utilities */
+@layer utilities {
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-wiggle {
+    animation: wiggle 2s ease-in-out infinite;
+  }
+
+  .hover-bounce {
+    transition: var(--transition-bounce);
+  }
+  
+  .hover-bounce:hover {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  .toy-shadow {
+    box-shadow: var(--shadow-toy);
+  }
+
+  .playful-shadow {
+    box-shadow: var(--shadow-playful);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+}
+
+/* Custom Keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(2deg); }
+  66% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  75% { transform: rotate(-2deg); }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
