@@ -113,8 +113,9 @@ router.post("/login", async (req, res) => {
 
         res.json({
             message: "Login Success",
+            user,
             token,
-            redirect: user.role === "admin" ? "/admin" : "/products",
+            redirect: user.role === "admin" ? "/admin" : "/",
         });
     } catch (err) {
         console.error(err);

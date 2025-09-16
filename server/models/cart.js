@@ -2,7 +2,6 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 const User = require("./user");
 const Product = require("./product");
-const CustomizedProduct = require("./customizedProduct"); // Import new model
 
 const Cart = sequelize.define(
   "Cart",
@@ -28,18 +27,7 @@ const Cart = sequelize.define(
         key: "id",
       },
     },
-    customized_product_id: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      references: {
-        model: "customized_products", // table name in DB
-        key: "id",
-      },
-    },
-    size: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+
     color: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -66,12 +54,6 @@ Product.hasMany(Cart, { foreignKey: "product_id" });
 
 Cart.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
 User.hasMany(Cart, { foreignKey: "user_id" });
-
-Cart.belongsTo(CustomizedProduct, {
-  foreignKey: "customized_product_id",
-  as: "CustomizedProduct",
-  onDelete: "CASCADE",
-});
 
 module.exports = Cart;
 

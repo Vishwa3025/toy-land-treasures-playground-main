@@ -28,14 +28,6 @@ const Product = sequelize.define("Product", {
         type: DataTypes.DECIMAL(10,2),
         allowNull: false,
     },
-    material: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    size: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     color: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -52,11 +44,6 @@ const Product = sequelize.define("Product", {
             key: "id"
         },
         onDelete: "CASCADE",
-    },
-    isCombo: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-        allowNull: true,
     },
     image1: {
         type: DataTypes.STRING, // Stores the image path or URL

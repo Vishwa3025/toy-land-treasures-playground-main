@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toaster";
@@ -28,6 +34,7 @@ import AddProduct from "./pages/AddProduct";
 import AddCategory from "./pages/AddCategory";
 import AdminCategoriesList from "./pages/AdminCategoriesList";
 import AdminProductsList from "./pages/AdminProductsList";
+import AddGeneralImage from "./pages/AddGeneralImage";
 import AdminGeneralImagesList from "./pages/AdminGeneralImagesList";
 import AdminOrders from "./pages/AdminOrders";
 import AllUsers from "./pages/AllUsers";
@@ -92,35 +99,62 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/category/:categoryId" element={<CategoryPage />} />
-                <Route path="/product/:productId" element={<ProductDetails />} />
+                <Route
+                  path="/category/:categoryId"
+                  element={<CategoryPage />}
+                />
+                <Route
+                  path="/product/:productId"
+                  element={<ProductDetails />}
+                />
 
                 {/* Customer Protected Routes */}
                 <Route
                   path="/cart"
-                  element={<ProtectedRoute element={<Cart />} allowedRoles={["customer"]} />}
+                  element={
+                    <ProtectedRoute
+                      element={<Cart />}
+                      allowedRoles={["customer"]}
+                    />
+                  }
                 />
                 <Route
                   path="/checkout"
-                  element={<ProtectedRoute element={<Checkout />} allowedRoles={["customer"]} />}
+                  element={
+                    <ProtectedRoute
+                      element={<Checkout />}
+                      allowedRoles={["customer"]}
+                    />
+                  }
                 />
                 <Route
                   path="/profile"
-                  element={<ProtectedRoute element={<Profile />} allowedRoles={["customer"]} />}
+                  element={
+                    <ProtectedRoute
+                      element={<Profile />}
+                      allowedRoles={["customer"]}
+                    />
+                  }
                 />
 
                 {/* Admin Protected Routes */}
                 <Route
                   path="/admin"
-                  element={<ProtectedRoute element={<AdminDashboard />} allowedRoles={["admin"]} />}
+                  element={
+                    <ProtectedRoute
+                      element={<AdminDashboard />}
+                      allowedRoles={["admin"]}
+                    />
+                  }
                 >
                   <Route index element={<AdminDashboardPage />} />
                   <Route path="product/add" element={<AddProduct />} />
                   <Route path="category/add" element={<AddCategory />} />
+                  <Route path="images/add" element={<AddGeneralImage />} />
                   <Route path="products" element={<AdminProductsList />} />
                   <Route path="categories" element={<AdminCategoriesList />} />
                   <Route path="orders" element={<AdminOrders />} />
-                          <Route path="images" element={<AdminGeneralImagesList />} />
+                  <Route path="images" element={<AdminGeneralImagesList />} />
 
                   <Route path="users" element={<AllUsers />} />
                   <Route path="account" element={<AdminAccount />} />

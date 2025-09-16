@@ -61,6 +61,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           headers: { 'Content-Type': 'application/json' },
         }
       );
+
+      console.log(res);
+      
       if (res.data?.user) {
         setUser(res.data.user);
         return true;

@@ -22,7 +22,7 @@ const UseUser = () => {
     fetchUserDetails();
   }, []);
 
-  console.log("user from useUser hook:", user);
+  // console.log("user from useUser hook:", user);
   
 
   return { user, loading, error };

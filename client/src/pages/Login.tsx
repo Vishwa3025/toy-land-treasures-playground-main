@@ -1,27 +1,40 @@
-import { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/hooks/use-toast';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { useAuth } from "@/contexts/AuthContext";
 import { generalApi } from "../utils/axiosInstance.js";
-
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Login = () => {
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const [signupForm, setSignupForm] = useState({ name: '', email: '', phone: '', password: '' });
+  const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+  const [signupForm, setSignupForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+  });
+  const { login } = useAuth(); // ✅ get login function from context
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("login");
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
 
   /** ---------- LOGIN ---------- */
   const handleLogin = async (e: React.FormEvent) => {
@@ -29,35 +42,32 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const res = await generalApi.post(
-        `auth/login`,
-        {
-          email: loginForm.email,
-          password: loginForm.password,
-        },
-        { withCredentials: true,headers: {
-          "Content-Type": "application/json",
-        }, } // ✅ To include cookies (JWT)
-      );
-
-      toast({
-        title: "Welcome back! 🎉",
-        description: res.data.message || "You've successfully logged in to ToyLand Treasures!",
-      });
-
-      // Navigate based on user role
-      navigate(res.data.redirect || from, { replace: true });
+      const success = await login(loginForm.email, loginForm.password); // ✅ use context login
+      if (success) {
+        toast({
+          title: "Welcome back! 🎉",
+          description: "You've successfully logged in to ToyLand Treasures!",
+        });
+        navigate("/"); // or redirect as needed
+      } else {
+        toast({
+          title: "Login failed",
+          description: "Invalid credentials. Please try again.",
+          variant: "destructive",
+        });
+      }
     } catch (error: any) {
       toast({
         title: "Login failed",
-        description: error.response?.data?.error || "Please check your credentials and try again.",
+        description:
+          error.response?.data?.error ||
+          "Something went wrong, please try again.",
         variant: "destructive",
       });
     } finally {
       setIsLoading(false);
     }
   };
-
   /** ---------- SIGNUP ---------- */
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,14 +83,17 @@ const Login = () => {
 
       toast({
         title: "Welcome to ToyLand! 🎊",
-        description: res.data.message || "Your account has been created successfully!",
+        description:
+          res.data.message || "Your account has been created successfully!",
       });
 
-      navigate(from, { replace: true });
+      setActiveTab("login");
     } catch (error: any) {
       toast({
         title: "Signup failed",
-        description: error.response?.data?.error || "Please check the details and try again.",
+        description:
+          error.response?.data?.error ||
+          "Please check the details and try again.",
         variant: "destructive",
       });
     } finally {
@@ -112,7 +125,11 @@ const Login = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="login" className="w-full">
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+              >
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="login">Login</TabsTrigger>
                   <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -128,7 +145,9 @@ const Login = () => {
                         type="email"
                         placeholder="your@email.com"
                         value={loginForm.email}
-                        onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                        onChange={(e) =>
+                          setLoginForm({ ...loginForm, email: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -139,7 +158,12 @@ const Login = () => {
                         type="password"
                         placeholder="Enter your password"
                         value={loginForm.password}
-                        onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                        onChange={(e) =>
+                          setLoginForm({
+                            ...loginForm,
+                            password: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
@@ -149,7 +173,7 @@ const Login = () => {
                       disabled={isLoading}
                       variant="hero"
                     >
-                      {isLoading ? 'Logging in...' : 'Login to ToyLand! 🎈'}
+                      {isLoading ? "Logging in..." : "Login to ToyLand! 🎈"}
                     </Button>
                   </form>
                 </TabsContent>
@@ -164,7 +188,9 @@ const Login = () => {
                         type="text"
                         placeholder="Your full name"
                         value={signupForm.name}
-                        onChange={(e) => setSignupForm({ ...signupForm, name: e.target.value })}
+                        onChange={(e) =>
+                          setSignupForm({ ...signupForm, name: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -175,7 +201,12 @@ const Login = () => {
                         type="email"
                         placeholder="your@email.com"
                         value={signupForm.email}
-                        onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
+                        onChange={(e) =>
+                          setSignupForm({
+                            ...signupForm,
+                            email: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
@@ -186,7 +217,12 @@ const Login = () => {
                         type="tel"
                         placeholder="Enter phone number"
                         value={signupForm.phone}
-                        onChange={(e) => setSignupForm({ ...signupForm, phone: e.target.value })}
+                        onChange={(e) =>
+                          setSignupForm({
+                            ...signupForm,
+                            phone: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
@@ -197,7 +233,12 @@ const Login = () => {
                         type="password"
                         placeholder="Create a password"
                         value={signupForm.password}
-                        onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
+                        onChange={(e) =>
+                          setSignupForm({
+                            ...signupForm,
+                            password: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
@@ -207,7 +248,7 @@ const Login = () => {
                       disabled={isLoading}
                       variant="hero"
                     >
-                      {isLoading ? 'Creating account...' : 'Join ToyLand! 🌟'}
+                      {isLoading ? "Creating account..." : "Join ToyLand! 🌟"}
                     </Button>
                   </form>
                 </TabsContent>

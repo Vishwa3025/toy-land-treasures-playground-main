@@ -1,7 +1,6 @@
 const Order = require("../models/order");
 const OrderItem = require("../models/orderItem");
 const Product = require("../models/product");
-const CustomizedProduct = require("../models/customizedProduct"); // Assuming a separate model for customized products
 const User = require("../models/user");
 const nodemailer = require("nodemailer");
 
@@ -24,23 +23,8 @@ const getUserOrders = async (req, res) => {
                 "id",
                 "name",
                 "price",
-                "size",
                 "color",
-                "material",
                 "image1",
-              ],
-            },
-            {
-              model: CustomizedProduct,
-              required: false,
-              attributes: [
-                "id",
-                "size",
-                "material",
-                "color",
-                "category",
-                "design_image_url",
-                "description",
               ],
             },
           ],
@@ -72,29 +56,9 @@ const getUserOrders = async (req, res) => {
               id: item.Product.id,
               name: item.Product.name,
               price: item.Product.price,
-              size: item.size,
               color: item.color,
-              material: item.Product.material,
               image1: item.Product.image1
                 ? `${baseUrl}/uploads/products/${item.Product.image1}`
-                : null,
-            },
-          };
-        } else if (item.customized_product_id && item.CustomizedProduct) {
-          return {
-            id: item.id,
-            quantity: item.quantity,
-            subtotal: item.subtotal,
-            customized_product_id: item.customized_product_id,
-            CustomizedProduct: {
-              id: item.CustomizedProduct.id,
-              size: item.CustomizedProduct.size,
-              material: item.CustomizedProduct.material,
-              description: item.CustomizedProduct.description,
-              category: item.CustomizedProduct.category,
-              color: item.CustomizedProduct.color,
-              design_image_url: item.CustomizedProduct.design_image_url
-                ? `${baseUrl}/uploads/customized/${item.CustomizedProduct.design_image_url}`
                 : null,
             },
           };
@@ -142,23 +106,8 @@ const getOrders = async (req, res) => {
                 "id",
                 "name",
                 "price",
-                "material",
-                "size",
                 "color",
                 "image1",
-              ],
-            },
-            {
-              model: CustomizedProduct,
-              required: false,
-              attributes: [
-                "id",
-                "size",
-                "material",
-                "color",
-                "category",
-                "design_image_url",
-                "description",
               ],
             },
           ],
@@ -183,29 +132,9 @@ const getOrders = async (req, res) => {
               id: item.Product.id,
               name: item.Product.name,
               price: item.Product.price,
-              size: item.Product.size,
               color: item.Product.color,
-              material: item.Product.material,
               image1: item.Product.image1
                 ? `${baseUrl}/uploads/products/${item.Product.image1}`
-                : null,
-            },
-          };
-        } else if (item.customized_product_id && item.CustomizedProduct) {
-          return {
-            id: item.id,
-            quantity: item.quantity,
-            subtotal: item.subtotal,
-            customized_product_id: item.customized_product_id,
-            CustomizedProduct: {
-              id: item.CustomizedProduct.id,
-              size: item.CustomizedProduct.size,
-              material: item.CustomizedProduct.material,
-              category: item.CustomizedProduct.category,
-              description: item.CustomizedProduct.description,
-              color: item.CustomizedProduct.color,
-              design_image_url: item.CustomizedProduct.design_image_url
-                ? `${baseUrl}/uploads/customized/${item.CustomizedProduct.design_image_url}`
                 : null,
             },
           };
@@ -260,13 +189,9 @@ const createOrder = async (req, res) => {
     const orderItems = items.map((item) => ({
       order_id: newOrder.id,
       product_id: item.product_id || null, // Regular product
-      customized_product_id: item.customized_product_id || null, // Customized product
       quantity: item.quantity,
-      size: item.size,
-      color: item.color || item.CustomizedProduct.color,
-      category: item.category || null, // Category for customized products
-      design_image_url: item.design_image_url || null, // Design image URL for customized products
-      material: item.material,
+      color: item.color,
+      category: item.category || null,
       subtotal: item.subtotal,
     }));
 
@@ -297,23 +222,8 @@ const getOrderItems = async (req, res) => {
             "id",
             "name",
             "price",
-            "material",
-            "size",
             "color",
             "image1",
-          ],
-        },
-        {
-          model: CustomizedProduct,
-          required: false,
-          attributes: [
-            "id",
-            "size",
-            "material",
-            "color",
-            "category",
-            "design_image_url",
-            "description",
           ],
         },
       ],
@@ -336,29 +246,9 @@ const getOrderItems = async (req, res) => {
             id: item.Product.id,
             name: item.Product.name,
             price: item.Product.price,
-            size: item.size,
             color: item.color,
-            material: item.Product.material,
             image1: item.Product.image1
               ? `${baseUrl}/uploads/products/${item.Product.image1}`
-              : null,
-          },
-        };
-      } else if (item.customized_product_id && item.CustomizedProduct) {
-        return {
-          id: item.id,
-          quantity: item.quantity,
-          subtotal: item.subtotal,
-          customized_product_id: item.customized_product_id,
-          CustomizedProduct: {
-            id: item.CustomizedProduct.id,
-            size: item.CustomizedProduct.size,
-            material: item.CustomizedProduct.material,
-            description: item.CustomizedProduct.description,
-            category: item.CustomizedProduct.category,
-            color: item.CustomizedProduct.color,
-            design_image_url: item.CustomizedProduct.design_image_url
-              ? `${baseUrl}/uploads/customized/${item.CustomizedProduct.design_image_url}`
               : null,
           },
         };
@@ -475,23 +365,8 @@ const acceptOrder = async (req, res) => {
             "id",
             "name",
             "price",
-            "material",
-            "size",
             "color",
             "image1",
-          ],
-        },
-        {
-          model: CustomizedProduct,
-          required: false,
-          attributes: [
-            "id",
-            "size",
-            "material",
-            "color",
-            "category",
-            "design_image_url",
-            "description",
           ],
         },
       ],
@@ -510,13 +385,7 @@ const acceptOrder = async (req, res) => {
         return `
           <tr>
             <td style="padding:8px; border:1px solid #ccc;">
-              ${p.name || "Custom Product"}
-            </td>
-            <td style="padding:8px; border:1px solid #ccc;">
-              ${item.size || "-"}
-            </td>
-            <td style="padding:8px; border:1px solid #ccc;">
-              ${p.material || "-"}
+              ${p.name || "-"}
             </td>
             <td style="padding:8px; border:1px solid #ccc;">
               ${item.color || "-"}
@@ -540,8 +409,6 @@ const acceptOrder = async (req, res) => {
         <thead>
           <tr>
             <th style="padding:8px; border:1px solid #ccc;">Name</th>
-            <th style="padding:8px; border:1px solid #ccc;">Size</th>
-            <th style="padding:8px; border:1px solid #ccc;">Material</th>
             <th style="padding:8px; border:1px solid #ccc;">Color</th>
             <th style="padding:8px; border:1px solid #ccc;">Quantity</th>
             <th style="padding:8px; border:1px solid #ccc;">Price</th>

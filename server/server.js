@@ -11,12 +11,10 @@ const orderRoutes = require("./routes/orderRoute");
 const addressRoutes = require("./routes/addressRoute");
 const accountsRoutes = require("./routes/accountsRoutes");
 const cartRoutes = require("./routes/cartRoutes");
-const customizedRoutes = require("./routes/customizedProductRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const imageRoutes = require("./routes/imageRoutes");
 const authRoutes = require("./routes/auth");
 const returnRoutes = require("./routes/returnRoutes");
-const customize_selections = require("./routes/customizeSelectionRoutes");
 
 const app = express();
 
@@ -56,8 +54,6 @@ app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api/customized", customizedRoutes);
-app.use("/api/customize-selections", customize_selections);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/return", returnRoutes)

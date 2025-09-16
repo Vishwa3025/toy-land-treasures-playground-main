@@ -59,13 +59,12 @@ exports.getProductById = async (req, res) => {
 // Add a new product
 exports.addProduct = async (req, res) => {
     try {
-        const { name, description, strikedPrice, price, discount, material, size, color, isCombo, stock, category_id } = req.body;
+        const { name, description, strikedPrice, price, discount, color, stock, category_id } = req.body;
         const images = req.files ? req.files.map((file) => file.filename) : [];
-        const sizeValue = Array.isArray(size) ? size.join(",") : size;
         const colorValue = Array.isArray(color) ? color.join(",") : color;
  
         // Basic validation
-        if (!name || !strikedPrice || !price || !discount || !stock || !size || !material || !isCombo) {
+        if (!name || !strikedPrice || !price || !discount || !stock || !colorValue) {
             return res.status(400).json({ success: false, message: "Missing required fields" });
         }
 
@@ -74,7 +73,7 @@ exports.addProduct = async (req, res) => {
 
         // Create new product
         const newProduct = await Product.create({
-            id: uuidv4(), name, description, strikedPrice, price, discount, material, color: colorValue, size: sizeValue, isCombo, stock, category_id,
+            id: uuidv4(), name, description, strikedPrice, price, discount, color: colorValue, stock, category_id,
             image1: image1 || null,
             image2: image2 || null,
             image3: image3 || null,
@@ -96,7 +95,7 @@ exports.addProduct = async (req, res) => {
 
 exports.updateProduct = async (req, res) => {
     try {
-        const { name, description, strikedPrice, price, discount, material, size, color, stock, category_id } = req.body;
+        const { name, description, strikedPrice, price, discount,color, stock, category_id } = req.body;
         const productId = req.params.id;
 
         // Find the existing product
@@ -126,7 +125,7 @@ exports.updateProduct = async (req, res) => {
         }
 
         // Update product details in DB **after** deleting old image
-        await product.update({ name, description, strikedPrice, price, discount, material, color, size, stock, category_id, image1: newImage });
+        await product.update({ name, description, strikedPrice, price, discount, color, stock, category_id, image1: newImage });
 
         res.json({ success: true, message: "Product updated successfully", data: product });
     } catch (error) {

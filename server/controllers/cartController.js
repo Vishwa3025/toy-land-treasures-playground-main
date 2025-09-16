@@ -1,6 +1,5 @@
 const Cart = require("../models/cart");
 const Product = require("../models/product");
-const CustomizedProduct = require("../models/customizedProduct");
 
 // ✅ Fetch all cart items for a specific user
 const getUserCart = async (req, res) => {
@@ -13,19 +12,7 @@ const getUserCart = async (req, res) => {
         {
           model: Product, // Fetch product details for regular products
           as: "Product",
-          attributes: ["id", "name", "price", "material", "image1"],
-        },
-        {
-          model: CustomizedProduct, // Fetch customized product details
-          as: "CustomizedProduct",
-          attributes: [
-            "id",
-            "size",
-            "material",
-            "category",
-            "color",
-            "design_image_url",
-          ], //
+          attributes: ["id", "name", "price", "image1"],
         },
       ],
       order: [["created_at", "ASC"]], // sort by created_at ascending
@@ -40,7 +27,6 @@ const getUserCart = async (req, res) => {
           id: item.id,
           user_id: item.user_id,
           product_id: item.product_id,
-          size: item.size,
           color: item.color,
           quantity: item.quantity,
           createdAt: item.createdAt,
@@ -50,37 +36,13 @@ const getUserCart = async (req, res) => {
                 id: item.Product.id,
                 name: item.Product.name,
                 price: item.Product.price,
-                material: item.Product.material,
                 image1: item.Product.image1
                   ? `${baseUrl}/uploads/products/${item.Product.image1}`
                   : null,
               }
             : null,
         };
-      } else if (item.customized_product_id) {
-        // Customized product (no quantity here)
-        return {
-          id: item.id,
-          user_id: item.user_id,
-          customized_product_id: item.customized_product_id,
-          size: item.size,
-          quantity: item.quantity, // Quantity is handled in the cart level now
-          createdAt: item.createdAt,
-          updatedAt: item.updatedAt,
-          CustomizedProduct: item.CustomizedProduct
-            ? {
-                id: item.CustomizedProduct.id,
-                size: item.CustomizedProduct.size,
-                material: item.CustomizedProduct.material,
-                color: item.CustomizedProduct.color,
-                category: item.CustomizedProduct.category,
-                design_image_url: item.CustomizedProduct.design_image_url
-                  ? `${baseUrl}/uploads/customized/${item.CustomizedProduct.design_image_url}`
-                  : null,
-              }
-            : null,
-        };
-      }
+      } 
     });
 
     res.status(200).json(formattedCartItems);
@@ -95,43 +57,32 @@ const addToCart = async (req, res) => {
   try {
     const {
       product_id,
-      selectedSize,
       selectedColor,
       quantity,
-      customized_product_id,
     } = req.body;
     const user_id = req.user.userId;
 
-    if (!selectedSize) {
-      return res.status(400).json({ message: "Size is required" });
-    }
     if (!selectedColor) {
       return res.status(400).json({ message: "Color is required" });
     }
 
-    // Ensure either product_id or customized_product_id is provided
-    if (!product_id && !customized_product_id) {
+    // Ensure product_id is provided
+    if (!product_id) {
       return res.status(400).json({
-        message: "Either product_id or customized_product_id is required",
+        message: "product_id is required",
       });
     }
 
-    // Check if it's a regular product or customized product
+    // Check if it's a regular product
     let cartItem;
     if (product_id) {
-      // Check if the regular product with size and color already exists in the cart
+      // Check if the regular product color already exists in the cart
       cartItem = await Cart.findOne({
         where: {
           user_id,
           product_id,
-          size: selectedSize,
           color: selectedColor,
         },
-      });
-    } else if (customized_product_id) {
-      // Check if the customized product with size already exists in the cart
-      cartItem = await Cart.findOne({
-        where: { user_id, customized_product_id, size: selectedSize },
       });
     }
 
@@ -140,12 +91,10 @@ const addToCart = async (req, res) => {
       cartItem.quantity += quantity;
       await cartItem.save();
     } else {
-      // Create a new cart item (either product or customized)
+      // Create a new cart item
       cartItem = await Cart.create({
         user_id,
         product_id: product_id || null, // Set product_id for regular product
-        customized_product_id: customized_product_id || null, // Set customized_product_id for custom product
-        size: selectedSize,
         color: selectedColor,
         quantity,
       });
@@ -160,29 +109,24 @@ const addToCart = async (req, res) => {
 
 const subtractFromCart = async (req, res) => {
   try {
-    const { product_id, selectedSize, customized_product_id } = req.body;
+    const { product_id } = req.body;
     const user_id = req.user.userId;
 
-    // Ensure either product_id or customized_product_id is provided
-    if (!product_id && !customized_product_id) {
+    // Ensure product_id is provided
+    if (!product_id) {
       return res
         .status(400)
         .json({
-          message: "Either product_id or customized_product_id is required",
+          message: "product_id is required",
         });
     }
 
-    // Find the specific item in the cart by either product_id or customized_product_id and size
+    // Find the specific item in the cart by either product_id 
     let cartItem;
     if (product_id) {
       // For regular product
       cartItem = await Cart.findOne({
-        where: { user_id, product_id, size: selectedSize },
-      });
-    } else if (customized_product_id) {
-      // For customized product
-      cartItem = await Cart.findOne({
-        where: { user_id, customized_product_id, size: selectedSize },
+        where: { user_id, product_id},
       });
     }
 

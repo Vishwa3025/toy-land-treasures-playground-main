@@ -9,9 +9,6 @@ const Cart = require("./cart");
 const Payment = require("./payment");
 const UserInfo = require("./userInfo");
 const Images = require("./generalImages");
-const CustomizeSelection = require("./customizeSelection");
-const CustomizedProduct = require("./customizedProduct");
-
 
 
 
@@ -37,6 +34,4 @@ module.exports = {
     Cart,
     UserInfo,
     Images,
-    CustomizeSelection,
-    CustomizedProduct
 };
