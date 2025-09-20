@@ -9,17 +9,25 @@ import { useToast } from "@/hooks/use-toast";
 interface ProductCardProps {
   id: string;
   name: string;
-  price: number;
-  originalPrice?: number;
-  image: string;
+  description?: string;
+  strikedPrice?: string; // from API → "1000.00"
+  price: string; // from API → "800.00"
+  discount?: string; // "20.00"
+  color?: string;
+  stock: number;
+  image1: string;
 }
 
 const ProductCard = ({
   id,
   name,
+  description,
+  strikedPrice,
   price,
-  originalPrice,
-  image,
+  discount,
+  color,
+  stock,
+  image1,
 }: ProductCardProps) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -35,7 +43,13 @@ const ProductCard = ({
       return;
     }
 
-    addToCart({ id, name, price, image });
+    addToCart({
+      id,
+      name,
+      price: parseFloat(price),
+      image: image1,
+    });
+
     toast({
       title: "Added to cart! 🛒",
       description: `${name} has been added to your cart.`,
@@ -45,14 +59,17 @@ const ProductCard = ({
   return (
     <div className="group relative bg-card rounded-xl overflow-hidden toy-shadow transition-all duration-300 hover:-translate-y-1">
       {/* Product Image */}
-      <div className="relative overflow-hidden h-28 sm:h-40 md:h-40">
-        <Link to={`/product/${id}`}>
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </Link>
+      <div
+        className="relative overflow-hidden h-36 sm:h-48 md:h-56"
+        onClick={() => navigate(`/product/${id}`)}
+      >
+        {/* <Link to={`/product/${id}`}> */}
+        <img
+          src={image1}
+          alt={name}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        {/* </Link> */}
 
         {/* Wishlist Button */}
         <Button
@@ -70,33 +87,55 @@ const ProductCard = ({
       </div>
 
       {/* Product Info */}
-      <div className="p-3 sm:p-4">
-        <Link to={`/product/${id}`}>
-          <h3 className="font-baloo font-medium text-sm sm:text-base line-clamp-2">
-            {name}
-          </h3>
-        </Link>
+      <div
+        className="p-3 sm:p-4"
+        onClick={() => navigate(`/product/${id}`)}
+      >
+        {/* <Link to={`/product/${id}`}> */}
+        <h3 className="font-baloo font-medium text-sm sm:text-base line-clamp-2">
+          {name}
+        </h3>
+        {/* </Link> */}
+        {description && (
+          <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">
+            {description}
+          </p>
+        )}
 
-        {/* Price */}
+        {/* Price & Discount */}
         <div className="flex items-center justify-between mt-2">
-          <span className="text-base sm:text-lg font-bold text-primary">
-            ${price.toFixed(2)}
-          </span>
-          {originalPrice && originalPrice > price && (
-            <span className="text-xs sm:text-sm line-through text-muted-foreground">
-              ${originalPrice.toFixed(2)}
+          <div className="flex flex-col">
+            <span className="text-base sm:text-lg font-bold text-primary">
+              ₹{parseFloat(price).toFixed(2)}
+            </span>
+            {strikedPrice && (
+              <span className="text-xs sm:text-sm line-through text-muted-foreground">
+                ₹{parseFloat(strikedPrice).toFixed(2)}
+              </span>
+            )}
+          </div>
+          {discount && (
+            <span className="text-xs sm:text-sm font-semibold text-green-600">
+              {discount}% OFF
             </span>
           )}
         </div>
 
-        {/* Add to Cart Button (always visible on mobile) */}
+        {/* Stock / Color */}
+        <div className="flex items-center justify-between mt-2 text-xs sm:text-sm text-muted-foreground">
+          <span>{stock > 0 ? `In stock: ${stock}` : "Out of stock"}</span>
+          {color && <span className="capitalize">Color: {color}</span>}
+        </div>
+
+        {/* Add to Cart Button */}
         <Button
           variant="lego"
           size="sm"
           className="w-full mt-3"
           onClick={handleAddToCart}
+          disabled={stock <= 0}
         >
-          Add to Cart
+          {stock > 0 ? "Add to Cart" : "Out of Stock"}
         </Button>
       </div>
     </div>

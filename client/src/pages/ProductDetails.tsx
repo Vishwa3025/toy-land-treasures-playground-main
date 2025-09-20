@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,32 +14,128 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import {
-  getProductById,
-  getRelatedProducts,
-  categories,
-} from "@/data/products";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
+import { api } from "../utils/axiosInstance";
+import { log } from "console";
+
+interface Product {
+  id: string;
+  name: string;
+  description?: string;
+  strikedPrice?: string;
+  price: string;
+  discount?: string;
+  color?: string;
+  stock: number;
+  image1: string;
+  image2?: string;
+  image3?: string;
+  image4?: string;
+  isNew?: boolean;
+  isSale?: boolean;
+  rating?: number;
+  reviewCount?: number;
+  ageGroup?: string;
+  features?: string[];
+  category_id?: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  image: string;
+}
 
 const ProductDetails = () => {
-  const { productId } = useParams<{ productId: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [product, setProduct] = useState<Product | null>(null);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+  const [category, setCategory] = useState<Category | null>(null);
+  const [loading, setLoading] = useState(true);
+  console.log(id);
+  useEffect(() => {
+    if (!id) return;
 
-  const product = productId ? getProductById(productId) : undefined;
-  const relatedProducts = product
-    ? getRelatedProducts(product.id, product.categoryId)
-    : [];
-  const category = product
-    ? categories.find((cat) => cat.id === product.categoryId)
-    : undefined;
+    setLoading(true);
 
-  console.log('Product ID:', productId);
+    // Fetch product by ID
+    api
+      .get(`/products/${id}`)
+      .then((res) => {
+        const prod: Product = res.data;
+        setProduct(prod);
+
+        console.log('Fetched Product:', prod.category_id);
+        // Fetch related products in the same category
+        if (prod.category_id) {
+          api
+            .get(`/categories/${prod.category_id}/products`) //    get(`/categories/${id}/products`)
+
+            .then((relatedRes) => {
+              const filtered = relatedRes.data.filter(
+                (p: Product) => p.id !== prod.id
+              );
+              setRelatedProducts(filtered);
+              console.log("Related Products:", filtered);
+            })
+            .catch((err) =>
+              console.error("Error fetching related products:", err)
+            );
+        }
+      })
+      .catch((err) => console.error("Error fetching product:", err))
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  const handleAddToCart = () => {
+    if (!product) return;
+
+    if (!isAuthenticated) {
+      navigate("/login", {
+        state: { from: { pathname: `/product/${id}` } },
+      });
+      return;
+    }
+
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: parseFloat(product.price),
+      image: product.image1,
+    });
+
+    toast({
+      title: "Added to cart! 🛒",
+      description: `${product.name} has been added to your cart.`,
+    });
+  };
+
+  const handleWishlist = () => {
+    if (!product) return;
+
+    setIsWishlisted(!isWishlisted);
+    toast({
+      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist! ❤️",
+      description: isWishlisted
+        ? `${product.name} removed from your wishlist.`
+        : `${product.name} added to your wishlist.`,
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground text-lg">Loading product...</p>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -63,37 +159,6 @@ const ProductDetails = () => {
       </div>
     );
   }
-
-  const handleAddToCart = () => {
-    if (!isAuthenticated) {
-      navigate("/login", {
-        state: { from: { pathname: `/product/${productId}` } },
-      });
-      return;
-    }
-
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-    });
-
-    toast({
-      title: "Added to cart! 🛒",
-      description: `${product.name} has been added to your cart.`,
-    });
-  };
-
-  const handleWishlist = () => {
-    setIsWishlisted(!isWishlisted);
-    toast({
-      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist! ❤️",
-      description: isWishlisted
-        ? `${product.name} removed from your wishlist.`
-        : `${product.name} added to your wishlist.`,
-    });
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
@@ -130,23 +195,19 @@ const ProductDetails = () => {
           <div className="space-y-4">
             <div className="relative bg-card rounded-3xl overflow-hidden toy-shadow">
               <img
-                src={product.image}
+                src={product.image1}
                 alt={product.name}
                 className="w-full h-96 md:h-[500px] lg:h-[600px] object-cover hover:scale-105 transition-transform duration-500"
               />
 
               {/* Badges */}
               <div className="absolute top-4 left-4 flex flex-col gap-2">
-                {product.isNew && (
-                  <Badge className="bg-accent text-accent-foreground animate-bounce-slow">
-                    NEW
-                  </Badge>
-                )}
-                {product.isSale && product.originalPrice && (
+                {product.strikedPrice && (
                   <Badge className="bg-primary text-primary-foreground">
                     {Math.round(
-                      ((product.originalPrice - product.price) /
-                        product.originalPrice) *
+                      ((parseFloat(product.strikedPrice) -
+                        parseFloat(product.price)) /
+                        parseFloat(product.strikedPrice)) *
                         100
                     )}
                     % OFF
@@ -160,13 +221,8 @@ const ProductDetails = () => {
           <div className="space-y-6">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                {category && (
-                  <Badge variant="outline" className="font-baloo">
-                    {category.icon} {category.name}
-                  </Badge>
-                )}
                 <Badge variant="outline" className="font-baloo">
-                  Ages {product.ageGroup}
+                  <span className="text-gray-700">Ages 3-12 years</span>
                 </Badge>
               </div>
 
@@ -175,58 +231,51 @@ const ProductDetails = () => {
               </h1>
 
               <p className="text-sm sm:text-base md:text-lg text-muted-foreground font-poppins leading-relaxed">
-                {product.fullDescription}
+                {product.description}
               </p>
-            </div>
 
-            {/* Rating */}
-            <div className="flex items-center gap-4">
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-5 h-5 ${
-                      i < Math.floor(product.rating)
-                        ? "text-toy-yellow fill-current"
-                        : "text-muted-foreground"
-                    }`}
-                  />
-                ))}
+              {/* Ratings */}
+              <div className="flex items-center gap-4">
+                <div className="flex items-center text-yellow-400">★★★★☆</div>
+                <span className="text-muted-foreground font-poppins">
+                  4.9 (156 reviews)
+                </span>
               </div>
-              <span className="text-muted-foreground font-poppins">
-                {product.rating} ({product.reviewCount} reviews)
-              </span>
             </div>
 
             {/* Price */}
             <div className="flex items-center gap-3">
               <span className="text-xl sm:text-2xl md:text-3xl font-baloo font-bold text-primary">
-                ${product.price.toFixed(2)}
+                ₹ {parseFloat(product.price).toFixed(2)}
               </span>
-              {product.originalPrice &&
-                product.originalPrice > product.price && (
+              {product.strikedPrice &&
+                parseFloat(product.strikedPrice) >
+                  parseFloat(product.price) && (
                   <span className="text-sm sm:text-base md:text-lg text-muted-foreground line-through font-poppins">
-                    ${product.originalPrice.toFixed(2)}
+                    MRP ₹ {parseFloat(product.strikedPrice).toFixed(2)}
                   </span>
                 )}
             </div>
 
-            {/* Features */}
+            {/* Key Features */}
             <div>
               <h3 className="text-base sm:text-lg md:text-xl font-baloo font-semibold text-foreground mb-3">
                 ✨ Key Features
               </h3>
 
               <ul className="space-y-2">
-                {product.features.map((feature, index) => (
-                  <li
-                    key={index}
-                    className="flex items-center text-muted-foreground font-poppins"
-                  >
-                    <span className="text-accent mr-2">•</span>
-                    {feature}
-                  </li>
-                ))}
+                <li className="flex items-center text-muted-foreground font-poppins">
+                  <span className="text-accent mr-2">•</span>Die-cast body
+                </li>
+                <li className="flex items-center text-muted-foreground font-poppins">
+                  <span className="text-accent mr-2">•</span>Working wheels
+                </li>
+                <li className="flex items-center text-muted-foreground font-poppins">
+                  <span className="text-accent mr-2">•</span>Opening doors
+                </li>
+                <li className="flex items-center text-muted-foreground font-poppins">
+                  <span className="text-accent mr-2">•</span>Realistic decals
+                </li>
               </ul>
             </div>
 
@@ -287,7 +336,6 @@ const ProductDetails = () => {
               <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-baloo font-bold text-foreground mb-4">
                 You Might Also Love
               </h2>
-
               <p className="text-muted-foreground font-poppins">
                 More magical toys from the same category
               </p>
@@ -300,7 +348,10 @@ const ProductDetails = () => {
                   className="animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <ProductCard {...relatedProduct} />
+                  <ProductCard
+                    {...relatedProduct}
+                    id={relatedProduct.id.toString()}
+                  />
                 </div>
               ))}
             </div>

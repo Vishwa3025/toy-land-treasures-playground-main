@@ -8,9 +8,14 @@ interface User {
   role?: string;
 }
 
+interface LoginResult {
+  success: boolean;
+  user?: User;
+}
+
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<LoginResult>;
   signup: (name: string, email: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
@@ -51,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   // ✅ Login with backend
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<LoginResult> => {
     try {
       const res = await generalApi.post(
         "/auth/login",
@@ -66,12 +71,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       if (res.data?.user) {
         setUser(res.data.user);
-        return true;
+      return { success: true, user: res.data.user };
       }
-      return false;
+      return { success: false };
     } catch (error) {
       console.error('Login failed:', error);
-      return false;
+      return { success: false };
     }
   };
 

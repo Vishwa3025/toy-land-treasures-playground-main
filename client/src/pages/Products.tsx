@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -11,86 +11,66 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Grid, List, SlidersHorizontal } from "lucide-react";
-import bikeImage from '@/assets/bike.png';
-import jeepImage from '@/assets/jeep.png';
-import carImage from '@/assets/toy-car.jpg';
-const products = [
-  // 🚗 Car Toys
-  {
-    id: "toy-car-1",
-    name: "Lightning Speed Race Car",
-    price: 19.99,
-    originalPrice: 29.99,
-    image: carImage, // import toyCar image
-    rating: 4.9,
-    reviewCount: 156,
-    isNew: false,
-    isSale: true,
-  },
-  {
-    id: "toy-car-2",
-    name: "Remote Control Race Car",
-    price: 89.99,
-    originalPrice: 119.99,
-    image: carImage,
-    rating: 4.8,
-    reviewCount: 78,
-    isNew: false,
-    isSale: true,
-  },
+import { api } from "../utils/axiosInstance";
 
-  // 🚘 Jeep Toys
-  {
-    id: "toy-jeep-1",
-    name: "Adventure Off-Road Jeep",
-    price: 34.99,
-    image: jeepImage, // import toyJeep image
-    rating: 4.7,
-    reviewCount: 95,
-    isNew: true,
-    isSale: false,
-  },
-  {
-    id: "toy-jeep-2",
-    name: "Remote Control Jeep Wrangler",
-    price: 59.99,
-    originalPrice: 79.99,
-    image: jeepImage,
-    rating: 4.9,
-    reviewCount: 120,
-    isNew: false,
-    isSale: true,
-  },
-
-  // 🏍️ Bike Toys
-  {
-    id: "toy-bike-1",
-    name: "Speedster Toy Bike",
-    price: 29.99,
-    originalPrice: 39.99,
-    image: bikeImage, // import toyBike image
-    rating: 4.8,
-    reviewCount: 112,
-    isNew: true,
-    isSale: true,
-  },
-  {
-    id: "toy-bike-2",
-    name: "Racing Stunt Motorbike",
-    price: 49.99,
-    image: bikeImage,
-    rating: 4.7,
-    reviewCount: 84,
-    isNew: true,
-    isSale: false,
-  },
-];
-
+interface Product {
+  id: string;
+  name: string;
+  description?: string;
+  strikedPrice?: string;
+  price: string;
+  discount?: string;
+  color?: string;
+  stock: number;
+  image1: string;
+  createdAt?: string;
+  rating?: number;
+}
 
 const Products = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("featured");
   const [filterOpen, setFilterOpen] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    api
+      .get("/products")
+      .then((res) => {
+        setProducts(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  // Optional: apply sorting
+  const sortedProducts = [...products].sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return parseFloat(a.price) - parseFloat(b.price);
+      case "price-high":
+        return parseFloat(b.price) - parseFloat(a.price);
+      case "rating":
+        return (b.rating || 0) - (a.rating || 0); // if rating exists
+      case "newest":
+        return new Date(b.createdAt || "").getTime() - new Date(a.createdAt || "").getTime();
+      default:
+        return 0;
+    }
+  });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground text-lg">Loading products...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -101,12 +81,10 @@ const Products = () => {
         <div className="text-center mb-12">
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">
             <span className="text-2xl mr-2 animate-bounce-slow">🎪</span>
-            <span className="text-primary font-baloo font-semibold">
-              All Toys
-            </span>
+            <span className="text-primary font-baloo font-semibold">All Toys</span>
           </div>
 
-          <h1 className="text:2xl md:text-3xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
             Discover Amazing Toys
           </h1>
           <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto font-poppins">
@@ -128,9 +106,7 @@ const Products = () => {
             </Button>
 
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-muted-foreground font-poppins">
-                Sort by:
-              </span>
+              <span className="text-sm text-muted-foreground font-poppins">Sort by:</span>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-40 rounded-xl">
                   <SelectValue />
@@ -160,7 +136,7 @@ const Products = () => {
           </div>
         )}
 
-        {/* Products Grid */}
+        {/* Products Grid/List */}
         <div
           className={`grid gap-6 sm:gap-8 ${
             viewMode === "grid"
@@ -168,15 +144,14 @@ const Products = () => {
               : "grid-cols-1"
           }`}
         >
-          {products.map((product, index) => (
+          {sortedProducts.map((product, index) => (
             <div
               key={product.id}
               className="animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Card wrapper with reduced size for mobile & tab */}
               <div className="h-64 sm:h-72 md:h-80 lg:h-96">
-                <ProductCard {...product} />
+                <ProductCard {...product} id={product.id.toString()} />
               </div>
             </div>
           ))}

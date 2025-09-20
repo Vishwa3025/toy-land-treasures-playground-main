@@ -18,11 +18,8 @@ interface FormDataType {
   strikedPrice: string;
   price: string;
   discount: string | number;
-  size: string[];
-  material: string | string[];
   color: string[];
   stock: string;
-  isCombo: boolean;
   category_id: string;
   image1: File | null;
   image2: File | null;
@@ -44,11 +41,8 @@ const AddProduct: React.FC = () => {
     strikedPrice: "",
     price: "",
     discount: "",
-    size: [],
-    material: "",
     color: [],
     stock: "",
-    isCombo: false,
     category_id: "",
     image1: null,
     image2: null,
@@ -90,12 +84,6 @@ const AddProduct: React.FC = () => {
     setFormData(updatedForm);
   };
 
-  // Size change
-  const handleSizeChange = (selectedOptions: MultiValue<SelectOption>) => {
-    const selectedSizes = selectedOptions.map((option) => option.value);
-    setFormData({ ...formData, size: selectedSizes });
-  };
-
   // Color change
   const handleColorChange = (selectedOptions: MultiValue<SelectOption>) => {
     const selectedColors = selectedOptions.map((option) => option.value);
@@ -134,23 +122,16 @@ const AddProduct: React.FC = () => {
     e.preventDefault();
     setLoading(true);
 
-    if (!formData.isCombo && !formData.category_id && !formData.color.length) {
-      toast.error("Please select a category and color or mark the product as a combo.");
-      setLoading(false);
-      return;
-    }
-
     try {
       const formDataToSend = new FormData();
 
       const { image1, image2, image3, image4, ...textFields } = formData;
 
       // Arrays as CSV
-      formDataToSend.append("size", formData.size.join(","));
       formDataToSend.append("color", formData.color.join(","));
 
       Object.entries(textFields).forEach(([key, value]) => {
-        if (key !== "color" && key !== "size" && value !== null && value !== "") {
+        if (key !== "color" && value !== null && value !== "") {
           formDataToSend.append(key, value as string);
         }
       });
@@ -172,11 +153,8 @@ const AddProduct: React.FC = () => {
         strikedPrice: "",
         price: "",
         discount: "",
-        size: [],
-        material: "",
         color: [],
         stock: "",
-        isCombo: false,
         category_id: "",
         image1: null,
         image2: null,
@@ -222,24 +200,8 @@ const AddProduct: React.FC = () => {
             />
           </div>
 
-          {/* Combo Checkbox */}
-          <div className="mt-6 flex items-center gap-2">
-            <input
-              type="checkbox"
-              id="combo"
-              checked={formData.isCombo}
-              onChange={(e) =>
-                setFormData({ ...formData, isCombo: e.target.checked })
-              }
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <label htmlFor="combo" className="text-sm text-gray-700">
-              Mark as combo product
-            </label>
-          </div>
 
           {/* Category Dropdown */}
-          {!formData.isCombo && (
             <div className="flex flex-col">
               <label className="mb-2 text-sm font-medium text-gray-700">
                 Category
@@ -259,7 +221,6 @@ const AddProduct: React.FC = () => {
                 ))}
               </select>
             </div>
-          )}
 
           {/* Description */}
           <div className="flex flex-col md:col-span-2">
@@ -323,51 +284,8 @@ const AddProduct: React.FC = () => {
             />
           </div>
 
-          {/* Material */}
-          <div className="flex flex-col">
-            <label className="mb-2 text-sm font-medium text-gray-700">
-              Material
-            </label>
-            <select
-              name="material"
-              value={formData.material as string}
-              onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
-              required
-            >
-              <option value="">Select material</option>
-              <option value="Cotton">Cotton</option>
-              <option value="Poly-Cotton">Poly-Cotton</option>
-            </select>
-          </div>
-
-          {/* Size */}
-          <div className="flex flex-col md:col-span-1">
-            <label className="mb-2 text-sm font-medium text-gray-700">
-              Size
-            </label>
-            <Select
-              isMulti
-              options={[
-                { value: "S", label: "Small (S)" },
-                { value: "M", label: "Medium (M)" },
-                { value: "L", label: "Large (L)" },
-                { value: "XL", label: "Extra Large (XL)" },
-                { value: "2XL", label: "2X Large (2XL)" },
-                { value: "3XL", label: "3X Large (3XL)" },
-              ]}
-              value={formData.size.map((val) => ({
-                value: val,
-                label: val,
-              }))}
-              onChange={handleSizeChange}
-              classNamePrefix="react-select"
-              placeholder="Select sizes"
-            />
-          </div>
-
+    
           {/* Color */}
-          {!formData.isCombo && (
             <div className="flex flex-col md:col-span-1">
               <label className="mb-2 text-sm font-medium text-gray-700">
                 Color
@@ -387,7 +305,6 @@ const AddProduct: React.FC = () => {
                 placeholder="Select colors"
               />
             </div>
-          )}
 
           {/* Stock */}
           <div className="flex flex-col">

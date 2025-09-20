@@ -26,6 +26,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import Categories from "./components/Categories";
 
 // Admin pages
 import AdminDashboard from "./components/AdminDashboard";
@@ -96,17 +97,13 @@ function App() {
                 {/* Public Routes */}
                 <Route path="/" element={<Index />} />
                 <Route path="/products" element={<Products />} />
+                <Route path="/categories" element={<Categories />} />
+
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/login" element={<Login />} />
-                <Route
-                  path="/category/:categoryId"
-                  element={<CategoryPage />}
-                />
-                <Route
-                  path="/product/:productId"
-                  element={<ProductDetails />}
-                />
+                <Route path="/categories/:id" element={<CategoryPage />} />
+                <Route path="/product/:id" element={<ProductDetails />} />
 
                 {/* Customer Protected Routes */}
                 <Route

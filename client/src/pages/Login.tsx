@@ -37,37 +37,43 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   /** ---------- LOGIN ---------- */
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    try {
-      const success = await login(loginForm.email, loginForm.password); // ✅ use context login
-      if (success) {
-        toast({
-          title: "Welcome back! 🎉",
-          description: "You've successfully logged in to ToyLand Treasures!",
-        });
-        navigate("/"); // or redirect as needed
+  try {
+    const { success, user } = await login(loginForm.email, loginForm.password);
+
+    if (success && user) {
+      toast({
+        title: "Welcome back! 🎉",
+        description: `Logged in as ${user.name}`,
+      });
+
+      // ✅ Redirect based on role
+      if (user.role === "admin") {
+        navigate("/admin");
       } else {
-        toast({
-          title: "Login failed",
-          description: "Invalid credentials. Please try again.",
-          variant: "destructive",
-        });
+        navigate(from); // default redirect
       }
-    } catch (error: any) {
+    } else {
       toast({
         title: "Login failed",
-        description:
-          error.response?.data?.error ||
-          "Something went wrong, please try again.",
+        description: "Invalid credentials. Please try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
-  };
+  } catch (error: any) {
+    toast({
+      title: "Login failed",
+      description: error.response?.data?.error || "Something went wrong, please try again.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
   /** ---------- SIGNUP ---------- */
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();

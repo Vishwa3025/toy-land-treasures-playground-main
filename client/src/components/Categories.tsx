@@ -1,26 +1,27 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
-const categories = [
-  {
-    id: 'bike',
-    name: 'Bike',
-    icon: '🏍️',
-  },
-  {
-    id: 'jeep',
-    name: 'Jeep',
-    icon: '🚘',
-  },
-  {
-    id: 'car',
-    name: 'Car',
-    icon: '🚗',
-  },
-];
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { api } from "../utils/axiosInstance";
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch categories from backend
+    api
+      .get("/categories")
+      .then((response) => {
+        setCategories(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <section className="py-10 bg-gradient-to-b from-background to-toy-cream/30">
       <div className="container mx-auto px-4">
@@ -45,8 +46,14 @@ const Categories = () => {
               key={category.id}
               className="min-w-[180px] sm:min-w-[200px] bg-card rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-6 text-center transition-transform duration-300 hover:-translate-y-2"
             >
-              {/* Icon */}
-              <div className="text-5xl mb-3">{category.icon}</div>
+              {/* Image */}
+              <div className="text-5xl mb-3">
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="w-full h-[150px] object-cover"
+                />
+              </div>
 
               {/* Name */}
               <h3 className="text-lg font-baloo font-bold text-foreground mb-3">
@@ -54,7 +61,7 @@ const Categories = () => {
               </h3>
 
               {/* CTA */}
-              <Link to={`/category/${category.id}`}>
+              <Link to={`/categories/${category.id}`}>
                 <Button
                   variant="outline"
                   size="sm"
@@ -70,10 +77,12 @@ const Categories = () => {
 
         {/* View All Button */}
         <div className="text-center mt-10">
-          <Button variant="hero" size="lg">
-            View All Categories
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <Link to="/categories">
+            <Button variant="hero" size="lg">
+              View All Categories
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

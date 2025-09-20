@@ -1,57 +1,49 @@
-import ProductCard from "./ProductCard";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
-import bikeImage from '@/assets/bike.png';
-import jeepImage from '@/assets/jeep.png';
-import carImage from '@/assets/toy-car.jpg';
-import princessDoll from "@/assets/princess-doll.jpg";
+import ProductCard from "./ProductCard";
+import { api } from "../utils/axiosInstance";
 
-const featuredProducts = [
-  {
-    id: "toy-bike-1",
-    name: "Speedster Toy Bike",
-    price: 29.99,
-    originalPrice: 39.99,
-    image: bikeImage, // import toyBike image at the top
-    rating: 4.8,
-    reviewCount: 112,
-    isNew: true,
-    isSale: true,
-  },
-  {
-    id: "toy-jeep-1",
-    name: "Adventure Off-Road Jeep",
-    price: 34.99,
-    image: jeepImage, // import toyJeep image at the top
-    rating: 4.7,
-    reviewCount: 95,
-    isNew: true,
-    isSale: false,
-  },
-  {
-    id: "toy-car-1",
-    name: "Lightning Speed Race Car",
-    price: 19.99,
-    originalPrice: 29.99,
-    image: carImage,
-    rating: 4.9,
-    reviewCount: 156,
-    isNew: false,
-    isSale: true,
-  },
-  {
-    id: "princess-doll-1",
-    name: "Magical Princess Doll",
-    price: 32.99,
-    image: princessDoll,
-    rating: 4.7,
-    reviewCount: 203,
-    isNew: true,
-    isSale: false,
-  },
-];
+interface Product {
+  id: string;
+  name: string;
+  description?: string;
+  strikedPrice?: string;
+  price: string;
+  discount?: string;
+  color?: string;
+  stock: number;
+  image1: string;
+}
 
 const FeaturedProducts = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api
+      .get("/products")
+      .then((res) => {
+        // Take only first 4 products
+        setProducts(res.data.slice(0, 4));
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="py-10 flex justify-center items-center">
+        <p className="text-muted-foreground text-lg">
+          Loading featured products...
+        </p>
+      </div>
+    );
+  }
+
   return (
     <section className="py-10 bg-background">
       <div className="container mx-auto px-4">
@@ -76,13 +68,18 @@ const FeaturedProducts = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-          {featuredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <div
               key={product.id}
               className="animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <ProductCard {...product} />
+              <ProductCard
+                {...product}
+                id={product.id}
+                strikedPrice={product.strikedPrice}
+                price={product.price}
+              />
             </div>
           ))}
         </div>

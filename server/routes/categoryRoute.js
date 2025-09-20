@@ -18,7 +18,7 @@ const router = express.Router();
 router.get("/", getAllCategories); // Get all categories
 router.get("/:id/products", getProductsByCategory); // Get products under a category
 router.post("/add", authMiddleware, upload.single("image"), addCategory); // Add a new category
-router.put("/:id", authMiddleware, upload.single("image"), updateCategory); // Update a product
-router.delete("/:id", authMiddleware, deleteCategory); // Get all categories
+router.put("/:id", authMiddleware, upload.single("image"), updateCategory); // Update a category
+router.delete("/:id", authMiddleware, deleteCategory); // Delete a category
 
 module.exports = router;
