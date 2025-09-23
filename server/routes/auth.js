@@ -42,16 +42,16 @@ router.post("/register", async (req, res) => {
 
     log(req.body)
 
-    const domainExists = await checkEmailDomain(email);
-    if (!domainExists) {
-        return res.status(400).json({ error: "Email domain does not exist." });
-    }
+    // const domainExists = await checkEmailDomain(email);
+    // if (!domainExists) {
+    //     return res.status(400).json({ error: "Email domain does not exist." });
+    // }
 
-    // Verify Email Exists (Optional API Check)
-    const emailExists = await verifyEmailExists(email);
-    if (!emailExists) {
-        return res.status(400).json({ error: "This email does not exist or is not deliverable." });
-    }
+    // // Verify Email Exists (Optional API Check)
+    // const emailExists = await verifyEmailExists(email);
+    // if (!emailExists) {
+    //     return res.status(400).json({ error: "This email does not exist or is not deliverable." });
+    // }
 
     try {
         // Check if phone number exists using Sequelize's findOne method

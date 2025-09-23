@@ -1,26 +1,56 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import { useCart } from '@/contexts/CartContext';
-import { useAuth } from '@/contexts/AuthContext';
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { useEffect, useState, useMemo } from "react";
+import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import useCartStore from "../store/CartStore";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Cart = () => {
-  const { items, updateQuantity, removeFromCart, getTotalPrice } = useCart();
+  const cart = useCartStore((state) => state.cart || []);
+  const fetchCart = useCartStore((state) => state.fetchCart);
+  const addToCart = useCartStore((state) => state.addToCart);
+  const subtractFromCart = useCartStore((state) => state.subtractFromCart);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const handleCheckout = () => {
+    if (!cart.length) {
+      alert("Your cart is empty!");
+      return;
+    }
+    navigate("/checkout");
+  };
+
+  const deliveryFee = 0;
+
+  const subtotal = useMemo(() => {
+    if (!Array.isArray(cart)) return 0;
+    return cart.reduce((total, item) => {
+      const basePrice = item.Product?.price ? Number(item.Product.price) : 0;
+      return total + basePrice * item.quantity;
+    }, 0);
+  }, [cart]);
+
+  const total = subtotal + deliveryFee;
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
         <Header />
         <div className="container mx-auto px-4 py-20 text-center">
-          <div className="text-6xl mb-4">🔒</div>
-          <h1 className="text-4xl font-baloo font-bold text-foreground mb-4">
+          <div className="text-4xl md:text-6xl mb-4">🔒</div>
+          <h1 className="text-2xl md:text-3xl font-baloo font-bold text-foreground mb-4">
             Please Login First
           </h1>
-          <p className="text-muted-foreground mb-8 font-poppins">
+          <p className="text-sm md:text-base text-muted-foreground mb-8 font-poppins">
             You need to be logged in to view your cart.
           </p>
           <Link to="/login">
@@ -34,16 +64,16 @@ const Cart = () => {
     );
   }
 
-  if (items.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
         <Header />
         <div className="container mx-auto px-4 py-20 text-center">
-          <div className="text-6xl mb-4 animate-bounce-slow">🛒</div>
-          <h1 className="text-4xl font-baloo font-bold text-foreground mb-4">
+          <div className="text-4xl md:text-6xl mb-4 animate-bounce-slow">🛒</div>
+          <h1 className="text-2xl md:text-3xl font-baloo font-bold text-foreground mb-4">
             Your Cart is Empty
           </h1>
-          <p className="text-muted-foreground mb-8 font-poppins">
+          <p className="text-sm md:text-base text-muted-foreground mb-8 font-poppins">
             Looks like you haven't added any magical toys yet!
           </p>
           <Link to="/products">
@@ -61,19 +91,21 @@ const Cart = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">
-            <span className="text-2xl mr-2 animate-wiggle">🛒</span>
-            <span className="text-primary font-baloo font-semibold">Your Shopping Cart</span>
+            <span className="text-xl md:text-2xl mr-2 animate-wiggle">🛒</span>
+            <span className="text-primary font-baloo font-semibold">
+              Your Shopping Cart
+            </span>
           </div>
-          
-          <h1 className="text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
+
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
             Ready for Checkout?
           </h1>
-          <p className="text-xl text-muted-foreground font-poppins">
+          <p className="text-sm md:text-base lg:text-lg text-muted-foreground font-poppins">
             Review your magical toy collection before checkout
           </p>
         </div>
@@ -81,59 +113,65 @@ const Cart = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2 space-y-4">
-            {items.map((item) => (
-              <Card key={item.id} className="toy-shadow bg-card/80 backdrop-blur-sm">
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4">
+            {cart.map((item) => (
+              <Card
+                key={item.id}
+                className="toy-shadow bg-card/80 backdrop-blur-sm"
+              >
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                     {/* Product Image */}
-                    <Link to={`/product/${item.id}`}>
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-20 h-20 object-cover rounded-2xl hover:scale-105 transition-transform"
-                      />
-                    </Link>
-                    
-                    {/* Product Info */}
+                    <img
+                      src={item.Product?.image1}
+                      alt={item.Product?.name}
+                      className="w-20 h-20 object-cover rounded-2xl hover:scale-105 transition-transform"
+                    />
+
                     <div className="flex-1">
-                      <Link 
-                        to={`/product/${item.id}`}
+                      <Link
+                        to={`/product/${item.Product?.id}`}
                         className="hover:text-primary transition-colors"
                       >
-                        <h3 className="font-baloo font-semibold text-lg text-foreground hover:text-primary">
-                          {item.name}
+                        <h3 className="font-baloo font-semibold text-base md:text-lg text-foreground hover:text-primary">
+                          {item.Product?.name || "Unknown Product"}
                         </h3>
+                        <h6 className="font-poppins text-xs md:text-sm text-muted-foreground">
+                          {item.color}
+                        </h6>
                       </Link>
-                      <p className="text-2xl font-baloo font-bold text-primary">
-                        ${item.price.toFixed(2)}
+                      <p className="text-lg md:text-xl font-baloo font-bold text-primary">
+                        ₹{" "}
+                        {item.Product?.price
+                          ? Number(item.Product.price).toFixed(2)
+                          : "0.00"}
                       </p>
                     </div>
-                    
+
                     {/* Quantity Controls */}
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                        onClick={() => subtractFromCart(item.Product)}
                         className="h-8 w-8 rounded-full"
                       >
                         <Minus className="w-4 h-4" />
                       </Button>
-                      
-                      <span className="text-lg font-baloo font-semibold min-w-[2rem] text-center">
+
+                      <span className="text-sm md:text-base font-baloo font-semibold min-w-[2rem] text-center">
                         {item.quantity}
                       </span>
-                      
+
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        onClick={() => addToCart(item.Product, item.color)}
                         className="h-8 w-8 rounded-full"
                       >
                         <Plus className="w-4 h-4" />
                       </Button>
                     </div>
-                    
+
                     {/* Remove Button */}
                     <Button
                       variant="ghost"
@@ -153,44 +191,49 @@ const Cart = () => {
           <div className="lg:col-span-1">
             <Card className="toy-shadow bg-card/80 backdrop-blur-sm sticky top-8">
               <CardContent className="p-6">
-                <h2 className="text-2xl font-baloo font-bold text-foreground mb-6">
+                <h2 className="text-xl md:text-2xl font-baloo font-bold text-foreground mb-6">
                   Order Summary
                 </h2>
-                
+
                 <div className="space-y-4 mb-6">
-                  <div className="flex justify-between text-muted-foreground font-poppins">
-                    <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                    <span>${getTotalPrice().toFixed(2)}</span>
+                  <div className="flex justify-between text-sm md:text-base text-muted-foreground font-poppins">
+                    <span>
+                      Subtotal (
+                      {cart.reduce((sum, item) => sum + item.quantity, 0)}{" "}
+                      items)
+                    </span>
+                    <span>₹ {total.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-muted-foreground font-poppins">
+                  <div className="flex justify-between text-sm md:text-base text-muted-foreground font-poppins">
                     <span>Shipping</span>
                     <span className="text-accent">FREE</span>
                   </div>
                   <div className="border-t border-toy-cream pt-4">
-                    <div className="flex justify-between text-xl font-baloo font-bold text-foreground">
+                    <div className="flex justify-between text-lg md:text-xl font-baloo font-bold text-foreground">
                       <span>Total</span>
-                      <span className="text-primary">${getTotalPrice().toFixed(2)}</span>
+                      <span className="text-primary">₹ {total.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
-                
-                <div className="space-y-3">
-                  <Link to="/checkout">
-                    <Button variant="hero" size="lg" className="w-full">
+
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row sm:space-x-4 sm:space-y-0 lg:flex-col space-y-3 w-full">
+                  <Link to="/checkout" className="flex-1">
+                    <Button variant="hero" size="lg" className="w-full my-3">
                       Proceed to Checkout 🎉
                     </Button>
                   </Link>
-                  
-                  <Link to="/products">
-                    <Button variant="outline" className="w-full">
+
+                  <Link to="/products" className="flex-1">
+                    <Button variant="outline" size="lg" className="w-full">
                       Continue Shopping
                     </Button>
                   </Link>
                 </div>
-                
+
                 {/* Trust Badges */}
                 <div className="mt-6 pt-6 border-t border-toy-cream">
-                  <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground font-poppins">
+                  <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground font-poppins">
                     <div className="flex items-center">
                       <span className="text-accent mr-1">🔒</span>
                       Secure checkout
@@ -216,7 +259,7 @@ const Cart = () => {
           </Link>
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

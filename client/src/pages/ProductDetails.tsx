@@ -1,7 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import dayjs from "dayjs";
+
 import {
   ArrowLeft,
   ShoppingCart,
@@ -18,7 +20,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import { useToast } from "@/hooks/use-toast";
 import { api } from "../utils/axiosInstance";
-import { log } from "console";
+import useCartStore from "../store/CartStore";
 
 interface Product {
   id: string;
@@ -33,12 +35,8 @@ interface Product {
   image2?: string;
   image3?: string;
   image4?: string;
-  isNew?: boolean;
-  isSale?: boolean;
-  rating?: number;
-  reviewCount?: number;
-  ageGroup?: string;
-  features?: string[];
+  createdAt: string;
+  updatedAt: string;
   category_id?: string;
 }
 
@@ -52,14 +50,67 @@ const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const { addToCart } = useCart();
+  const { cart = [], addToCart, fetchCart } = useCartStore();
+  const [isInCart, setIsInCart] = useState(false);
   const { toast } = useToast();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState<Category | null>(null);
+  const [selectedColor, setSelectedColor] = useState("");
   const [loading, setLoading] = useState(true);
-  console.log(id);
+  const dateCreated = product
+    ? dayjs(product.createdAt).format("MMM D, YYYY")
+    : "";
+  const dateUpdated = product
+    ? dayjs(product.updatedAt).format("MMM D, YYYY")
+    : "";
+
+  const images = useMemo(() => {
+    return product
+      ? [product.image1, product.image2, product.image3, product.image4].filter(
+          Boolean
+        )
+      : [];
+  }, [product]);
+
+  // Default image once images are ready
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  useEffect(() => {
+    if (images.length > 0) {
+      setSelectedImage(images[0]); // Set the first image as default
+    }
+  }, [images]);
+
+  // Fetch cart & check if the product is in cart
+  useEffect(() => {
+    const fetchAndUpdateCart = async () => {
+      try {
+        const cartData = await fetchCart(); // Fetch latest cart data
+        if (cartData) {
+          setCart(cartData); // Ensure cart state updates
+        }
+      } catch (error) {
+        console.error("Error fetching cart:", error);
+      }
+    };
+
+    fetchAndUpdateCart();
+  }, []); // Runs only on mount
+
+  useEffect(() => {
+    if (!product) {
+      return;
+    }
+
+    if (!cart || !Array.isArray(cart)) {
+      setIsInCart(false);
+      return;
+    }
+
+    setIsInCart(cart.some((item) => item.product_id === product.id));
+  }, [cart, product]);
   useEffect(() => {
     if (!id) return;
 
@@ -72,7 +123,7 @@ const ProductDetails = () => {
         const prod: Product = res.data;
         setProduct(prod);
 
-        console.log('Fetched Product:', prod.category_id);
+        console.log("Fetched Product:", prod.category_id);
         // Fetch related products in the same category
         if (prod.category_id) {
           api
@@ -195,10 +246,35 @@ const ProductDetails = () => {
           <div className="space-y-4">
             <div className="relative bg-card rounded-3xl overflow-hidden toy-shadow">
               <img
+                src={selectedImage || product.image1}
+                alt={product.name}
+                className="w-full h-[400px] md:h-[450px] xl:h-[600px] object-cover rounded-lg shadow-md mb-4"
+              />
+              {/* Additional thumbnails */}
+              <div className="flex gap-3 ">
+                {[
+                  product.image1,
+                  product.image2,
+                  product.image3,
+                  product.image4,
+                ].map(
+                  (img, idx) =>
+                    img && (
+                      <img
+                        key={idx}
+                        src={img}
+                        alt={`${name} - ${idx + 2}`}
+                        className="w-16 h-20 lg:w-24 lg:h-24 object-cover rounded cursor-pointer"
+                        onClick={() => setSelectedImage(img)} // Update main image on click
+                      />
+                    )
+                )}
+              </div>
+              {/* <img
                 src={product.image1}
                 alt={product.name}
                 className="w-full h-96 md:h-[500px] lg:h-[600px] object-cover hover:scale-105 transition-transform duration-500"
-              />
+              /> */}
 
               {/* Badges */}
               <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -234,6 +310,13 @@ const ProductDetails = () => {
                 {product.description}
               </p>
 
+              {/* Timestamps */}
+              <div className="text-xs text-gray-400 mb-4">
+                Added: {dateCreated}
+                <br />
+                Last updated: {dateUpdated}
+              </div>
+
               {/* Ratings */}
               <div className="flex items-center gap-4">
                 <div className="flex items-center text-yellow-400">★★★★☆</div>
@@ -255,6 +338,27 @@ const ProductDetails = () => {
                     MRP ₹ {parseFloat(product.strikedPrice).toFixed(2)}
                   </span>
                 )}
+            </div>
+
+            <div className="text-sm text-gray-700 mb-6">
+              <label className="block mb-2 font-medium">Color</label>
+              <div className="flex gap-3 flex-wrap">
+                {product.color.split(",").map((c) => (
+                  <button
+                    key={c}
+                    type="button"
+                    onClick={() => setSelectedColor(c)}
+                    className={`w-24 h-10 rounded-md border text-sm font-medium transition 
+                      ${
+                        selectedColor === c
+                          ? "bg-black text-white border-black"
+                          : "bg-white text-gray-700 border-gray-300 hover:border-black"
+                      }`}
+                  >
+                    {c}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Key Features */}
@@ -282,7 +386,28 @@ const ProductDetails = () => {
             {/* Action Buttons */}
             <div className="flex gap-4 pt-4">
               <Button
-                onClick={handleAddToCart}
+                onClick={async () => {
+                  if (!isAuthenticated) {
+                    navigate("/login");
+                    return;
+                  }
+
+                  if (!selectedColor) {
+                    toast({
+                      title: "Please select a color before adding to cart",
+                      variant: "destructive",
+                    });
+                    return;
+                  }
+
+                  if (product.stock && !isInCart) {
+                    await addToCart(product, selectedColor); // Pass size & color to cart store
+                    fetchCart();
+                    setIsInCart(true);
+                  } else if (isInCart) {
+                    navigate("/cart");
+                  }
+                }}
                 variant="hero"
                 size="lg"
                 className="flex-1"

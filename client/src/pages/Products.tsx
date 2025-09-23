@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Grid, List, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import { api } from "../utils/axiosInstance";
 
 interface Product {
@@ -48,7 +48,7 @@ const Products = () => {
       });
   }, []);
 
-  // Optional: apply sorting
+  // Sorting logic
   const sortedProducts = [...products].sort((a, b) => {
     switch (sortBy) {
       case "price-low":
@@ -56,9 +56,12 @@ const Products = () => {
       case "price-high":
         return parseFloat(b.price) - parseFloat(a.price);
       case "rating":
-        return (b.rating || 0) - (a.rating || 0); // if rating exists
+        return (b.rating || 0) - (a.rating || 0);
       case "newest":
-        return new Date(b.createdAt || "").getTime() - new Date(a.createdAt || "").getTime();
+        return (
+          new Date(b.createdAt || "").getTime() -
+          new Date(a.createdAt || "").getTime()
+        );
       default:
         return 0;
     }
@@ -81,7 +84,9 @@ const Products = () => {
         <div className="text-center mb-12">
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">
             <span className="text-2xl mr-2 animate-bounce-slow">🎪</span>
-            <span className="text-primary font-baloo font-semibold">All Toys</span>
+            <span className="text-primary font-baloo font-semibold">
+              All Toys
+            </span>
           </div>
 
           <h1 className="text-2xl md:text-3xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
@@ -98,7 +103,7 @@ const Products = () => {
           <div className="flex items-center space-x-4">
             <Button
               variant="outline"
-              onClick={() => setFilterOpen(!filterOpen)}
+              // onClick={() => setFilterOpen(!filterOpen)}
               className="hover-bounce"
             >
               <SlidersHorizontal className="w-4 h-4 mr-2" />
@@ -106,7 +111,9 @@ const Products = () => {
             </Button>
 
             <div className="flex items-center space-x-2">
-              <span className="text-sm text-muted-foreground font-poppins">Sort by:</span>
+              <span className="text-sm text-muted-foreground font-poppins">
+                Sort by:
+              </span>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-40 rounded-xl">
                   <SelectValue />
@@ -132,15 +139,15 @@ const Products = () => {
         {/* Filter Panel */}
         {filterOpen && (
           <div className="bg-card rounded-3xl p-6 mb-8 toy-shadow animate-fade-in">
-            {/* Filter content (unchanged) */}
+            {/* TODO: Add filter UI */}
           </div>
         )}
 
         {/* Products Grid/List */}
         <div
-          className={`grid gap-6 sm:gap-8 ${
+          className={`grid gap-4 sm:gap-6 ${
             viewMode === "grid"
-              ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              ? "grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
               : "grid-cols-1"
           }`}
         >
@@ -150,19 +157,11 @@ const Products = () => {
               className="animate-fade-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="h-64 sm:h-72 md:h-80 lg:h-96">
+              <div className="aspect-[3/4]">
                 <ProductCard {...product} id={product.id.toString()} />
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Load More Button */}
-        <div className="text-center mt-12">
-          <Button variant="hero" size="lg" className="hover-bounce">
-            Load More Toys
-            <span className="text-xl ml-2 animate-bounce-slow">🎁</span>
-          </Button>
         </div>
       </main>
 

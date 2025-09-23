@@ -1,15 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import UseUser from "../hooks/UseUser";
 import { ShoppingCart, Search, Menu, X, Heart, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useCart } from "@/contexts/CartContext";
+import useCartStore from "../store/CartStore";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAuthenticated } = useAuth();
-  const { getTotalItems } = useCart();
+  const { fetchCart, cart } = useCartStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const cartCount = cart?.length || 0; // Use optional chaining to prevent the error
+
+  const handleCartClick = () => {
+    navigate("/cart");
+  };
 
   return (
     <header className="bg-card/80 backdrop-blur-sm border-b-2 border-toy-cream sticky top-0 z-50">
@@ -91,9 +102,9 @@ const Header = () => {
                 className="relative hover-bounce"
               >
                 <ShoppingCart className="w-5 h-5" />
-                {getTotalItems() > 0 && (
+                {cartCount > 0 && (
                   <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold animate-bounce-slow">
-                    {getTotalItems()}
+                    {cartCount}
                   </span>
                 )}
               </Button>

@@ -237,6 +237,69 @@ const AdminOrders: React.FC = () => {
                       <span className="w-3 h-3 bg-green-500 rounded-full mr-1"></span>
                       {order.status}
                     </p>
+
+                     {/* Buttons Row */}
+                    <div className="flex gap-2 pt-2">
+                      <button
+                        onClick={() => {
+                          if (
+                            order.status === "Pending" ||
+                            order.status === "Success"
+                          ) {
+                            handleAcceptOrder(order.id);
+                          } else if (order.status === "Accepted") {
+                            handleMarkAsDelivered(order.id);
+                          }
+                        }}
+                        disabled={
+                          loadingOrders[order.id] ||
+                          order.status === "Delivered" ||
+                          order.status === "Cancelled"
+                        }
+                        className={`flex items-center justify-center gap-2 text-white py-1 px-3 text-xs rounded transition ${
+                          loadingOrders[order.id] ||
+                          order.status === "Delivered" ||
+                          order.status === "Cancelled"
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-green-600 hover:bg-green-700"
+                        }`}
+                      >
+                        {loadingOrders[order.id] && (
+                          <span className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                        )}
+                        {order.status === "Cancelled"
+                          ? "Cancelled"
+                          : order.status === "Success" ||
+                            order.status === "Pending"
+                          ? "Accept Order"
+                          : order.status === "Accepted"
+                          ? "Mark as Delivered"
+                          : "Delivered"}
+                      </button>
+
+                      <button
+                        className={`bg-red-600 text-white py-1 px-3 text-xs rounded ${
+                          order.status === "Delivered" ||
+                          order.status === "Cancelled"
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "hover:bg-red-700"
+                        }`}
+                        onClick={() => {
+                          if (
+                            order.status !== "Delivered" &&
+                            order.status !== "Cancelled"
+                          ) {
+                            handleCancelOrder(order.id);
+                          }
+                        }}
+                        disabled={
+                          order.status === "Delivered" ||
+                          order.status === "Cancelled"
+                        }
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </div>
 
                   {/* Expand/Collapse */}
@@ -282,6 +345,69 @@ const AdminOrders: React.FC = () => {
                       hour12: false,
                     })}
                   </span>
+                </div>
+
+                                <div className="hidden md:flex px-2">
+                  <button
+                    onClick={() => {
+                      if (
+                        order.status === "Success" ||
+                        order.status === "Pending"
+                      ) {
+                        handleAcceptOrder(order.id);
+                      } else if (order.status === "Accepted") {
+                        handleMarkAsDelivered(order.id);
+                      }
+                    }}
+                    disabled={
+                      loadingOrders[order.id] ||
+                      order.status === "Delivered" ||
+                      order.status === "Cancelled"
+                    }
+                    className={`flex items-center justify-center gap-2 text-white py-1 px-3 text-xs rounded transition ${
+                      loadingOrders[order.id] ||
+                      order.status === "Delivered" ||
+                      order.status === "Cancelled"
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-green-600 hover:bg-green-700"
+                    }`}
+                  >
+                    {loadingOrders[order.id] && (
+                      <span className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    )}
+                    {order.status === "Cancelled"
+                      ? "Cancelled"
+                      : order.status === "Success" || order.status === "Pending"
+                      ? "Accept Order"
+                      : order.status === "Accepted"
+                      ? "Mark as Delivered"
+                      : "Delivered"}
+                  </button>
+                </div>
+
+                <div className="hidden md:flex px-2 justify-center">
+                  <button
+                    className={`bg-red-600 text-white py-1 px-3 text-xs rounded ${
+                      order.status === "Delivered" ||
+                      order.status === "Cancelled"
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "hover:bg-red-700"
+                    }`}
+                    onClick={() => {
+                      if (
+                        order.status !== "Delivered" &&
+                        order.status !== "Cancelled"
+                      ) {
+                        handleCancelOrder(order.id);
+                      }
+                    }}
+                    disabled={
+                      order.status === "Delivered" ||
+                      order.status === "Cancelled"
+                    }
+                  >
+                    Cancel
+                  </button>
                 </div>
               </div>
 

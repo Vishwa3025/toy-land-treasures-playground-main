@@ -58,7 +58,7 @@ const AdminDashboard: React.FC = () => {
     fetchUserDetails();
   }, []);
 
-  // Auto-close sidebar on route change (especially for mobile)
+  // Auto-close sidebar on route change
   useEffect(() => {
     setSidebarOpen(false);
   }, [location.pathname]);
@@ -84,11 +84,13 @@ const AdminDashboard: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navbar */}
-      <nav className="text-white p-4 flex justify-between items-center fixed w-full top-0 bg-black z-50 shadow-sm">
-        <div onClick={handleHomeClick} className="cursor-pointer">
-          <img src={rawShadesLogo} alt="Raw Shades" className="h-10 sm:h-12" />
+      <nav className="text-white px-4 py-3 flex justify-between items-center fixed w-full top-0 bg-black z-50 shadow-md">
+        {/* Left Logo */}
+        <div onClick={handleHomeClick} className="cursor-pointer flex-shrink-0">
+          <img src={rawShadesLogo} alt="Raw Shades" className="h-8 sm:h-10" />
         </div>
 
+        {/* Center Logo (desktop only) */}
         <div
           onClick={handleHomeClick}
           className="hidden md:block absolute left-1/2 transform -translate-x-1/2 cursor-pointer"
@@ -100,6 +102,7 @@ const AdminDashboard: React.FC = () => {
           />
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
           className="text-white xl:hidden focus:outline-none text-2xl"
@@ -108,10 +111,10 @@ const AdminDashboard: React.FC = () => {
         </button>
       </nav>
 
-      <div className="flex flex-1 pt-20">
+      <div className="flex flex-1 pt-16">
         {/* Sidebar */}
         <aside
-          className={`bg-white shadow-xl z-60 xl:z-40 xl:static fixed top-0 left-0 h-full overflow-y-auto w-64 p-5 transform transition-transform duration-300 ease-in-out ${
+          className={`bg-white shadow-xl z-50 xl:z-40 xl:static fixed top-0 left-0 h-full overflow-y-auto w-64 p-5 transform transition-transform duration-300 ease-in-out ${
             sidebarOpen ? "translate-x-0" : "-translate-x-full xl:translate-x-0"
           }`}
         >
@@ -127,7 +130,7 @@ const AdminDashboard: React.FC = () => {
                 }`}
               >
                 {item.icon}
-                <span className="text-sm">{item.name}</span>
+                <span className="text-sm font-medium">{item.name}</span>
               </button>
             ))}
             <button
@@ -143,13 +146,13 @@ const AdminDashboard: React.FC = () => {
         {/* Overlay for mobile */}
         {sidebarOpen && (
           <div
-            className="fixed inset-0 bg-black opacity-20 xl:hidden z-30"
+            className="fixed inset-0 bg-black opacity-40 xl:hidden z-40"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto min-h-screen">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto min-h-screen bg-gray-50">
           <Outlet />
         </main>
       </div>

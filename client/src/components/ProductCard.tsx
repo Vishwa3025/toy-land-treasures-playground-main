@@ -128,7 +128,7 @@ const ProductCard = ({
         </div>
 
         {/* Add to Cart Button */}
-        <Button
+        {/* <Button
           variant="lego"
           size="sm"
           className="w-full mt-3"
@@ -136,7 +136,7 @@ const ProductCard = ({
           disabled={stock <= 0}
         >
           {stock > 0 ? "Add to Cart" : "Out of Stock"}
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ import Checkout from "./pages/Checkout";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Categories from "./components/Categories";
+import OrderSuccess from "./pages/OrderSuccess";
 
 // Admin pages
 import AdminDashboard from "./components/AdminDashboard";
@@ -40,6 +41,7 @@ import AdminGeneralImagesList from "./pages/AdminGeneralImagesList";
 import AdminOrders from "./pages/AdminOrders";
 import AllUsers from "./pages/AllUsers";
 import AdminAccount from "./pages/AdminAccount";
+import AnimatedNotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
@@ -95,6 +97,8 @@ function App() {
             <BrowserRouter>
               <Routes>
                 {/* Public Routes */}
+                <Route path="*" element={<AnimatedNotFound />} />
+
                 <Route path="/" element={<Index />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/categories" element={<Categories />} />
@@ -129,6 +133,15 @@ function App() {
                   element={
                     <ProtectedRoute
                       element={<Profile />}
+                      allowedRoles={["customer"]}
+                    />
+                  }
+                />
+                <Route
+                  path="/orderSuccess"
+                  element={
+                    <ProtectedRoute
+                      element={<OrderSuccess />}
                       allowedRoles={["customer"]}
                     />
                   }
