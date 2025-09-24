@@ -10,12 +10,22 @@ pool:
   name: Default
 
 steps:
+# Install Node.js
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
   displayName: 'Install Node.js'
 
+# Build Client (React)
 - script: |
+    cd client
     npm install
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'Build React Client'
+
+# Build Server (Node.js)
+- script: |
+    cd server
+    npm install
+    npm run build
+  displayName: 'Build Node Server'
