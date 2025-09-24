@@ -62,7 +62,7 @@ app.use("/api/return", returnRoutes)
 // app.use(express.static(path.join(__dirname, 'client/dist')));
 
 
-// Fallback for SPA routes
+// // Fallback for SPA routes
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 // });
