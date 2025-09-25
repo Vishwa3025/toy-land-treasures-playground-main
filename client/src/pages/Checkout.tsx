@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api, generalApi } from "../utils/axiosInstance";
-import UseUser from "../hooks/Useuser";
+import UseUser from "../hooks/UseUser";
 import { ClipLoader } from "react-spinners";
 import useCartStore from "../store/CartStore";
 import { toast, ToastContainer } from "react-toastify";
