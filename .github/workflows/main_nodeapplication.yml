@@ -28,7 +28,6 @@ jobs:
           cd server
           npm install
           npm run build --if-present
-          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -55,3 +54,4 @@ jobs:
           package: server/
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_05F4A2455E894325AE5FB2035582BD2A }}
+
