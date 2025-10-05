@@ -73,11 +73,17 @@ const Footer = () => {
               <Link to="/contact" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
                 Contact Us
               </Link>
-              <Link to="/shipping" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link to="/shipping-policy" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
                 Shipping Info
               </Link>
-              <Link to="/returns" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
-                Returns & Exchanges
+              <Link to="/refund-policy" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+                Refund Policy
+              </Link>
+              <Link to="/privacy-policy" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+                Privacy Policy
+              </Link>
+              <Link to="/terms-and-conditions" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+                Terms & Conditions
               </Link>
             </nav>
           </div>

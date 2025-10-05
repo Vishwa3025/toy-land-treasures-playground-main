@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { api } from "../utils/axiosInstance";
+import Header from "./Header";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const location = useLocation(); // get current route
 
   useEffect(() => {
     // Fetch categories from backend
@@ -23,7 +26,10 @@ const Categories = () => {
   }, []);
 
   return (
-    <section className="py-10 bg-gradient-to-b from-background to-toy-cream/30">
+    <section className="py-3 bg-gradient-to-b from-background to-toy-cream/30">
+      {/* Show Header only if route is not home */}
+      {location.pathname !== "/" && <Header />}
+
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-8">

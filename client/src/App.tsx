@@ -28,6 +28,12 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Categories from "./components/Categories";
 import OrderSuccess from "./pages/OrderSuccess";
+import ResetPasswordEmailPage from "./pages/ResetPasswordEmailPage";
+import ResetPassword from "./pages/ResetPassword";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndCondition";
+import RefundPolicy from "./pages/RefundPolicy";
+import ShippingPolicy from "./pages/ShippingPolicy";
 
 // Admin pages
 import AdminDashboard from "./components/AdminDashboard";
@@ -99,6 +105,12 @@ function App() {
                 {/* Public Routes */}
                 <Route path="*" element={<AnimatedNotFound />} />
 
+                <Route path="/reset" element={<ResetPasswordEmailPage />} />
+                <Route
+                  path="/reset-password/:email/:token"
+                  element={<ResetPassword />}
+                />
+
                 <Route path="/" element={<Index />} />
                 <Route path="/products" element={<Products />} />
                 <Route path="/categories" element={<Categories />} />
@@ -108,6 +120,14 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/categories/:id" element={<CategoryPage />} />
                 <Route path="/product/:id" element={<ProductDetails />} />
+
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route
+                  path="/terms-and-conditions"
+                  element={<TermsAndConditions />}
+                />
+                <Route path="/refund-policy" element={<RefundPolicy />} />
+                <Route path="/shipping-policy" element={<ShippingPolicy />} />
 
                 {/* Customer Protected Routes */}
                 <Route

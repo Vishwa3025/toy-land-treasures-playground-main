@@ -37,42 +37,47 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   /** ---------- LOGIN ---------- */
-const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  try {
-    const { success, user } = await login(loginForm.email, loginForm.password);
+    try {
+      const { success, user } = await login(
+        loginForm.email,
+        loginForm.password
+      );
 
-    if (success && user) {
-      toast({
-        title: "Welcome back! 🎉",
-        description: `Logged in as ${user.name}`,
-      });
+      if (success && user) {
+        toast({
+          title: "Welcome back! 🎉",
+          description: `Logged in as ${user.name}`,
+        });
 
-      // ✅ Redirect based on role
-      if (user.role === "admin") {
-        navigate("/admin");
+        // ✅ Redirect based on role
+        if (user.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate(from); // default redirect
+        }
       } else {
-        navigate(from); // default redirect
+        toast({
+          title: "Login failed",
+          description: "Invalid credentials. Please try again.",
+          variant: "destructive",
+        });
       }
-    } else {
+    } catch (error: any) {
       toast({
         title: "Login failed",
-        description: "Invalid credentials. Please try again.",
+        description:
+          error.response?.data?.error ||
+          "Something went wrong, please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error: any) {
-    toast({
-      title: "Login failed",
-      description: error.response?.data?.error || "Something went wrong, please try again.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   /** ---------- SIGNUP ---------- */
   const handleSignup = async (e: React.FormEvent) => {
@@ -173,6 +178,17 @@ const handleLogin = async (e: React.FormEvent) => {
                         required
                       />
                     </div>
+
+                    {/* Forgot Password */}
+                    <div className="my-4">
+                      <Link
+                        to="/reset"
+                        className="w-full  text-blue-800 font-medium text-sm rounded-lg text-center hover:underline"
+                      >
+                        Forgot Password ?
+                      </Link>
+                    </div>
+
                     <Button
                       type="submit"
                       className="w-full"

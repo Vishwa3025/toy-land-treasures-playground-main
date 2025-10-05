@@ -69,7 +69,9 @@ const Cart = () => {
       <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
         <Header />
         <div className="container mx-auto px-4 py-20 text-center">
-          <div className="text-4xl md:text-6xl mb-4 animate-bounce-slow">🛒</div>
+          <div className="text-4xl md:text-6xl mb-4 animate-bounce-slow">
+            🛒
+          </div>
           <h1 className="text-2xl md:text-3xl font-baloo font-bold text-foreground mb-4">
             Your Cart is Empty
           </h1>
@@ -124,10 +126,11 @@ const Cart = () => {
                     <img
                       src={item.Product?.image1}
                       alt={item.Product?.name}
-                      className="w-20 h-20 object-cover rounded-2xl hover:scale-105 transition-transform"
+                      className="w-24 h-24 sm:w-20 sm:h-20 object-cover rounded-2xl hover:scale-105 transition-transform mx-auto sm:mx-0"
                     />
 
-                    <div className="flex-1">
+                    {/* Product Details */}
+                    <div className="flex-1 w-full text-center sm:text-left">
                       <Link
                         to={`/product/${item.Product?.id}`}
                         className="hover:text-primary transition-colors"
@@ -139,7 +142,7 @@ const Cart = () => {
                           {item.color}
                         </h6>
                       </Link>
-                      <p className="text-lg md:text-xl font-baloo font-bold text-primary">
+                      <p className="text-lg md:text-xl font-baloo font-bold text-primary mt-2">
                         ₹{" "}
                         {item.Product?.price
                           ? Number(item.Product.price).toFixed(2)
@@ -147,40 +150,43 @@ const Cart = () => {
                       </p>
                     </div>
 
-                    {/* Quantity Controls */}
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => subtractFromCart(item.Product)}
-                        className="h-8 w-8 rounded-full"
-                      >
-                        <Minus className="w-4 h-4" />
-                      </Button>
+                    {/* Controls (stack nicely on mobile) */}
+                    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 w-full sm:w-auto">
+                      {/* Quantity Controls */}
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => subtractFromCart(item.Product)}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Minus className="w-4 h-4" />
+                        </Button>
 
-                      <span className="text-sm md:text-base font-baloo font-semibold min-w-[2rem] text-center">
-                        {item.quantity}
-                      </span>
+                        <span className="text-sm md:text-base font-baloo font-semibold min-w-[2rem] text-center">
+                          {item.quantity}
+                        </span>
 
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => addToCart(item.Product, item.color)}
+                          className="h-8 w-8 rounded-full"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                      </div>
+
+                      {/* Remove Button */}
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="icon"
-                        onClick={() => addToCart(item.Product, item.color)}
-                        className="h-8 w-8 rounded-full"
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     </div>
-
-                    {/* Remove Button */}
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => removeFromCart(item.id)}
-                      className="text-destructive hover:text-destructive hover:bg-destructive/10"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
                   </div>
                 </CardContent>
               </Card>

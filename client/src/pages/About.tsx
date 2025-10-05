@@ -18,7 +18,7 @@ const About = () => {
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-baloo font-bold text-foreground mb-6">
-              Welcome to ToyLand Treasures
+              Welcome to F & S Toys
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
               Where magical childhood memories are born! We've been bringing joy to families 
@@ -38,7 +38,7 @@ const About = () => {
                   Our Mission
                 </h2>
                 <p className="text-lg text-muted-foreground font-poppins leading-relaxed mb-6">
-                  At ToyLand Treasures, we believe that play is the foundation of learning, creativity, 
+                  At F & S Toys, we believe that play is the foundation of learning, creativity, 
                   and happiness. Our mission is to provide children with high-quality, safe, and 
                   engaging toys that nurture their development while bringing families together.
                 </p>
@@ -49,13 +49,13 @@ const About = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button variant="hero" size="lg">
-                    <Gift className="w-5 h-5 mr-2" />
-                    Shop Our Collection
-                  </Button>
-                  <Button variant="outline" size="lg">
-                    Learn More
-                  </Button>
+                  <a href="/products" tabIndex={-1} className="inline-block">
+                    <Button variant="hero" size="lg">
+                      <Gift className="w-5 h-5 mr-2" />
+                      Shop Our Collection
+                    </Button>
+                  </a>
+                  
                 </div>
               </div>
               
@@ -164,7 +164,7 @@ const About = () => {
         </section>
 
         {/* Team Section */}
-        <section className="py-20 bg-background">
+        {/* <section className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <div className="inline-flex items-center bg-accent/10 rounded-full px-6 py-3 mb-6">
@@ -226,7 +226,7 @@ const About = () => {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* CTA Section */}
         <section className="py-20 bg-gradient-to-r from-primary/10 via-toy-yellow/10 to-accent/10">
@@ -235,7 +235,7 @@ const About = () => {
               Ready to Create Magic?
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins mb-8">
-              Join thousands of happy families who trust ToyLand Treasures for their 
+              Join thousands of happy families who trust F & S Toys for their 
               children's playtime adventures. Start your magical journey today!
             </p>
             

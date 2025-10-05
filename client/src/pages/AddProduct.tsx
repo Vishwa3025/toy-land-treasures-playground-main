@@ -295,6 +295,7 @@ const AddProduct: React.FC = () => {
                 options={[
                   { value: "White", label: "White" },
                   { value: "Black", label: "Black" },
+                  { value: "Blue", label: "Blue" },
                 ]}
                 value={formData.color.map((val) => ({
                   value: val,

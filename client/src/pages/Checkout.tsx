@@ -115,7 +115,7 @@ const Checkout = () => {
         amount: razorpayOrder.amount,
         currency: "INR",
         order_id: razorpayOrder.id,
-        name: "Raw Shades",
+        name: "F & S toys",
         description: "Order Payment",
         handler: async (response: any) => {
           try {

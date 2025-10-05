@@ -155,10 +155,10 @@ router.post("/forgot-password", async (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: user.email,
-            subject: "Reset Your Password - Raw Shades",
+            subject: "Reset Your Password - F & S toys",
             html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <h2 style="color: #e76f51;">Raw Shades</h2>
+                <h2 style="color: #e76f51;">F & S toys</h2>
                 <p>Dear ${user.name || "User"},</p>
                 <p>We received a request to reset your password. If you made this request, please click the button below to set a new password:</p>
                 <p style="text-align: center; margin: 20px 0;">
@@ -169,7 +169,7 @@ router.post("/forgot-password", async (req, res) => {
                 <p>This link will expire in 15 minutes for your security.</p>
                 <p>If you did not request a password reset, please ignore this email or contact our support team.</p>
                 <br/>
-                <p>Warm regards,<br/>The Mano Health Foods Team</p>
+                <p>Warm regards,<br/>TheF & S toys</p>
                 </div>
             `,
         };

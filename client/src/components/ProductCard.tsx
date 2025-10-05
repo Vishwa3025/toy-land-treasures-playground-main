@@ -29,7 +29,6 @@ const ProductCard = ({
   stock,
   image1,
 }: ProductCardProps) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const { isAuthenticated } = useAuth();
   const { addToCart } = useCart();
   const { toast } = useToast();
@@ -71,19 +70,6 @@ const ProductCard = ({
         />
         {/* </Link> */}
 
-        {/* Wishlist Button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className={`absolute top-2 right-2 rounded-full ${
-            isWishlisted
-              ? "bg-primary text-primary-foreground hover:bg-primary/90"
-              : "bg-white/80 text-foreground hover:bg-white"
-          }`}
-          onClick={() => setIsWishlisted(!isWishlisted)}
-        >
-          <Heart className={`w-4 h-4 ${isWishlisted ? "fill-current" : ""}`} />
-        </Button>
       </div>
 
       {/* Product Info */}

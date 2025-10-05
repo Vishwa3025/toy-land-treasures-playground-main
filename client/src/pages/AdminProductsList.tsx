@@ -10,9 +10,7 @@ interface Product {
   strikedPrice: number;
   price: number;
   discount: number;
-  size: string; // stored as CSV in DB
   color: string; // stored as CSV in DB
-  material: string;
   stock: number;
   description: string;
   image1?: string;
@@ -23,9 +21,7 @@ interface FormDataType {
   strikedPrice: string;
   price: string;
   discount: string | number;
-  size: string[];
   color: string[];
-  material: string;
   stock: string;
   description: string;
 }
@@ -45,9 +41,7 @@ const AdminProductsList = () => {
     strikedPrice: "",
     price: "",
     discount: "",
-    size: [],
     color: [],
-    material: "",
     stock: "",
     description: "",
   });
@@ -86,9 +80,7 @@ const AdminProductsList = () => {
       discount: String(product.discount),
       stock: String(product.stock),
       description: product.description,
-      size: product.size ? product.size.split(",") : [],
       color: product.color ? product.color.split(",") : [],
-      material: product.material,
     });
     setPreview(product.image1 || "/placeholder.jpg");
     setIsOpen(true);
@@ -117,22 +109,12 @@ const AdminProductsList = () => {
     setFormData(updatedForm);
   };
 
-  const handleSizeChange = (
-    selectedOptions: MultiValue<{ value: string; label: string }>
-  ) => {
-    const selectedSizes = selectedOptions.map((option) => option.value);
-    setFormData({ ...formData, size: selectedSizes });
-  };
 
   const handleColorChange = (
     selectedOptions: MultiValue<{ value: string; label: string }>
   ) => {
     const selectedColors = selectedOptions.map((option) => option.value);
     setFormData({ ...formData, color: selectedColors });
-  };
-
-  const handleMaterialChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setFormData({ ...formData, material: e.target.value });
   };
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -166,9 +148,7 @@ const AdminProductsList = () => {
       formDataToSend.append("strikedPrice", formData.strikedPrice);
       formDataToSend.append("price", formData.price);
       formDataToSend.append("discount", String(formData.discount));
-      formDataToSend.append("size", formData.size.join(","));
       formDataToSend.append("color", formData.color.join(","));
-      formDataToSend.append("material", formData.material);
       formDataToSend.append("stock", formData.stock);
       formDataToSend.append("description", formData.description);
       if (image) formDataToSend.append("image", image);
@@ -212,9 +192,7 @@ const AdminProductsList = () => {
               <h2 className="text-lg font-medium mt-2">{product.name}</h2>
               <p className="text-sm text-gray-600">Price: ₹ {product.price}</p>
               <p className="text-sm text-gray-500">Stock: {product.stock}</p>
-              <p className="text-sm text-gray-500 truncate">
-                Material: {product.material}
-              </p>
+             
 
               <div className="flex justify-between mt-3">
                 <button
@@ -332,29 +310,7 @@ const AdminProductsList = () => {
                 </div>
               </div>
 
-              {/* Size */}
-              <div>
-                <h3 className="text-sm font-medium text-gray-700">Size</h3>
-                <Select
-                  isMulti
-                  options={[
-                    { value: "S", label: "Small (S)" },
-                    { value: "M", label: "Medium (M)" },
-                    { value: "L", label: "Large (L)" },
-                    { value: "XL", label: "Extra Large (XL)" },
-                    { value: "XXL", label: "2X Large (XXL)" },
-                    { value: "XXXL", label: "3X Large (XXXL)" },
-                  ]}
-                  value={formData.size.map((val) => ({
-                    value: val,
-                    label: val,
-                  }))}
-                  onChange={handleSizeChange}
-                  classNamePrefix="react-select"
-                  placeholder="Select sizes"
-                />
-              </div>
-
+              
               {/* Color */}
               <div>
                 <h3 className="text-sm font-medium text-gray-700">Color</h3>
@@ -376,26 +332,6 @@ const AdminProductsList = () => {
                   classNamePrefix="react-select"
                   placeholder="Select colors"
                 />
-              </div>
-
-              {/* Material */}
-              <div>
-                <label className="text-sm font-medium text-gray-700">
-                  Material
-                </label>
-                <select
-                  name="material"
-                  value={formData.material}
-                  onChange={handleMaterialChange}
-                  className="form-input p-2 mx-2 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
-                  required
-                >
-                  <option value="">Select material</option>
-                  <option value="Cotton">Cotton</option>
-                  <option value="Poly-Cotton">Poly-Cotton</option>
-                  <option value="Linen">Linen</option>
-                  <option value="Polyester">Polyester</option>
-                </select>
               </div>
 
               {/* Buttons */}

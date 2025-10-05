@@ -53,7 +53,6 @@ const ProductDetails = () => {
   const { cart = [], addToCart, fetchCart } = useCartStore();
   const [isInCart, setIsInCart] = useState(false);
   const { toast } = useToast();
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState<Category | null>(null);
@@ -168,17 +167,7 @@ const ProductDetails = () => {
     });
   };
 
-  const handleWishlist = () => {
-    if (!product) return;
 
-    setIsWishlisted(!isWishlisted);
-    toast({
-      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist! ❤️",
-      description: isWishlisted
-        ? `${product.name} removed from your wishlist.`
-        : `${product.name} added to your wishlist.`,
-    });
-  };
 
   if (loading) {
     return (
@@ -416,18 +405,7 @@ const ProductDetails = () => {
                 Add to Cart
               </Button>
 
-              <Button
-                onClick={handleWishlist}
-                variant="outline"
-                size="lg"
-                className={`${
-                  isWishlisted ? "bg-primary text-primary-foreground" : ""
-                }`}
-              >
-                <Heart
-                  className={`w-5 h-5 ${isWishlisted ? "fill-current" : ""}`}
-                />
-              </Button>
+            
             </div>
 
             {/* Trust Badges */}

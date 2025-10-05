@@ -120,9 +120,8 @@ const Contact = () => {
                         <div>
                           <h3 className="font-baloo font-semibold text-lg text-foreground mb-2">Store Location</h3>
                           <p className="text-muted-foreground font-poppins">
-                            123 Toy Street<br />
-                            Wonderland City, WL 12345<br />
-                            United States
+                             46, Agatheeswarar Kovil St,<br />
+                  Mahalakshmi Nagar, Kolapakkam, Chennai 600122.
                           </p>
                         </div>
                       </div>
@@ -138,8 +137,8 @@ const Contact = () => {
                         <div>
                           <h3 className="font-baloo font-semibold text-lg text-foreground mb-2">Phone Support</h3>
                           <p className="text-muted-foreground font-poppins">
-                            +1 (555) TOY-LAND<br />
-                            +1 (555) 869-5263<br />
+                            +91 73389 42533<br />
+                            +91 95661 58201<br />
                             Available 7 days a week
                           </p>
                         </div>
@@ -156,8 +155,8 @@ const Contact = () => {
                         <div>
                           <h3 className="font-baloo font-semibold text-lg text-foreground mb-2">Email Support</h3>
                           <p className="text-muted-foreground font-poppins">
-                            hello@toylandtreasures.com<br />
-                            support@toylandtreasures.com<br />
+                            hello@f&stoys.com<br />
+                            support@f&stoys.com<br />
                             We reply within 24 hours!
                           </p>
                         </div>
@@ -174,9 +173,7 @@ const Contact = () => {
                         <div>
                           <h3 className="font-baloo font-semibold text-lg text-foreground mb-2">Store Hours</h3>
                           <div className="text-muted-foreground font-poppins space-y-1">
-                            <div>Monday - Friday: 9AM - 8PM</div>
-                            <div>Saturday: 9AM - 9PM</div>
-                            <div>Sunday: 10AM - 6PM</div>
+                            <div>All Days: 10AM - 9PM</div>
                           </div>
                         </div>
                       </div>

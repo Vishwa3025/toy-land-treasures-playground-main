@@ -85,14 +85,7 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">
-            {/* Wishlist - desktop only */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative hover-bounce hidden lg:flex"
-            >
-              <Heart className="w-5 h-5" />
-            </Button>
+           
 
             {/* Cart - all screens */}
             <Link to="/cart">
