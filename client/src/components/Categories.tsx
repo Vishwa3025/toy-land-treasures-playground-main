@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { api } from "../utils/axiosInstance";
 import Header from "./Header";
+import { motion } from "framer-motion";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -25,14 +26,44 @@ const Categories = () => {
       });
   }, []);
 
+  // Emoji pool for floating background
+  const bgEmojis = ["🧸", "🚗", "🎲", "🪁", "🦖", "🎯", "🛴", "🪀"];
+
   return (
-    <section className="py-3 bg-gradient-to-b from-background to-toy-cream/30">
+    <section className="py-3 relative bg-gradient-to-b from-toy-cream/40 to-background">
+      {/* Floating animated emojis in background */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {bgEmojis.map((emoji, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-4xl md:text-5xl lg:text-6xl select-none"
+            style={{
+              top: `${10 + i * 10}%`,
+              left: `${(i % 2 === 0 ? 5 : 80) + (i * 2)}%`,
+              opacity: 0.13 + (i % 3) * 0.07,
+              filter: "blur(0.5px)",
+            }}
+            initial={{ y: 0, rotate: 0 }}
+            animate={{ y: [0, -20, 0, 10, 0], rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 12 + i * 2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            {emoji}
+          </motion.div>
+        ))}
+      </div>
+
       {/* Show Header only if route is not home */}
       {location.pathname !== "/" && <Header />}
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-8">
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+        >
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-4">
             <span className="text-2xl mr-2 animate-bounce-slow">🎪</span>
             <span className="text-primary font-baloo font-semibold">
@@ -40,30 +71,47 @@ const Categories = () => {
             </span>
           </div>
 
-          <h2 className="text-2xl md:text-4xl font-baloo font-bold text-foreground">
-            Find the Perfect Toy
-          </h2>
-        </div>
+          <motion.h2
+            className="text-2xl md:text-4xl font-baloo font-bold text-foreground"
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ type: "spring", stiffness: 120, damping: 10, delay: 0.2 }}
+          >
+            Find the Perfect Toy <span className="ml-2">🧸</span>
+          </motion.h2>
+        </motion.div>
 
         {/* Horizontal Scroll Categories */}
-        <div className="flex space-x-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-          {categories.map((category) => (
-            <div
+        <div
+          className="flex space-x-3 sm:space-x-4 overflow-x-auto lg:overflow-x-visible pb-4 snap-x snap-mandatory scrollbar-hide px-2 sm:px-0 lg:justify-center"
+          style={{ overflowY: "hidden" }}
+        >
+          {categories.map((category, idx) => (
+            <motion.div
               key={category.id}
-              className="min-w-[180px] sm:min-w-[220px] md:min-w-[250px] lg:min-w-[300px] bg-card rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-6 text-center transition-transform duration-300 hover:-translate-y-2"
+              className="min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[260px] rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-3 sm:p-5 md:p-6 text-center transition-transform duration-300 hover:-translate-y-2 bg-white"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: idx * 0.1 }}
+              whileHover={{ scale: 1.06, boxShadow: "0 0 30px hsl(var(--toy-yellow) / 0.3)" }}
             >
               {/* Image */}
-              <div className="text-5xl mb-3">
+              <motion.div
+                className="mb-2 sm:mb-3"
+                whileHover={{ rotate: [0, 8, -8, 0], scale: 1.08 }}
+                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              >
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="w-full h-[150px] object-cover rounded-xl"
+                  className="w-full h-[90px] sm:h-[120px] md:h-[150px] object-cover rounded-xl"
                 />
-              </div>
+              </motion.div>
 
-              {/* Name */}
-              <h3 className="text-lg font-baloo font-bold text-foreground mb-3">
-                {category.name}
+              {/* Name with emoji */}
+              <h3 className="text-base sm:text-lg font-baloo font-bold text-foreground mb-2 sm:mb-3 flex items-center justify-center gap-1">
+                {category.name} {idx % 2 === 0 ? "🚗" : "🏍️"}
               </h3>
 
               {/* CTA */}
@@ -77,7 +125,7 @@ const Categories = () => {
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </Button>
               </Link>
-            </div>
+            </motion.div>
           ))}
         </div>
 
@@ -85,7 +133,7 @@ const Categories = () => {
         <div className="text-center mt-10">
           <Link to="/categories">
             <Button variant="hero" size="lg">
-              View All Categories
+              View All Categories <span className="ml-1">🎲</span>
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>
