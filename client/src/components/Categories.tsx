@@ -50,14 +50,14 @@ const Categories = () => {
           {categories.map((category) => (
             <div
               key={category.id}
-              className="min-w-[180px] sm:min-w-[200px] bg-card rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-6 text-center transition-transform duration-300 hover:-translate-y-2"
+              className="min-w-[180px] sm:min-w-[220px] md:min-w-[250px] lg:min-w-[300px] bg-card rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-6 text-center transition-transform duration-300 hover:-translate-y-2"
             >
               {/* Image */}
               <div className="text-5xl mb-3">
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="w-full h-[150px] object-cover"
+                  className="w-full h-[150px] object-cover rounded-xl"
                 />
               </div>
 

@@ -105,10 +105,10 @@ const FeaturedProducts = () => {
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
             <div className="bg-accent text-accent-foreground px-4 sm:px-5 md:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-baloo font-bold text-sm sm:text-base md:text-lg animate-wiggle">
-              ✨ Free Shipping Over $50
+              ✨ Free Shipping Over 10,000 INR
             </div>
             <div className="bg-secondary text-secondary-foreground px-4 sm:px-5 md:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl font-baloo font-bold text-sm sm:text-base md:text-lg animate-wiggle">
-              🎊 30-Day Returns
+              🎊 3-Day Returns
             </div>
           </div>
         </div>

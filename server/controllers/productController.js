@@ -4,10 +4,22 @@ const fs = require("fs");
 const path = require("path");
 
 
-// Get all products
+// Get all products, with optional search
 exports.getAllProducts = async (req, res) => {
     try {
-        const products = await Product.findAll();
+        const { search } = req.query;
+        let where = {};
+        if (search && search.trim() !== "") {
+            // For Sequelize: use Op.like for partial match on name or description
+            const { Op } = require("sequelize");
+            where = {
+                [Op.or]: [
+                    { name: { [Op.iLike || Op.like]: `%${search}%` } },
+                    { description: { [Op.iLike || Op.like]: `%${search}%` } }
+                ]
+            };
+        }
+        const products = await Product.findAll({ where });
 
         const baseUrl = `${req.protocol}://${req.get("host")}`;
 

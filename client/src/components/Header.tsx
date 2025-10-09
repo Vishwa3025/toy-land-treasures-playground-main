@@ -8,6 +8,7 @@ import useCartStore from "../store/CartStore";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
   const { isAuthenticated } = useAuth();
   const { fetchCart, cart } = useCartStore();
   const navigate = useNavigate();
@@ -74,14 +75,24 @@ const Header = () => {
           </nav>
 
           {/* Search Bar - only desktop (large screens) */}
-          <div className="hidden lg:flex items-center bg-toy-cream/50 rounded-2xl px-4 py-2 flex-1 max-w-md mx-8">
+          <form
+            className="hidden lg:flex items-center bg-toy-cream/50 rounded-2xl px-4 py-2 flex-1 max-w-md mx-8"
+            onSubmit={e => {
+              e.preventDefault();
+              if (searchValue.trim()) {
+                navigate(`/products?search=${encodeURIComponent(searchValue)}`);
+              }
+            }}
+          >
             <Search className="w-5 h-5 text-muted-foreground mr-2" />
             <input
               type="text"
               placeholder="Search for magical toys..."
               className="bg-transparent flex-1 outline-none text-foreground placeholder:text-muted-foreground"
+              value={searchValue}
+              onChange={e => setSearchValue(e.target.value)}
             />
-          </div>
+          </form>
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-4">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -34,10 +35,15 @@ const Products = () => {
   const [sortBy, setSortBy] = useState("featured");
   const [filterOpen, setFilterOpen] = useState(false);
 
+  const location = useLocation();
+
   useEffect(() => {
     setLoading(true);
+    // Get search param from URL
+    const params = new URLSearchParams(location.search);
+    const search = params.get("search") || "";
     api
-      .get("/products")
+      .get("/products", { params: search ? { search } : {} })
       .then((res) => {
         setProducts(res.data);
         setLoading(false);
@@ -46,7 +52,7 @@ const Products = () => {
         console.error("Error fetching products:", error);
         setLoading(false);
       });
-  }, []);
+  }, [location.search]);
 
   // Sorting logic
   const sortedProducts = [...products].sort((a, b) => {
