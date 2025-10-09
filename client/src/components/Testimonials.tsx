@@ -31,10 +31,13 @@ const testimonials = [
 ];
 
 
+import ToyBackground from './ToyBackground';
+
 const Testimonials = () => {
   return (
-    <section className="hidden md:block py-16 md:py-20 bg-gradient-to-b from-toy-cream/30 to-background">
-      <div className="container mx-auto px-4">
+    <section className="relative hidden md:block py-16 md:py-20 bg-gradient-to-b from-toy-cream/30 to-background overflow-hidden">
+      <ToyBackground />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center bg-toy-yellow/20 rounded-full px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-6">

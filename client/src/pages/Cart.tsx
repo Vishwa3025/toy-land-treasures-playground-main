@@ -5,6 +5,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ToyBackground from "@/components/ToyBackground";
 import useCartStore from "../store/CartStore";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -91,10 +92,11 @@ const Cart = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
+    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+      <ToyBackground />
       <Header />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">

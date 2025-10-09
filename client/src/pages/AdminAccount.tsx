@@ -3,6 +3,7 @@ import UseUser from "../hooks/UseUser";
 import { generalApi } from "../utils/axiosInstance";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ToyBackground from "../components/ToyBackground";
 
 // Define user type from your hook (adjust fields if more exist)
 interface User {
@@ -75,9 +76,10 @@ const AdminAccount = () => {
   };
 
   return (
-    <section id="account" className="section p-4 sm:p-6">
+    <section id="account" className="section p-4 sm:p-6 relative">
+      <ToyBackground />
       <ToastContainer position="top-right" autoClose={3000} />
-      <div className="bg-white rounded-xl shadow-2xl p-3 sm:p-10 max-w-3xl mx-auto">
+      <div className="bg-white rounded-xl shadow-2xl p-3 sm:p-10 max-w-3xl mx-auto relative z-10">
         <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 text-center mb-6">
           Admin Account Settings
         </h2>

@@ -2,13 +2,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Award, Truck, Shield, Gift } from 'lucide-react';
+import ToyBackground from '@/components/ToyBackground';
 
 const About = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <ToyBackground />
       <Header />
-      
-      <main>
+      <main className="relative z-10">
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-toy-cream via-toy-pale-blue to-background">
           <div className="container mx-auto px-4 text-center">

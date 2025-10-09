@@ -1,6 +1,7 @@
 import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { api } from "../utils/axiosInstance";
 import { toast } from "react-toastify";
+import ToyBackground from "../components/ToyBackground";
 
 interface ImageItem {
   id: string;
@@ -93,8 +94,9 @@ const AdminGeneralImagesList: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-semibold mb-4">General Images</h1>
+    <div className="p-4 relative">
+      <ToyBackground />
+      <h1 className="text-xl font-semibold mb-4 relative z-10">General Images</h1>
       <h1 className="text-sm font-semibold mb-4">
         Only 3 Banner images and 1 Phone banner is allowed (banner1, banner2,
         banner3, phonebanner)

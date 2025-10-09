@@ -39,13 +39,17 @@ const Categories = () => {
             className="absolute text-4xl md:text-5xl lg:text-6xl select-none"
             style={{
               top: `${10 + i * 10}%`,
-              left: `${(i % 2 === 0 ? 5 : 80) + (i * 2)}%`,
+              left: `${(i % 2 === 0 ? 5 : 80) + i * 2}%`,
               opacity: 0.13 + (i % 3) * 0.07,
               filter: "blur(0.5px)",
             }}
             initial={{ y: 0, rotate: 0 }}
             animate={{ y: [0, -20, 0, 10, 0], rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 12 + i * 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{
+              duration: 12 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
             {emoji}
           </motion.div>
@@ -56,31 +60,21 @@ const Categories = () => {
       {location.pathname !== "/" && <Header />}
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-4">
-            <span className="text-2xl mr-2 animate-bounce-slow">🎪</span>
-            <span className="text-primary font-baloo font-semibold">
+
+        {/* Section Header - Playful, improved design */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-100 via-pink-100 to-blue-100 rounded-full px-6 py-2 mb-4 shadow-lg">
+            <span className="text-3xl mr-3 animate-bounce-slow">🎪</span>
+            <span className="text-primary font-baloo font-extrabold text-base md:text-xl ">
               Explore Our Categories
             </span>
           </div>
-
-          <motion.h2
-            className="text-2xl md:text-4xl font-baloo font-bold text-foreground"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ type: "spring", stiffness: 120, damping: 10, delay: 0.2 }}
-          >
-            Find the Perfect Toy <span className="ml-2">🧸</span>
-          </motion.h2>
-        </motion.div>
+          <h2 className="text-2xl md:text-3xl font-baloo font-extrabold text-foreground mb-2 flex items-center justify-center gap-2">
+            <span className="drop-shadow-sm">Find the Perfect Toy</span>
+            <span className="ml-1 animate-bounce">🧸</span>
+          </h2>
+          <div className="mx-auto w-24 h-2 bg-gradient-to-r from-pink-300 via-yellow-300 to-blue-300 rounded-full mt-2 mb-2 opacity-80"></div>
+        </div>
 
         {/* Horizontal Scroll Categories */}
         <div
@@ -91,10 +85,10 @@ const Categories = () => {
             <motion.div
               key={category.id}
               className="min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[260px] rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-3 sm:p-5 md:p-6 text-center transition-transform duration-300 hover:-translate-y-2 bg-white"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              whileHover={{ scale: 1.06, boxShadow: "0 0 30px hsl(var(--toy-yellow) / 0.3)" }}
+              whileHover={{
+                scale: 1.06,
+                boxShadow: "0 0 30px hsl(var(--toy-yellow) / 0.3)",
+              }}
             >
               {/* Image */}
               <motion.div

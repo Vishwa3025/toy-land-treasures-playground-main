@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ToyBackground from './ToyBackground';
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
@@ -57,31 +58,27 @@ const ProductCard = ({
 
   return (
     <div className="group relative bg-card rounded-xl overflow-hidden toy-shadow transition-all duration-300 hover:-translate-y-1">
+      <ToyBackground />
       {/* Product Image */}
       <div
-        className="relative overflow-hidden h-36 sm:h-48 md:h-56"
+        className="relative overflow-hidden h-36 sm:h-48 md:h-56 z-10"
         onClick={() => navigate(`/product/${id}`)}
       >
-        {/* <Link to={`/product/${id}`}> */}
         <img
           src={image1}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        {/* </Link> */}
-
       </div>
 
       {/* Product Info */}
       <div
-        className="p-3 sm:p-4"
+        className="p-3 sm:p-4 z-10"
         onClick={() => navigate(`/product/${id}`)}
       >
-        {/* <Link to={`/product/${id}`}> */}
         <h3 className="font-baloo font-medium text-sm sm:text-base line-clamp-2">
           {name}
         </h3>
-        {/* </Link> */}
         {description && (
           <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">
             {description}
@@ -112,17 +109,6 @@ const ProductCard = ({
           <span>{stock > 0 ? `In stock: ${stock}` : "Out of stock"}</span>
           {color && <span className="capitalize">Color: {color}</span>}
         </div>
-
-        {/* Add to Cart Button */}
-        {/* <Button
-          variant="lego"
-          size="sm"
-          className="w-full mt-3"
-          onClick={handleAddToCart}
-          disabled={stock <= 0}
-        >
-          {stock > 0 ? "Add to Cart" : "Out of Stock"}
-        </Button> */}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { FiUploadCloud } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Select, { MultiValue } from "react-select";
+import ToyBackground from "../components/ToyBackground";
 
 // Category type
 interface Category {
@@ -172,10 +173,11 @@ const AddProduct: React.FC = () => {
   };
 
   return (
-    <section id="add-product" className="section">
+    <section id="add-product" className="section relative">
+      <ToyBackground />
       <ToastContainer position="top-center" autoClose={3000} />
 
-      <div className="bg-white rounded-2xl shadow-2xl p-10 max-w-2xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-2xl p-10 max-w-2xl mx-auto relative z-10">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Add New Product
         </h2>

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ToyBackground from "@/components/ToyBackground";
 import ProductCard from "@/components/ProductCard";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
@@ -201,10 +202,11 @@ const ProductDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
+    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+      <ToyBackground />
       <Header />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Breadcrumb */}
         <nav className="mb-8">
           <div className="flex items-center space-x-2 text-sm font-poppins">

@@ -2,6 +2,7 @@ import { useEffect, useState, ChangeEvent, FormEvent } from "react";
 import { api } from "../utils/axiosInstance";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import ToyBackground from "../components/ToyBackground";
 
 // Define Category type
 interface Category {
@@ -115,8 +116,9 @@ const AdminCategoriesList: React.FC = () => {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl md:text-2xl font-semibold mb-4">Categories List</h1>
+    <div className="p-4 relative">
+      <ToyBackground />
+      <h1 className="text-xl md:text-2xl font-semibold mb-4 relative z-10">Categories List</h1>
 
       {loading ? (
         <p className="text-center text-gray-500">Loading categories...</p>

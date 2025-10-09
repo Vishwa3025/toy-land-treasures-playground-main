@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import UseUser from "../hooks/UseUser";
 import { FaRegAddressCard, FaCity, FaFlag, FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn, MdOutlineLocalPostOffice, MdPerson } from "react-icons/md";
+import ToyBackground from "../components/ToyBackground";
 
 interface Address {
   id?: string;
@@ -97,9 +98,10 @@ const AddEditAddress: React.FC<AddEditAddressProps> = ({ setActiveSection }) => 
   };
 
   return (
-    <section className="p-6 flex justify-center items-center min-h-[60vh]">
+    <section className="p-6 flex justify-center items-center min-h-[60vh] relative">
+      <ToyBackground />
       <ToastContainer position="top-center" autoClose={3000} />
-      <div className="bg-pink-50 p-8 rounded-2xl shadow-xl max-w-xl w-full">
+      <div className="bg-pink-50 p-8 rounded-2xl shadow-xl max-w-xl w-full relative z-10">
         <h2 className="text-2xl font-bold text-pink-700 mb-6 text-center">
           {address.id ? "Edit Address" : "Add Address"}
         </h2>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import ProductCard from "./ProductCard";
+import ToyBackground from './ToyBackground';
 import { api } from "../utils/axiosInstance";
 
 interface Product {
@@ -45,8 +46,9 @@ const FeaturedProducts = () => {
   }
 
   return (
-    <section className="py-10 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="relative py-10 bg-background overflow-hidden">
+      <ToyBackground />
+      <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center bg-accent/10 rounded-full px-6 py-3 mb-6">

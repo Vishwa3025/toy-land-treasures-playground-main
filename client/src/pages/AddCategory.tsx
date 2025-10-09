@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FiUploadCloud } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ToyBackground from "../components/ToyBackground";
 
 interface CategoryFormData {
   name: string;
@@ -85,9 +86,10 @@ const AddCategory: React.FC = () => {
   };
 
   return (
-    <section id="add-category" className="section">
+    <section id="add-category" className="section relative">
+      <ToyBackground />
       <ToastContainer position="top-center" autoClose={3000} />
-      <div className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto">
+      <div className="bg-white rounded-xl shadow-xl p-8 max-w-3xl mx-auto relative z-10">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">
           Add New Category
         </h2>

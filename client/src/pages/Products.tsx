@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ToyBackground from "@/components/ToyBackground";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -82,10 +83,11 @@ const Products = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <ToyBackground />
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 relative z-10">
         {/* Page Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">

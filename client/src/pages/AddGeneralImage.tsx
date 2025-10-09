@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FiUploadCloud } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ToyBackground from "../components/ToyBackground";
 
 interface FormDataType {
   title: string;
@@ -79,9 +80,10 @@ const AddGeneralImage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-lg relative">
+      <ToyBackground />
       <ToastContainer position="top-center" autoClose={3000} />
-      <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4 relative z-10">
         Add General Image
       </h2>
 

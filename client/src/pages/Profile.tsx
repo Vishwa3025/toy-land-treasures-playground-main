@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User, Package, MapPin, LogOut, ShoppingBag } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ToyBackground from "@/components/ToyBackground";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
@@ -110,10 +111,11 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
+    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+      <ToyBackground />
       <Header />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">

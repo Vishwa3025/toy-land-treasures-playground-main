@@ -1,10 +1,10 @@
-import {
-  AiOutlineShopping,
+import{  AiOutlineShopping,
   AiOutlineShoppingCart,
   AiOutlineDollar,
 } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import { api, generalApi } from "../utils/axiosInstance";
+import ToyBackground from "../components/ToyBackground";
 
 const AdminDashboardPage: React.FC = () => {
   const [userCount, setUserCount] = useState<number>(0);
@@ -77,8 +77,9 @@ const AdminDashboardPage: React.FC = () => {
   }, []);
 
   return (
-    <section id="dashboard" className="section">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">
+    <section id="dashboard" className="section relative">
+      <ToyBackground />
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 relative z-10">
         Dashboard Overview
       </h1>
       {/* Dashboard Cards */}

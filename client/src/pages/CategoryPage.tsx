@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ToyBackground from "@/components/ToyBackground";
 import ProductCard from "@/components/ProductCard";
 import { useEffect, useState } from "react";
 import { api } from "../utils/axiosInstance";
@@ -57,10 +58,11 @@ const CategoryPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
+    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+      <ToyBackground />
       <Header />
 
-      <div className="container mx-auto px-4 py-6 sm:py-8">
+      <div className="container mx-auto px-4 py-6 sm:py-8 relative z-10">
         {/* Category Header */}
         <div className="text-center mb-10 sm:mb-16">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-baloo font-bold text-foreground">
