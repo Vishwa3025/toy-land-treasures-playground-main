@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ToyBackground from "../components/ToyBackground";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -113,7 +114,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30">
+    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+      <ToyBackground />
       <Header />
 
       <div className="container mx-auto px-4 py-20">

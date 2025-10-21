@@ -23,7 +23,7 @@ const Hero = () => {
               <span className="text-primary">Welcome to</span>
               <br />
               <span className="bg-gradient-to-r from-toy-yellow via-accent to-secondary bg-clip-text text-transparent animate-float">
-                F & S Toys
+                LittledreamersToys
               </span>
             </h1>
 

@@ -78,13 +78,13 @@ const Categories = () => {
 
         {/* Horizontal Scroll Categories */}
         <div
-          className="flex space-x-3 sm:space-x-4 overflow-x-auto lg:overflow-x-visible pb-4 snap-x snap-mandatory scrollbar-hide px-2 sm:px-0 lg:justify-center"
+          className="flex space-x-3 sm:space-x-8 overflow-x-auto lg:overflow-x-visible pb-4 snap-x snap-mandatory scrollbar-hide px-2 sm:px-0 lg:justify-center"
           style={{ overflowY: "hidden" }}
         >
           {categories.map((category, idx) => (
             <motion.div
               key={category.id}
-              className="min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[260px] rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-3 sm:p-5 md:p-6 text-center transition-transform duration-300 hover:-translate-y-2 bg-white"
+              className="min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[260px] rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-3 sm:p-5 md:p-6 text-center transition-transform duration-300 hover:-translate-y-2 bg-card/90"
               whileHover={{
                 scale: 1.06,
                 boxShadow: "0 0 30px hsl(var(--toy-yellow) / 0.3)",

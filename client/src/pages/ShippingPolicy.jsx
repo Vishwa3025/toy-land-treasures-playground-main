@@ -34,7 +34,7 @@ const ShippingPolicy = () => {
             {/* Intro */}
             <p className="text-lg text-muted-foreground leading-relaxed font-poppins mb-10">
               At{" "}
-              <span className="font-semibold text-primary">F & S Toys</span>,
+              <span className="font-semibold text-primary">LittledreamersToys</span>,
               your satisfaction is our priority. We aim to make your shopping
               experience delightful — from browsing our collection to unboxing
               your order.
@@ -116,7 +116,7 @@ const ShippingPolicy = () => {
             Your Joy, Delivered with Care 🎁
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins mb-8">
-            From our hands to your home — F & S Toys ensures every order is
+            From our hands to your home — LittledreamersToys ensures every order is
             packed with love, excitement, and the promise of happiness.
           </p>
           <a

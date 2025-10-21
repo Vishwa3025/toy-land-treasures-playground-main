@@ -38,7 +38,7 @@ const ResetPassword = () => {
   return (
     <>
       <div className="bg-black py-3 px-4">
-        {/* <img src={rawShadesLogo} alt="F & S toys" className="h-12" /> */}
+        {/* <img src={rawShadesLogo} alt="LittledreamersToys" className="h-12" /> */}
       </div>
       <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
         <ToastContainer position="top-center" />

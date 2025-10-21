@@ -21,7 +21,7 @@ const RefundPolicy = () => {
             Hassle-Free Returns & Refunds
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
-            At <span className="font-semibold text-primary">F & S Toys</span>, your happiness comes first!  
+            At <span className="font-semibold text-primary">LittledreamersToys</span>, your happiness comes first!  
             If something isn’t perfect, we’ll make it right with our simple return and refund process.
           </p>
         </div>

@@ -34,7 +34,7 @@ const Header = () => {
             </div>
             <div>
               <h1 className="text-2xl font-baloo font-bold text-primary">
-                F & S
+                Littledreamers
               </h1>
               <p className="text-sm text-accent font-baloo -mt-1">Toys</p>
             </div>

@@ -22,7 +22,7 @@ const TermsAndConditions = () => {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
-            Welcome to <span className="font-semibold text-foreground">F & S Toys</span>!  
+            Welcome to <span className="font-semibold text-foreground">LittledreamersToys</span>!  
             By shopping with us, you agree to the simple and transparent terms outlined below — built to protect both you and us.
           </p>
         </div>
@@ -73,7 +73,7 @@ const TermsAndConditions = () => {
                 <h3 className="text-2xl font-baloo font-bold text-secondary">🧠 Intellectual Property</h3>
                 <p className="text-muted-foreground font-poppins leading-relaxed">
                   All content, including images, text, and designs on this site,  
-                  belongs to <span className="font-semibold text-foreground">F & S Toys</span> and cannot be copied or reused  
+                  belongs to <span className="font-semibold text-foreground">LittledreamersToys</span> and cannot be copied or reused  
                   without written permission.
                 </p>
               </section>
@@ -117,7 +117,7 @@ const TermsAndConditions = () => {
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins leading-relaxed">
             Every toy we sell is backed by our promise of transparency, safety, and customer care.  
-            Thank you for trusting F & S Toys!
+            Thank you for trusting LittledreamersToys!
           </p>
         </div>
       </section>

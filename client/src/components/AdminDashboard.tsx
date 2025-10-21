@@ -87,7 +87,7 @@ const AdminDashboard: React.FC = () => {
       <nav className="text-white px-4 py-3 flex justify-between items-center fixed w-full top-0 bg-black z-50 shadow-md">
         {/* Left Logo */}
         <div onClick={handleHomeClick} className="cursor-pointer flex-shrink-0">
-          <img src={rawShadesLogo} alt="F & S toys" className="h-8 sm:h-10" />
+          <img src={rawShadesLogo} alt="LittledreamersToys" className="h-8 sm:h-10" />
         </div>
 
         {/* Center Logo (desktop only) */}

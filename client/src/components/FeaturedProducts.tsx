@@ -73,7 +73,7 @@ const FeaturedProducts = () => {
           {products.map((product, index) => (
             <div
               key={product.id}
-              className="animate-fade-in"
+              className="animate-fade-in bg-card/90 shadow-lg rounded-xl"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <ProductCard

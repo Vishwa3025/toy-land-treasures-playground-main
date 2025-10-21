@@ -30,7 +30,7 @@ exports.requestReturn = async (req, res) => {
     
     // Prepare email
     let mailOptions = {
-      from: `"F & S toys Returns" <${process.env.EMAIL_USER}>`,
+      from: `"LittledreamersToys Returns" <${process.env.EMAIL_USER}>`,
       replyTo: userEmail,
       to: "xxx@gmail.com",
       subject: "Return Request Received",

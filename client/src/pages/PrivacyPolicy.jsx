@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
-            Your privacy matters to us. At <span className="font-semibold">F & S Toys</span>, 
+            Your privacy matters to us. At <span className="font-semibold">LittledreamersToys</span>, 
             we’re committed to protecting your personal data and being transparent 
             about how we use it.
           </p>

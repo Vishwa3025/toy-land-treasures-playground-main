@@ -19,7 +19,7 @@ const About = () => {
             </div>
             
             <h1 className="text-4xl lg:text-6xl font-baloo font-bold text-foreground mb-6">
-              Welcome to F & S Toys
+              Welcome to LittledreamersToys
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
               Where magical childhood memories are born! We've been bringing joy to families 
@@ -39,7 +39,7 @@ const About = () => {
                   Our Mission
                 </h2>
                 <p className="text-lg text-muted-foreground font-poppins leading-relaxed mb-6">
-                  At F & S Toys, we believe that play is the foundation of learning, creativity, 
+                  At LittledreamersToys, we believe that play is the foundation of learning, creativity, 
                   and happiness. Our mission is to provide children with high-quality, safe, and 
                   engaging toys that nurture their development while bringing families together.
                 </p>
@@ -236,7 +236,7 @@ const About = () => {
               Ready to Create Magic?
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins mb-8">
-              Join thousands of happy families who trust F & S Toys for their 
+              Join thousands of happy families who trust LittledreamersToys for their 
               children's playtime adventures. Start your magical journey today!
             </p>
             

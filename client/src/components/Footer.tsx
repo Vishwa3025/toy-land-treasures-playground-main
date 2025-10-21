@@ -135,7 +135,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-wrap items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-muted-foreground font-poppins">
-              <span>© 2025 F & S Toys. All rights reserved.</span>
+              <span>© 2025 LittledreamersToys. All rights reserved.</span>
               <span className="hidden md:inline">|</span>
               <Link to="/privacy" className="hover:text-primary transition-colors">
                 Privacy Policy
