@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import ProductCard from "./ProductCard";
+import { Link } from "react-router-dom";
 import ToyBackground from './ToyBackground';
 import { api } from "../utils/axiosInstance";
 
@@ -117,10 +118,12 @@ const FeaturedProducts = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <Button variant="hero" size="lg">
-            View All Products
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
+          <Link to="/products">
+            <Button variant="hero" size="lg">
+              View All Products
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

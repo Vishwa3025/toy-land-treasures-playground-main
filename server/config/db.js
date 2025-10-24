@@ -7,9 +7,10 @@ const sequelize = new Sequelize(
     process.env.DB_PASSWORD,
     {
         host: process.env.DB_HOST,
-        dialect: "postgres", // or 'mysql', 'sqlite', etc.
-        port: process.env.DB_PORT || 5432, // Default PostgreSQL port
-        // port: process.env.DB_PORT || 3306,
+        dialect: "mysql", 
+        // dialect: "postgres", 
+        // port: process.env.DB_PORT || 5432, // Default PostgreSQL port
+        port: process.env.DB_PORT || 3306,
         pool: {
             max: 10,
             min: 0,

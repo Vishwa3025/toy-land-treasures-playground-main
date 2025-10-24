@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Link } from "react-router-dom";
 import { ArrowRight, Star, Gift } from 'lucide-react';
 import heroImage from '@/assets/hero-toys.jpg';
 import ToyBackground from './ToyBackground';
@@ -33,15 +34,18 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="hero" size="lg" className="group">
-                <Gift className="w-6 h-6 mr-2 group-hover:animate-wiggle" />
-                Shop Now
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              
-              <Button variant="outline" size="lg" className="font-baloo font-semibold">
-                Explore Categories
-              </Button>
+              <Link to='/products'>
+                <Button variant="hero" size="lg" className="group">
+                  <Gift className="w-6 h-6 mr-2 group-hover:animate-wiggle" />
+                  Shop Now
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+              <Link to='/categories'>
+                <Button variant="outline" size="lg" className="font-baloo font-semibold">
+                  Explore Categories
+                </Button>
+              </Link>
             </div>
 
             {/* Trust Badges */}

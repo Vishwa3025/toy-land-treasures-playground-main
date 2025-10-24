@@ -60,7 +60,6 @@ const Categories = () => {
       {location.pathname !== "/" && <Header />}
 
       <div className="container mx-auto px-4 relative z-10">
-
         {/* Section Header - Playful, improved design */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-100 via-pink-100 to-blue-100 rounded-full px-6 py-2 mb-4 shadow-lg">
@@ -124,14 +123,16 @@ const Categories = () => {
         </div>
 
         {/* View All Button */}
-        <div className="text-center mt-10">
-          <Link to="/categories">
-            <Button variant="hero" size="lg">
-              View All Categories <span className="ml-1">🎲</span>
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          </Link>
-        </div>
+        {location.pathname == "/" && (
+          <div className="text-center mt-10">
+            <Link to="/categories">
+              <Button variant="hero" size="lg">
+                View All Categories <span className="ml-1">🎲</span>
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
