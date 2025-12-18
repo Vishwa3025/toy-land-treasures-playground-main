@@ -22,7 +22,7 @@ const PrivacyPolicy = () => {
           </h1>
 
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
-            Your privacy matters to us. At <span className="font-semibold">LittledreamersToys</span>, 
+            Your privacy matters to us. At <span className="font-semibold">FS Toys Factory</span>, 
             we’re committed to protecting your personal data and being transparent 
             about how we use it.
           </p>
@@ -104,10 +104,10 @@ const PrivacyPolicy = () => {
                 <div className="mt-4 flex items-center text-primary font-poppins">
                   <Mail className="w-5 h-5 mr-2" />
                   <a
-                    href="mailto:hellofstoys@gmail.com"
+                    href="mailto:support@fstoysfactory.com"
                     className="underline hover:text-accent transition-colors"
                   >
-                    hellofstoys@gmail.com
+                    support@fstoysfactory.com
                   </a>
                 </div>
               </section>

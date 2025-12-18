@@ -108,7 +108,7 @@ router.post("/login", async (req, res) => {
             httpOnly: true,  // Ensure it's HTTP-only for security
             secure: process.env.NODE_ENV === 'production', // Set secure cookie only for HTTPS in production
             sameSite: "Strict", // Prevent CSRF attacks
-            maxAge: 60 * 60 * 1000, // ✅ 5 days in milliseconds
+            maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
         });
 
         res.json({
@@ -155,10 +155,10 @@ router.post("/forgot-password", async (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: user.email,
-            subject: "Reset Your Password - LittledreamersToys",
+            subject: "Reset Your Password - FS Toys Factory",
             html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-                <h2 style="color: #e76f51;">LittledreamersToys</h2>
+                <h2 style="color: #e76f51;">FS Toys Factory</h2>
                 <p>Dear ${user.name || "User"},</p>
                 <p>We received a request to reset your password. If you made this request, please click the button below to set a new password:</p>
                 <p style="text-align: center; margin: 20px 0;">
@@ -169,7 +169,7 @@ router.post("/forgot-password", async (req, res) => {
                 <p>This link will expire in 15 minutes for your security.</p>
                 <p>If you did not request a password reset, please ignore this email or contact our support team.</p>
                 <br/>
-                <p>Warm regards,<br/>TheLittledreamersToys</p>
+                <p>Warm regards,<br/>FS Toys Factory</p>
                 </div>
             `,
         };

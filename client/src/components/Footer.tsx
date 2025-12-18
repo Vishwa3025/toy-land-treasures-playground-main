@@ -18,8 +18,8 @@ const Footer = () => {
                 <span className="text-xl sm:text-2xl">🧸</span>
               </div>
               <div>
-                <h1 className="text-lg sm:text-2xl font-baloo font-bold text-primary">F & S</h1>
-                <p className="text-xs sm:text-sm text-accent font-baloo -mt-1">Toys</p>
+                <h1 className="text-lg sm:text-2xl font-baloo font-bold text-primary">FS Toys</h1>
+                <p className="text-xs sm:text-sm text-accent font-baloo -mt-1">Factory</p>
               </div>
             </Link>
             
@@ -105,7 +105,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce-slow" />
-                <span className="font-poppins">hello@f&stoys.com</span>
+                <span className="font-poppins">support@fstoysfactory.com</span>
               </div>
               <div className="flex items-start space-x-3 text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mt-1 group-hover:animate-bounce-slow" />
@@ -135,7 +135,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-wrap items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-muted-foreground font-poppins">
-              <span>© 2025 LittledreamersToys. All rights reserved.</span>
+              <span>© 2025 FS Toys Factory. All rights reserved.</span>
               <span className="hidden md:inline">|</span>
               <Link to="/privacy" className="hover:text-primary transition-colors">
                 Privacy Policy

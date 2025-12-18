@@ -34,7 +34,7 @@ const ShippingPolicy = () => {
             {/* Intro */}
             <p className="text-lg text-muted-foreground leading-relaxed font-poppins mb-10">
               At{" "}
-              <span className="font-semibold text-primary">LittledreamersToys</span>,
+              <span className="font-semibold text-primary">FS Toys Factory</span>,
               your satisfaction is our priority. We aim to make your shopping
               experience delightful — from browsing our collection to unboxing
               your order.
@@ -95,10 +95,10 @@ const ShippingPolicy = () => {
                     Have questions about your order or shipping status? We're
                     here to help! Reach us anytime at{" "}
                     <a
-                      href="mailto:hellofstoys@gmail.com"
+                      href="mailto:support@fstoysfactory.com"
                       className="text-blue-500 font-medium underline hover:text-blue-400"
                     >
-                      hellofstoys@gmail.com
+                      support@fstoysfactory.com
                     </a>
                     .
                   </p>
@@ -116,7 +116,7 @@ const ShippingPolicy = () => {
             Your Joy, Delivered with Care 🎁
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins mb-8">
-            From our hands to your home — LittledreamersToys ensures every order is
+            From our hands to your home — FS Toys Factory ensures every order is
             packed with love, excitement, and the promise of happiness.
           </p>
           <a

@@ -115,7 +115,7 @@ const Checkout = () => {
         amount: razorpayOrder.amount,
         currency: "INR",
         order_id: razorpayOrder.id,
-        name: "LittledreamersToys",
+        name: "FS Toys Factory",
         description: "Order Payment",
         handler: async (response: any) => {
           try {
@@ -276,9 +276,19 @@ const Checkout = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-center text-pink-500">
-                    No addresses found.
-                  </p>
+                  <>
+                    <p className="text-center text-pink-500">
+                      No addresses found.
+                    </p>
+                    {user?.name && (
+                      <Link
+                        to="/profile"
+                        className="block text-blue-900 text-center font-medium my-2 rounded-lg hover:underline"
+                      >
+                        Add Address
+                      </Link>
+                    )}
+                  </>
                 )}
               </CardContent>
             </Card>

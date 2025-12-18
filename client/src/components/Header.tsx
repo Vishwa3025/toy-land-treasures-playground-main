@@ -5,6 +5,7 @@ import UseUser from "../hooks/UseUser";
 import { ShoppingCart, Search, Menu, X, Heart, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import useCartStore from "../store/CartStore";
+import logo from "../assets/logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,15 +29,15 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 hover-bounce">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-toy-yellow rounded-2xl flex items-center justify-center animate-wiggle">
-              <span className="text-2xl">🧸</span>
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-toy-yellow rounded-2xl flex items-center justify-center">
+              <img src={logo} alt="FS Toys Logo" className="text-2xl" />
             </div>
             <div>
               <h1 className="text-2xl font-baloo font-bold text-primary">
-                Littledreamers
+                FS Toys
               </h1>
-              <p className="text-sm text-accent font-baloo -mt-1">Toys</p>
+              <p className="text-sm text-accent font-baloo -mt-1">Factory</p>
             </div>
           </Link>
 

@@ -21,7 +21,7 @@ const RefundPolicy = () => {
             Hassle-Free Returns & Refunds
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
-            At <span className="font-semibold text-primary">LittledreamersToys</span>, your happiness comes first!  
+            At <span className="font-semibold text-primary">FS Toys Factory</span>, your happiness comes first!  
             If something isn’t perfect, we’ll make it right with our simple return and refund process.
           </p>
         </div>
@@ -135,8 +135,8 @@ const RefundPolicy = () => {
                 <div className="space-y-3 mt-4">
                   <div className="flex items-center">
                     <Mail className="w-5 h-5 mr-2 text-primary" />
-                    <a href="mailto:hellofstoys@gmail.com" className="underline hover:text-accent transition-colors">
-                      hellofstoys@gmail.com
+                    <a href="mailto:support@fstoysfactory.com" className="underline hover:text-accent transition-colors">
+                      support@fstoysfactory.com
                     </a>
                   </div>
                   <div className="flex items-center">

@@ -6,7 +6,7 @@ const testimonials = [
     name: 'Sarah Johnson',
     rating: 5,
     review:
-      "LittledreamersToys has the best selection! My daughter loves her new doll. Great quality and fast shipping!",
+      "FS Toys Factory has the best selection! My daughter loves her new doll. Great quality and fast shipping!",
     avatar: '👩',
     highlight: 'Amazing quality & fast shipping!',
   },
@@ -52,7 +52,7 @@ const Testimonials = () => {
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-poppins">
             Don't just take our word for it! Hear from the families who've experienced
-            the magic of LittledreamersToys.
+            the magic of FS Toys Factory.
           </p>
         </div>
 
