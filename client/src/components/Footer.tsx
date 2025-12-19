@@ -1,16 +1,23 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Facebook, Instagram, Twitter, Youtube, Heart, Mail, Phone, MapPin } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Heart,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-b from-background to-toy-cream/20 border-t-2 border-toy-cream">
-      
       {/* Main Footer */}
       <div className="container mx-auto px-4 py-12 sm:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12">
-          
           {/* Company Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center space-x-2 hover-bounce">
@@ -18,27 +25,51 @@ const Footer = () => {
                 <span className="text-xl sm:text-2xl">🧸</span>
               </div>
               <div>
-                <h1 className="text-lg sm:text-2xl font-baloo font-bold text-primary">FS Toys</h1>
-                <p className="text-xs sm:text-sm text-accent font-baloo -mt-1">Factory</p>
+                <h1 className="text-lg sm:text-2xl font-baloo font-bold text-primary">
+                  {" "}
+                  <span className="text-orange-600">F</span>
+                  <span className="text-white">S</span>{" "}
+                  <span className="text-white">Toys</span>
+                </h1>
+                <p className="text-xs sm:text-sm text-accent font-baloo -mt-1">
+                  Factory
+                </p>
               </div>
             </Link>
-            
-            <p className="text-xs sm:text-sm md:text-base text-muted-foreground font-poppins leading-relaxed">
-              Bringing joy and wonder to children worldwide through magical toys that spark imagination and create unforgettable memories.
+
+            <p className="text-xs sm:text-sm md:text-base text-foreground font-poppins leading-relaxed">
+              Bringing joy and wonder to children worldwide through magical toys
+              that spark imagination and create unforgettable memories.
             </p>
 
             {/* Social Media */}
             <div className="flex space-x-3">
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce"
+              >
                 <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce"
+              >
                 <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce"
+              >
                 <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-full hover:bg-primary hover:text-primary-foreground hover-bounce"
+              >
                 <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
             </div>
@@ -51,10 +82,16 @@ const Footer = () => {
               Quick Links
             </h3>
             <nav className="flex flex-col space-y-2">
-              <Link to="/products" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/products"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 All Toys
               </Link>
-              <Link to="/categories" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/categories"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 Categories
               </Link>
             </nav>
@@ -67,22 +104,40 @@ const Footer = () => {
               Help & Support
             </h3>
             <nav className="flex flex-col space-y-2">
-              <Link to="/about" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/about"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 About Us
               </Link>
-              <Link to="/contact" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/contact"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 Contact Us
               </Link>
-              <Link to="/shipping-policy" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/shipping-policy"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 Shipping Info
               </Link>
-              <Link to="/refund-policy" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/refund-policy"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 Refund Policy
               </Link>
-              <Link to="/privacy-policy" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/privacy-policy"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link to="/terms-and-conditions" className="text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary font-poppins hover-bounce transition-colors">
+              <Link
+                to="/terms-and-conditions"
+                className="text-xs sm:text-sm md:text-base text-foreground hover:text-primary font-poppins hover-bounce transition-colors"
+              >
                 Terms & Conditions
               </Link>
             </nav>
@@ -95,22 +150,23 @@ const Footer = () => {
               Get in Touch
             </h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group">
+              <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-foreground hover:text-primary transition-colors group">
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-wiggle" />
                 <span className="font-poppins">+91 73389 42533</span>
               </div>
-              <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group">
+              <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-foreground hover:text-primary transition-colors group">
                 <FaWhatsapp className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-wiggle" />
                 <span className="font-poppins">+91 95661 58201</span>
               </div>
-              <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group">
+              <div className="flex items-center space-x-3 text-xs sm:text-sm md:text-base text-foreground hover:text-primary transition-colors group">
                 <Mail className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce-slow" />
                 <span className="font-poppins">support@fstoysfactory.com</span>
               </div>
-              <div className="flex items-start space-x-3 text-xs sm:text-sm md:text-base text-muted-foreground hover:text-primary transition-colors group">
+              <div className="flex items-start space-x-3 text-xs sm:text-sm md:text-base text-foreground hover:text-primary transition-colors group">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mt-1 group-hover:animate-bounce-slow" />
                 <span className="font-poppins">
-                  46, Agatheeswarar Kovil St,<br />
+                  46, Agatheeswarar Kovil St,
+                  <br />
                   Mahalakshmi Nagar, Kolapakkam, Chennai 600122.
                 </span>
               </div>
@@ -122,7 +178,7 @@ const Footer = () => {
                 <span className="text-lg sm:text-xl mr-2">🕐</span>
                 Store Hours
               </h4>
-              <div className="text-xs sm:text-sm md:text-base text-muted-foreground font-poppins space-y-1">
+              <div className="text-xs sm:text-sm md:text-base text-foreground font-poppins space-y-1">
                 <div>All Days: 10AM - 9PM</div>
               </div>
             </div>
@@ -134,18 +190,24 @@ const Footer = () => {
       <div className="border-t border-toy-cream bg-toy-cream/10">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex flex-wrap items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-muted-foreground font-poppins">
+            <div className="flex flex-wrap items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-foreground font-poppins">
               <span>© 2025 FS Toys Factory. All rights reserved.</span>
               <span className="hidden md:inline">|</span>
-              <Link to="/privacy" className="hover:text-primary transition-colors">
+              <Link
+                to="/privacy"
+                className="hover:text-primary transition-colors"
+              >
                 Privacy Policy
               </Link>
               <span>|</span>
-              <Link to="/terms" className="hover:text-primary transition-colors">
+              <Link
+                to="/terms"
+                className="hover:text-primary transition-colors"
+              >
                 Terms of Service
               </Link>
             </div>
-            
+
             <div className="flex items-center space-x-1 sm:space-x-2 text-xs sm:text-sm md:text-base text-primary font-poppins">
               <span>Made with</span>
               <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-primary animate-bounce-slow fill-current" />

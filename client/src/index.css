@@ -8,132 +8,77 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Base Colors */
-    --background: 43 100% 97%; /* Cream white background */
-    --foreground: 220 25% 20%; /* Dark blue-gray for text */
+    /* ===== Base ===== */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-    /* Card & Surface Colors */
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 220 25% 20%;
+    /* ===== Cards (LIGHT ORANGE, NOT WHITE) ===== */
+    --card: 32 100% 94%;            /* #FFF3E6 */
+    --card-foreground: 20 15% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 20%;
+    --popover: 32 100% 94%;
+    --popover-foreground: 20 15% 10%;
 
-    /* Primary Colors - Coral Red */
-    --primary: 6 100% 69%; /* #FF6F61 Coral Red */
+    /* ===== Brand Orange ===== */
+    --primary: 24 100% 55%;         /* #FF6A00 */
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary Colors - Sky Blue */
-    --secondary: 217 100% 66%; /* #4D96FF Sky Blue */
-    --secondary-foreground: 0 0% 100%;
+    /* ===== Soft Accent Orange ===== */
+    --accent: 32 100% 63%;          /* #FF9F45 */
+    --accent-foreground: 0 0% 0%;
 
-    /* Muted Colors - Light Pink */
-    --muted: 8 100% 92%; /* #FFE4E1 Light Pink */
-    --muted-foreground: 220 25% 45%;
+    /* ===== Muted ===== */
+      --muted: 0 0% 2%;          /* almost black */
+      --muted-foreground: 0 0% 5%;
 
-    /* Accent Colors - Mint Green */
-    --accent: 137 60% 58%; /* #6BCB77 Mint Green */
-    --accent-foreground: 0 0% 100%;
 
-    /* Destructive Colors */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    /* ===== Secondary ===== */
+    --secondary: 32 100% 50%;
+    --secondary-foreground: 0 0% 0%;
 
-    /* Interactive Elements */
-    --border: 43 50% 90%;
-    --input: 43 50% 95%;
-    --ring: 6 100% 69%;
+    /* ===== Borders / Inputs ===== */
+    --border: 28 90% 85%;
+    --input: 28 90% 85%;
+    --ring: 24 100% 55%;
 
-    /* Design System Tokens */
-    --radius: 1rem; /* More rounded for playful feel */
+    --radius: 1.25rem;
 
-    /* ToyLand Custom Colors */
-    --toy-yellow: 51 100% 59%; /* #FFD93D Yellow */
-    --toy-yellow-foreground: 220 25% 20%;
-    
-    --toy-mint: 137 60% 58%; /* #6BCB77 Mint Green */
+    /* ===== Toy Palette (REAL COLORS) ===== */
+    --toy-yellow: 45 100% 55%;
+    --toy-yellow-foreground: 0 0% 0%;
+
+    --toy-mint: 160 60% 45%;
     --toy-mint-foreground: 0 0% 100%;
-    
-    --toy-sky: 217 100% 66%; /* #4D96FF Sky Blue */
+
+    --toy-sky: 200 90% 55%;
     --toy-sky-foreground: 0 0% 100%;
-    
-    --toy-cream: 51 100% 87%; /* #FFF5C3 Cream Yellow */
-    --toy-cream-foreground: 220 25% 20%;
-    
-    --toy-pale-blue: 199 100% 87%; /* #C1EFFF Pale Blue */
-    --toy-pale-blue-foreground: 220 25% 20%;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--toy-yellow)) 50%, hsl(var(--accent)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--toy-cream)) 100%);
-    --gradient-button: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.8) 100%);
+    --toy-cream: 32 100% 94%;
+    --toy-cream-foreground: 20 15% 10%;
 
-    /* Shadows */
-    --shadow-playful: 0 8px 32px hsl(var(--primary) / 0.15);
-    --shadow-toy: 0 4px 20px hsl(var(--accent) / 0.2);
-    --shadow-glow: 0 0 30px hsl(var(--toy-yellow) / 0.3);
+    --toy-pale-blue: 210 100% 90%;
+    --toy-pale-blue-foreground: 210 30% 20%;
 
-    /* Animation Variables */
-    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* ===== Gradients ===== */
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--primary)) 0%,
+      hsl(var(--accent)) 60%,
+      hsl(var(--toy-yellow)) 100%
+    );
 
-    --sidebar-background: 0 0% 98%;
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(var(--card)) 0%,
+      hsl(var(--toy-cream)) 100%
+    );
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    /* Dark mode with playful colors */
-    --background: 220 25% 8%; /* Dark blue-gray */
-    --foreground: 43 100% 97%;
-
-    --card: 220 25% 12%;
-    --card-foreground: 43 100% 97%;
-
-    --popover: 220 25% 12%;
-    --popover-foreground: 43 100% 97%;
-
-    --primary: 6 100% 69%; /* Keep coral red bright */
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217 100% 66%; /* Keep sky blue bright */
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 220 25% 18%;
-    --muted-foreground: 43 50% 75%;
-
-    --accent: 137 60% 58%; /* Keep mint green bright */
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 25% 20%;
-    --input: 220 25% 18%;
-    --ring: 6 100% 69%;
-
-    /* Dark mode toy colors */
-    --toy-yellow: 51 100% 65%;
-    --toy-cream: 51 50% 25%;
-    --toy-pale-blue: 199 50% 25%;
-
-    /* Dark gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--toy-yellow)) 50%, hsl(var(--accent)) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--toy-cream)) 100%);
+    /* ===== Shadows ===== */
+    --shadow-toy: 0 10px 30px hsl(var(--primary) / 0.25);
+    --shadow-playful: 0 20px 40px hsl(var(--primary) / 0.35);
   }
 }
+
 
 @layer base {
   * {

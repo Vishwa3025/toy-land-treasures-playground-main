@@ -196,7 +196,7 @@ const AddProduct: React.FC = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+              className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter product name"
               required
             />
@@ -212,7 +212,7 @@ const AddProduct: React.FC = () => {
                 name="category_id"
                 value={formData.category_id}
                 onChange={handleCategoryChange}
-                className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+                className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
                 required
               >
                 <option value="">Select product category</option>
@@ -233,7 +233,7 @@ const AddProduct: React.FC = () => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg h-28 focus:ring focus:ring-blue-200 outline-none"
+              className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg h-28 focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter product description"
               required
             ></textarea>
@@ -249,7 +249,7 @@ const AddProduct: React.FC = () => {
               name="strikedPrice"
               value={formData.strikedPrice}
               onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+              className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter Striked price"
               required
             />
@@ -265,7 +265,7 @@ const AddProduct: React.FC = () => {
               name="price"
               value={formData.price}
               onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+              className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter price"
               required
             />
@@ -281,7 +281,7 @@ const AddProduct: React.FC = () => {
               name="discount"
               value={formData.discount}
               readOnly
-              className="form-input p-3 bg-gray-100 border border-gray-300 rounded-lg outline-none"
+              className="form-input p-3 bg-gray-100 border  text-muted-foreground border-gray-300 rounded-lg outline-none"
               placeholder="Auto-calculated"
             />
           </div>
@@ -319,7 +319,7 @@ const AddProduct: React.FC = () => {
               name="stock"
               value={formData.stock}
               onChange={handleChange}
-              className="form-input py-2 px-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+              className="form-input py-2 px-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter stock quantity"
               required
             />

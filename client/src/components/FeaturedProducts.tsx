@@ -62,7 +62,7 @@ const FeaturedProducts = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
             Most Loved Toys
           </h2>
-          <p className="text-sm md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto font-poppins">
+          <p className="text-sm md:text-lg lg:text-xl text-foreground max-w-2xl mx-auto font-poppins">
             Discover our most popular toys that bring smiles to children's faces
             every day. These magical treasures are loved by kids and trusted by
             parents!
@@ -101,7 +101,7 @@ const FeaturedProducts = () => {
             </span>
           </div>
 
-          <p className="text-sm sm:text-base md:text-lg text-muted-foreground mb-4 sm:mb-6 font-poppins max-w-md sm:max-w-xl md:max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-foreground mb-4 sm:mb-6 font-poppins max-w-md sm:max-w-xl md:max-w-2xl mx-auto">
             Get amazing deals on our featured toys! Limited time offers that
             make every purchase extra special.
           </p>

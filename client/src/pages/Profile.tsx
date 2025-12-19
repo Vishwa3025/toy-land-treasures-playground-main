@@ -130,17 +130,17 @@ const Profile = () => {
         </div>
 
         {/* Profile Tabs */}
-        <Card className="toy-shadow bg-card/80 backdrop-blur-sm">
+        <Card className="toy-shadow bg-card/30 backdrop-blur-sm">
           <Tabs defaultValue={defaultTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-3 bg-black/5 border border-black/10 rounded-full">
               <TabsTrigger value="profile" className="flex items-center gap-2">
-                <User className="w-4 h-4" /> Profile
+                <User className="w-4 h-4 text-foreground" /> <p className="text-foreground">Profile</p>
               </TabsTrigger>
               <TabsTrigger value="orders" className="flex items-center gap-2">
-                <Package className="w-4 h-4" /> Orders ({orders.length})
+                <Package className="w-4 h-4 text-foreground" /> <p className="text-foreground">Orders ({orders.length})</p> 
               </TabsTrigger>
               <TabsTrigger value="address" className="flex items-center gap-2">
-                <MapPin className="w-4 h-4" /> Address
+                <MapPin className="w-4 h-4 text-foreground" /> <p className="text-foreground">Address</p>
               </TabsTrigger>
             </TabsList>
 
@@ -153,14 +153,14 @@ const Profile = () => {
                 <h2 className="text-2xl font-baloo font-bold text-foreground">
                   {user.name}
                 </h2>
-                <p className="text-muted-foreground font-poppins">
+                <p className="text-foreground font-poppins">
                   {user.email}
                 </p>
 
                 <Button
                   onClick={handleLogout}
                   variant="outline"
-                  className="mt-6 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                  className="mt-6 text-primary hover:bg-destructive hover:text-destructive-foreground"
                 >
                   <LogOut className="w-4 h-4 mr-2" />
                   Logout
@@ -170,11 +170,11 @@ const Profile = () => {
 
             {/* Orders Tab */}
             <TabsContent value="orders" className="p-4 sm:p-6">
-              <div className="bg-white rounded-xl shadow-xl p-4 sm:p-8 max-w-5xl mx-auto">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 my-2 sm:mb-6">
+              <div className="bg-black/5 rounded-xl shadow-xl p-4 sm:p-8 max-w-5xl mx-auto">
+                <h2 className="text-2xl sm:text-3xl font-bold text-foreground my-2 sm:mb-6">
                   My Orders
                 </h2>
-                <p className="text-sm text-gray-600 my-3">
+                <p className="text-sm text-foreground/70 my-3">
                   To cancel an order, mail to{" "}
                   <span className="font-medium">xxx@gmail.com</span>
                 </p>
@@ -182,7 +182,7 @@ const Profile = () => {
                 {error && <p className="text-red-500">{error}</p>}
 
                 {/* Header Row for desktop */}
-                <div className="hidden md:grid grid-cols-7 gap-4 p-4 bg-orange-200 rounded-lg font-semibold text-gray-700">
+                <div className="hidden md:grid grid-cols-7 gap-4 p-4 bg-black/10 rounded-lg font-semibold text-foreground">
                   <div className="px-4">S.No</div>
                   <div className="px-4">Name</div>
                   <div className="px-4">Price</div>
@@ -216,7 +216,7 @@ const Profile = () => {
                     orders.map((order, index) => (
                       <div
                         key={order.id}
-                        className="rounded-lg overflow-hidden border border-gray-200"
+                        className="rounded-lg overflow-hidden border border-black/10"
                       >
                         {/* Order Summary */}
                         <div
@@ -226,10 +226,10 @@ const Profile = () => {
                           {/* Mobile view */}
                           <div className="md:hidden flex justify-between w-full">
                             <div>
-                              <h3 className="font-semibold text-gray-800">
-                                Order #{orders.length - index}
+                                <h3 className="font-semibold text-foreground">
+                                  Order #{orders.length - index}
                               </h3>
-                              <p className="text-sm text-gray-600">
+                              <div className="p-4 bg-gray-100 rounded-lg">
                                 ₹ {order.total_price} |{" "}
                                 {new Date(order.createdAt).toLocaleString(
                                   "en-IN",
@@ -244,7 +244,7 @@ const Profile = () => {
                                     hour12: false,
                                   }
                                 )}
-                              </p>
+                              </div>
                               <p className="flex items-center text-green-600 text-sm">
                                 <span className="w-3 h-3 bg-green-500 rounded-full mr-1"></span>
                                 {order.status === "Delivered"
@@ -340,7 +340,7 @@ const Profile = () => {
                                 }
                               )}
                             </span>
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-foreground/60">
                               {new Date(order.createdAt).toLocaleTimeString(
                                 "en-GB",
                                 {
@@ -408,85 +408,85 @@ const Profile = () => {
                   }}
                 />
               ) : address ? (
-                <Card className="p-6 bg-pink-50 rounded-2xl shadow-md max-w-3xl mx-auto">
-                  <h2 className="text-xl font-bold mb-6 text-pink-700 text-center">
+                <Card className="p-6 bg-black/5 rounded-2xl shadow-md max-w-3xl mx-auto">
+                  <h2 className="text-xl font-bold mb-6 text-foreground text-center">
                     Your Address
                   </h2>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex items-center gap-2">
-                      <MdPerson className="text-pink-600" />
+                      <MdPerson className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">Full Name</p>
-                        <p>{address.full_name}</p>
+                        <p className="text-sm text-foreground font-semibold">Full Name</p>
+                        <p className="text-foreground">{address.full_name}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <FaRegAddressCard className="text-pink-600" />
+                      <FaRegAddressCard className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">Address Line 1</p>
-                        <p>{address.address_line1}</p>
+                        <p className="text-sm text-foreground font-semibold">Address Line 1</p>
+                        <p className="text-foreground">{address.address_line1}</p>
                       </div>
                     </div>
 
                     {address.address_line2 && (
                       <div className="flex items-center gap-2 sm:col-span-2">
-                        <FaRegAddressCard className="text-pink-600" />
+                        <FaRegAddressCard className="text-orange-600" />
                         <div>
-                          <p className="text-sm font-semibold">
+                          <p className="text-sm text-foreground font-semibold">
                             Address Line 2
                           </p>
-                          <p>{address.address_line2}</p>
+                          <p className="text-foreground">{address.address_line2}</p>
                         </div>
                       </div>
                     )}
 
                     <div className="flex items-center gap-2">
-                      <FaCity className="text-pink-600" />
+                      <FaCity className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">City</p>
-                        <p>{address.city}</p>
+                        <p className="text-sm text-foreground font-semibold">City</p>
+                        <p className="text-foreground">{address.city}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <MdLocationOn className="text-pink-600" />
+                      <MdLocationOn className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">State</p>
-                        <p>{address.state}</p>
+                        <p className="text-sm text-foreground font-semibold">State</p>
+                        <p className="text-foreground">{address.state}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <MdOutlineLocalPostOffice className="text-pink-600" />
+                      <MdOutlineLocalPostOffice className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">Postal Code</p>
-                        <p>{address.postal_code}</p>
+                        <p className="text-sm text-foreground font-semibold">Postal Code</p>
+                        <p className="text-foreground">{address.postal_code}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <FaFlag className="text-pink-600" />
+                      <FaFlag className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">Country</p>
-                        <p>{address.country}</p>
+                        <p className="text-sm text-foreground font-semibold">Country</p>
+                        <p className="text-foreground">{address.country}</p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <FaPhoneAlt className="text-pink-600" />
+                      <FaPhoneAlt className="text-orange-600" />
                       <div>
-                        <p className="text-sm font-semibold">Phone</p>
-                        <p>{address.phone}</p>
+                        <p className="text-sm text-foreground font-semibold">Phone</p>
+                        <p className="text-foreground">{address.phone}</p>
                       </div>
                     </div>
 
                     <div className="sm:col-span-2 flex justify-between text-xs text-gray-500 mt-4">
-                      <span>
+                      <span className="text-foreground">
                         Created: {new Date(address.createdAt).toLocaleString()}
                       </span>
-                      <span>
+                      <span className="text-foreground">
                         Updated: {new Date(address.updatedAt).toLocaleString()}
                       </span>
                     </div>
@@ -495,7 +495,7 @@ const Profile = () => {
                   <Button
                     onClick={() => setShowAddressForm(true)}
                     variant="outline"
-                    className="mt-6 border-pink-400 text-pink-700 hover:bg-pink-100 w-full sm:w-auto"
+                    className="mt-6 bg-orannge-700 text-primary w-full sm:w-auto"
                   >
                     Edit Address
                   </Button>
@@ -503,7 +503,7 @@ const Profile = () => {
               ) : (
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4 opacity-50">🏠</div>
-                  <h3 className="text-2xl font-baloo font-bold text-pink-700 mb-4">
+                  <h3 className="text-2xl font-baloo font-bold text-foreground mb-4">
                     No Address Found
                   </h3>
                   <Button

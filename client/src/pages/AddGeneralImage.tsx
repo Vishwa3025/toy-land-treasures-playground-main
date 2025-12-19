@@ -95,7 +95,7 @@ const AddGeneralImage: React.FC = () => {
           value={formData.title}
           onChange={handleChange}
           placeholder="Image Title"
-          className="form-input w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+          className="form-input w-full p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
           required
         />
 

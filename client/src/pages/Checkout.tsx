@@ -10,6 +10,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import OrderSuccess from "./OrderSuccess";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import ToyBackground from "@/components/ToyBackground";
 
 // Add Razorpay type to the Window interface
 declare global {
@@ -179,23 +180,24 @@ const Checkout = () => {
     );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-pink-100">
+    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+      <ToyBackground />
       <Header />
       <ToastContainer position="top-center" autoClose={3000} />
 
       <div className="container mx-auto px-4 py-12">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center bg-pink-200 rounded-full px-6 py-3 mb-6 animate-bounce">
+          <div className="inline-flex items-center bg-primary rounded-full px-6 py-3 mb-6 animate-bounce">
             <span className="text-2xl mr-2">🎁</span>
-            <span className="text-pink-700 font-bold text-lg">
+            <span className="text-foreground font-bold text-lg">
               Secure Checkout
             </span>
           </div>
-          <h1 className="text-4xl font-bold text-pink-800 mb-2">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
             Almost There!
           </h1>
-          <p className="text-lg text-pink-600">
+          <p className="text-lg text-foreground">
             Complete your magical toy order
           </p>
         </div>
@@ -204,9 +206,9 @@ const Checkout = () => {
           {/* Left Section - Order & Address */}
           <div className="lg:w-2/3 space-y-6">
             {/* Order Items */}
-            <Card className="bg-pink-50 shadow-md">
+            <Card className="bg-card/20 shadow-md">
               <CardHeader>
-                <CardTitle className="text-xl font-bold text-pink-700">
+                <CardTitle className="text-xl font-bold text-foreground">
                   Your Order
                 </CardTitle>
               </CardHeader>
@@ -223,19 +225,19 @@ const Checkout = () => {
                         className="w-12 h-12 rounded-md object-cover"
                       />
                       <div>
-                        <h3 className="text-md font-semibold text-pink-700">
+                        <h3 className="text-md font-semibold text-foreground">
                           {item.Product?.name}
                         </h3>
 
-                        <p className="text-xs text-pink-600">
+                        <p className="text-xs text-foreground">
                           Color: {item.color}
                         </p>
-                        <p className="text-xs font-semibold">
+                        <p className="text-xs text-foreground font-semibold">
                           Qty: {item.quantity}
                         </p>
                       </div>
                     </div>
-                    <span className="font-medium text-pink-700">
+                    <span className="font-medium text-foreground">
                       ₹ {getPriceBySize(item.Product?.price) * item.quantity}
                     </span>
                   </div>
@@ -244,9 +246,9 @@ const Checkout = () => {
             </Card>
 
             {/* Delivery Address */}
-            <Card className="bg-pink-50 shadow-md">
+            <Card className="bg-card/20 shadow-md">
               <CardHeader>
-                <CardTitle className="text-xl font-bold text-pink-700">
+                <CardTitle className="text-xl font-bold text-foreground">
                   Delivery Address
                 </CardTitle>
               </CardHeader>
@@ -254,18 +256,18 @@ const Checkout = () => {
                 {address.length > 0 ? (
                   address.map((addr) => (
                     <div key={addr.id} className="mb-4">
-                      <p className="font-semibold text-pink-700">
+                      <p className="font-semibold text-foreground">
                         {addr.full_name}
                       </p>
-                      <p className="text-pink-600">{addr.address_line1}</p>
-                      <p className="text-pink-600">
+                      <p className="text-foreground">{addr.address_line1}</p>
+                      <p className="text-foreground">
                         {addr.city}, {addr.state}, {addr.country}
                       </p>
-                      <p className="text-pink-600">{addr.postal_code}</p>
+                      <p className="text-foreground">{addr.postal_code}</p>
                       <button
                         onClick={handleCheckout}
                         disabled={isLoading}
-                        className="mt-4 w-full bg-pink-700 hover:bg-pink-800 text-white py-2 rounded-md font-semibold"
+                        className="mt-4 w-full bg-primary hover:bg-primary/80 text-white py-2 rounded-md font-semibold"
                       >
                         {isLoading ? (
                           <ClipLoader size={20} color="#fff" />
@@ -277,13 +279,13 @@ const Checkout = () => {
                   ))
                 ) : (
                   <>
-                    <p className="text-center text-pink-500">
+                    <p className="text-center text-foreground">
                       No addresses found.
                     </p>
                     {user?.name && (
                       <Link
                         to="/profile"
-                        className="block text-blue-900 text-center font-medium my-2 rounded-lg hover:underline"
+                        className="block text-blue-500 text-center font-medium my-2 rounded-lg hover:underline"
                       >
                         Add Address
                       </Link>
@@ -296,19 +298,19 @@ const Checkout = () => {
 
           {/* Right Section - Summary */}
           <div className="lg:w-1/3 space-y-4">
-            <Card className="bg-pink-50 shadow-md p-4">
-              <h3 className="text-lg font-bold text-pink-700 mb-4">
+            <Card className="bg-card/20 shadow-md p-4">
+              <h3 className="text-lg font-bold text-foreground mb-4">
                 Order Summary
               </h3>
-              <div className="flex justify-between text-pink-700 mb-2">
+              <div className="flex justify-between text-foreground mb-2">
                 <span>Subtotal</span>
                 <span>₹ {subtotal.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-pink-700 mb-2">
+              <div className="flex justify-between text-foreground mb-2">
                 <span>Delivery Fee</span>
                 <span>₹ {deliveryFee.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between font-bold text-lg text-pink-800 mb-4">
+              <div className="flex justify-between font-bold text-lg text-foreground mb-4">
                 <span>Total</span>
                 <span>₹ {total.toFixed(2)}</span>
               </div>
@@ -319,9 +321,9 @@ const Checkout = () => {
                   id="cod"
                   checked={isCOD}
                   onChange={(e) => setIsCOD(e.target.checked)}
-                  className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
+                  className="w-4 h-4 text-foreground border-gray-300 rounded focus:ring-pink-500"
                 />
-                <label htmlFor="cod" className="text-pink-700 text-sm">
+                <label htmlFor="cod" className="text-foreground text-sm">
                   Pay with Cash on Delivery
                 </label>
               </div>

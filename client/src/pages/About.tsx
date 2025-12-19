@@ -11,7 +11,7 @@ const About = () => {
       <Header />
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-toy-cream via-toy-pale-blue to-background">
+        <section className="py-20 bg-gradient-to-br from-black via-black to-primary">
           <div className="container mx-auto px-4 text-center">
             <div className="inline-flex items-center bg-primary/10 rounded-full px-6 py-3 mb-6">
               <span className="text-2xl mr-2 animate-bounce-slow">🏰</span>
@@ -21,7 +21,7 @@ const About = () => {
             <h1 className="text-4xl lg:text-6xl font-baloo font-bold text-foreground mb-6">
               Welcome to FS Toys Factory
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
+            <p className="text-xl text-foreground max-w-3xl mx-auto font-poppins leading-relaxed">
               Where magical childhood memories are born! We've been bringing joy to families 
               worldwide with our carefully curated collection of premium toys that spark imagination 
               and create lasting happiness.
@@ -38,12 +38,12 @@ const About = () => {
                   <span className="text-5xl mr-4 animate-wiggle">🎯</span>
                   Our Mission
                 </h2>
-                <p className="text-lg text-muted-foreground font-poppins leading-relaxed mb-6">
+                <p className="text-lg text-foreground font-poppins leading-relaxed mb-6">
                   At FS Toys Factory, we believe that play is the foundation of learning, creativity, 
                   and happiness. Our mission is to provide children with high-quality, safe, and 
                   engaging toys that nurture their development while bringing families together.
                 </p>
-                <p className="text-lg text-muted-foreground font-poppins leading-relaxed mb-8">
+                <p className="text-lg text-foreground font-poppins leading-relaxed mb-8">
                   Every toy in our collection is carefully selected for its educational value, 
                   safety standards, and ability to inspire wonder. We're not just selling toys – 
                   we're creating magical moments that last a lifetime.
@@ -91,13 +91,13 @@ const About = () => {
         </section>
 
         {/* Values Section */}
-        <section className="py-20 bg-gradient-to-b from-toy-cream/30 to-background">
+        <section className="py-20 bg-gradient-to-b from-black via-black to-primary/80">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
                 What Makes Us Special
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins">
+              <p className="text-xl text-foreground max-w-2xl mx-auto font-poppins">
                 Our core values guide everything we do, ensuring every child receives 
                 the best possible play experience.
               </p>
@@ -151,7 +151,7 @@ const About = () => {
                     <value.icon className="w-8 h-8 text-white" />
                   </div>
                   
-                  <h3 className="text-2xl font-baloo font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
+                  <h3 className="text-2xl font-baloo font-bold text-muted-foreground mb-4 group-hover:text-primary transition-colors">
                     {value.title}
                   </h3>
                   
@@ -235,7 +235,7 @@ const About = () => {
             <h2 className="text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-6">
               Ready to Create Magic?
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-poppins mb-8">
+            <p className="text-xl text-foreground max-w-2xl mx-auto font-poppins mb-8">
               Join thousands of happy families who trust FS Toys Factory for their 
               children's playtime adventures. Start your magical journey today!
             </p>

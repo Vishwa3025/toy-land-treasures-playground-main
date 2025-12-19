@@ -18,8 +18,6 @@ import Footer from "@/components/Footer";
 import { useAuth } from "@/contexts/AuthContext";
 import { generalApi } from "../utils/axiosInstance.js";
 
-const API_BASE_URL = import.meta.env.VITE_BASE_URL;
-
 const Login = () => {
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
   const [signupForm, setSignupForm] = useState({
@@ -28,7 +26,8 @@ const Login = () => {
     phone: "",
     password: "",
   });
-  const { login } = useAuth(); // ✅ get login function from context
+
+  const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("login");
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const Login = () => {
 
   const from = location.state?.from?.pathname || "/";
 
-  /** ---------- LOGIN ---------- */
+  /* ---------- LOGIN ---------- */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -54,25 +53,15 @@ const Login = () => {
           description: `Logged in as ${user.name}`,
         });
 
-        // ✅ Redirect based on role
-        if (user.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate(from); // default redirect
-        }
+        navigate(user.role === "admin" ? "/admin" : from);
       } else {
-        toast({
-          title: "Login failed",
-          description: "Invalid credentials. Please try again.",
-          variant: "destructive",
-        });
+        throw new Error("Invalid credentials");
       }
     } catch (error: any) {
       toast({
         title: "Login failed",
         description:
-          error.response?.data?.error ||
-          "Something went wrong, please try again.",
+          error.response?.data?.error || "Invalid credentials",
         variant: "destructive",
       });
     } finally {
@@ -80,7 +69,7 @@ const Login = () => {
     }
   };
 
-  /** ---------- SIGNUP ---------- */
+  /* ---------- SIGNUP ---------- */
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -88,15 +77,12 @@ const Login = () => {
     try {
       const res = await generalApi.post(`auth/register`, signupForm, {
         withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
 
       toast({
         title: "Welcome to ToyLand! 🎊",
         description:
-          res.data.message || "Your account has been created successfully!",
+          res.data.message || "Account created successfully!",
       });
 
       setActiveTab("login");
@@ -104,8 +90,7 @@ const Login = () => {
       toast({
         title: "Signup failed",
         description:
-          error.response?.data?.error ||
-          "Please check the details and try again.",
+          error.response?.data?.error || "Please try again",
         variant: "destructive",
       });
     } finally {
@@ -114,49 +99,48 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-toy-cream/30 relative">
+    <div className="min-h-screen bg-black relative">
       <ToyBackground />
       <Header />
 
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-24 relative z-10">
         <div className="max-w-md mx-auto">
+          {/* Title */}
           <div className="text-center mb-8">
             <div className="text-6xl mb-4 animate-bounce-slow">🎪</div>
-            <h1 className="text-4xl font-baloo font-bold text-primary mb-2">
+            <h1 className="text-4xl font-baloo font-extrabold text-primary mb-2">
               Welcome to ToyLand!
             </h1>
-            <p className="text-muted-foreground font-poppins">
-              Join our magical world of toys and wonder
+            <p className="text-black font-poppins bg-toy-cream inline-block px-4 py-1 rounded-full shadow">
+              Join our magical world of toys
             </p>
           </div>
 
-          <Card className="toy-shadow bg-card/80 backdrop-blur-sm">
+          {/* Card */}
+          <Card className="bg-toy-cream border border-primary/30 toy-shadow">
             <CardHeader className="text-center">
-              <CardTitle className="font-baloo text-2xl">Get Started</CardTitle>
-              <CardDescription>
-                Login to your account or create a new one
+              <CardTitle className="font-baloo text-2xl text-black">
+                Get Started
+              </CardTitle>
+              <CardDescription className="text-black/80">
+                Login or create a new account
               </CardDescription>
             </CardHeader>
+
             <CardContent>
-              <Tabs
-                value={activeTab}
-                onValueChange={setActiveTab}
-                className="w-full"
-              >
-                <TabsList className="grid w-full grid-cols-2">
+              <Tabs value={activeTab} onValueChange={setActiveTab}>
+                <TabsList className="grid grid-cols-2 bg-white border border-primary/30">
                   <TabsTrigger value="login">Login</TabsTrigger>
                   <TabsTrigger value="signup">Sign Up</TabsTrigger>
                 </TabsList>
 
-                {/* ---------- LOGIN TAB ---------- */}
+                {/* LOGIN */}
                 <TabsContent value="login">
-                  <form onSubmit={handleLogin} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="login-email">Email</Label>
+                  <form onSubmit={handleLogin} className="space-y-4 mt-4">
+                    <div>
+                      <Label>Email</Label>
                       <Input
-                        id="login-email"
                         type="email"
-                        placeholder="your@email.com"
                         value={loginForm.email}
                         onChange={(e) =>
                           setLoginForm({ ...loginForm, email: e.target.value })
@@ -164,12 +148,11 @@ const Login = () => {
                         required
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="login-password">Password</Label>
+
+                    <div>
+                      <Label>Password</Label>
                       <Input
-                        id="login-password"
                         type="password"
-                        placeholder="Enter your password"
                         value={loginForm.password}
                         onChange={(e) =>
                           setLoginForm({
@@ -181,109 +164,81 @@ const Login = () => {
                       />
                     </div>
 
-                    {/* Forgot Password */}
-                    <div className="my-4">
-                      <Link
-                        to="/reset"
-                        className="w-full  text-blue-800 font-medium text-sm rounded-lg text-center hover:underline"
-                      >
-                        Forgot Password ?
-                      </Link>
-                    </div>
+                    <Link
+                      to="/reset"
+                      className="block text-sm text-primary font-medium hover:underline text-right"
+                    >
+                      Forgot password?
+                    </Link>
 
                     <Button
                       type="submit"
+                      variant="hero"
                       className="w-full"
                       disabled={isLoading}
-                      variant="hero"
                     >
-                      {isLoading ? "Logging in..." : "Login to ToyLand! 🎈"}
+                      {isLoading ? "Logging in..." : "Login 🎈"}
                     </Button>
                   </form>
                 </TabsContent>
 
-                {/* ---------- SIGNUP TAB ---------- */}
+                {/* SIGNUP */}
                 <TabsContent value="signup">
-                  <form onSubmit={handleSignup} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-name">Full Name</Label>
-                      <Input
-                        id="signup-name"
-                        type="text"
-                        placeholder="Your full name"
-                        value={signupForm.name}
-                        onChange={(e) =>
-                          setSignupForm({ ...signupForm, name: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-email">Email</Label>
-                      <Input
-                        id="signup-email"
-                        type="email"
-                        placeholder="your@email.com"
-                        value={signupForm.email}
-                        onChange={(e) =>
-                          setSignupForm({
-                            ...signupForm,
-                            email: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-phone">Phone Number</Label>
-                      <Input
-                        id="signup-phone"
-                        type="tel"
-                        placeholder="Enter phone number"
-                        value={signupForm.phone}
-                        onChange={(e) =>
-                          setSignupForm({
-                            ...signupForm,
-                            phone: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-password">Password</Label>
-                      <Input
-                        id="signup-password"
-                        type="password"
-                        placeholder="Create a password"
-                        value={signupForm.password}
-                        onChange={(e) =>
-                          setSignupForm({
-                            ...signupForm,
-                            password: e.target.value,
-                          })
-                        }
-                        required
-                      />
-                    </div>
+                  <form onSubmit={handleSignup} className="space-y-4 mt-4">
+                    <Input
+                      placeholder="Full Name"
+                      value={signupForm.name}
+                      onChange={(e) =>
+                        setSignupForm({ ...signupForm, name: e.target.value })
+                      }
+                      required
+                    />
+                    <Input
+                      type="email"
+                      placeholder="Email"
+                      value={signupForm.email}
+                      onChange={(e) =>
+                        setSignupForm({ ...signupForm, email: e.target.value })
+                      }
+                      required
+                    />
+                    <Input
+                      placeholder="Phone"
+                      value={signupForm.phone}
+                      onChange={(e) =>
+                        setSignupForm({ ...signupForm, phone: e.target.value })
+                      }
+                      required
+                    />
+                    <Input
+                      type="password"
+                      placeholder="Password"
+                      value={signupForm.password}
+                      onChange={(e) =>
+                        setSignupForm({
+                          ...signupForm,
+                          password: e.target.value,
+                        })
+                      }
+                      required
+                    />
+
                     <Button
                       type="submit"
+                      variant="hero"
                       className="w-full"
                       disabled={isLoading}
-                      variant="hero"
                     >
-                      {isLoading ? "Creating account..." : "Join ToyLand! 🌟"}
+                      {isLoading ? "Creating..." : "Join ToyLand 🌟"}
                     </Button>
                   </form>
                 </TabsContent>
               </Tabs>
 
               <div className="mt-6 text-center">
-                <p className="text-sm text-muted-foreground">
-                  <Link to="/" className="text-primary hover:underline">
-                    ← Back to ToyLand
-                  </Link>
-                </p>
+                <Link to="/" className="text-primary font-medium hover:underline">
+                  ← Back to Home
+                </Link>
               </div>
             </CardContent>
           </Card>

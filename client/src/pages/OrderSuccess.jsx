@@ -18,7 +18,7 @@ const OrderSuccess = () => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 100, damping: 10 }}
-        className="bg-white p-6 rounded-2xl shadow-lg">
+        className="bg-black p-6 rounded-2xl shadow-lg">
         <motion.div
           initial={{ rotate: -180, scale: 0 }}
           animate={{ rotate: 0, scale: 1 }}

@@ -107,7 +107,7 @@ const AddCategory: React.FC = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+              className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter category name"
               required
             />
@@ -122,7 +122,7 @@ const AddCategory: React.FC = () => {
               name="description"
               value={formData.description}
               onChange={handleChange}
-              className="form-input p-3 border border-gray-300 rounded-lg focus:ring focus:ring-blue-200 outline-none"
+              className="form-input p-3 border border-gray-300 text-muted-foreground rounded-lg focus:ring focus:ring-blue-200 outline-none"
               placeholder="Enter category description"
               required
             />
@@ -134,7 +134,7 @@ const AddCategory: React.FC = () => {
               Category Image
             </label>
             <div
-              className="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-300 rounded-lg p-6 hover:bg-gray-100 transition cursor-pointer"
+              className="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-300 text-muted-foreground rounded-lg p-6 hover:bg-gray-100 transition cursor-pointer"
               onClick={() => fileInputRef.current?.click()}
             >
               {imagePreview ? (

@@ -7,13 +7,12 @@ import Header from "./Header";
 import { motion } from "framer-motion";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const location = useLocation(); // get current route
+  const location = useLocation();
 
   useEffect(() => {
-    // Fetch categories from backend
     api
       .get("/categories")
       .then((response) => {
@@ -26,12 +25,11 @@ const Categories = () => {
       });
   }, []);
 
-  // Emoji pool for floating background
   const bgEmojis = ["🧸", "🚗", "🎲", "🪁", "🦖", "🎯", "🛴", "🪀"];
 
   return (
-    <section className="py-3 relative bg-gradient-to-b from-toy-cream/40 to-background">
-      {/* Floating animated emojis in background */}
+    <section className="relative py-6 bg-gradient-to-b from-black via-black/95 to-black overflow-hidden">
+      {/* Floating background emojis */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {bgEmojis.map((emoji, i) => (
           <motion.div
@@ -40,7 +38,7 @@ const Categories = () => {
             style={{
               top: `${10 + i * 10}%`,
               left: `${(i % 2 === 0 ? 5 : 80) + i * 2}%`,
-              opacity: 0.13 + (i % 3) * 0.07,
+              opacity: 0.12,
               filter: "blur(0.5px)",
             }}
             initial={{ y: 0, rotate: 0 }}
@@ -56,63 +54,63 @@ const Categories = () => {
         ))}
       </div>
 
-      {/* Show Header only if route is not home */}
+      {/* Header (not on home) */}
       {location.pathname !== "/" && <Header />}
 
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header - Playful, improved design */}
+        {/* Section Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center bg-gradient-to-r from-yellow-100 via-pink-100 to-blue-100 rounded-full px-6 py-2 mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center bg-primary/15 border border-primary/30 rounded-full px-6 py-2 mb-4 shadow-lg">
             <span className="text-3xl mr-3 animate-bounce-slow">🎪</span>
-            <span className="text-primary font-baloo font-extrabold text-base md:text-xl ">
+            <span className="text-primary font-baloo font-extrabold text-base md:text-xl">
               Explore Our Categories
             </span>
           </div>
+
           <h2 className="text-2xl md:text-3xl font-baloo font-extrabold text-foreground mb-2 flex items-center justify-center gap-2">
-            <span className="drop-shadow-sm">Find the Perfect Toy</span>
-            <span className="ml-1 animate-bounce">🧸</span>
+            Find the Perfect Toy <span className="animate-bounce">🧸</span>
           </h2>
-          <div className="mx-auto w-24 h-2 bg-gradient-to-r from-pink-300 via-yellow-300 to-blue-300 rounded-full mt-2 mb-2 opacity-80"></div>
+
+          <div className="mx-auto w-24 h-2 bg-gradient-to-r from-primary via-toy-yellow to-accent rounded-full mt-2 opacity-80"></div>
         </div>
 
-        {/* Horizontal Scroll Categories */}
+        {/* Categories Scroll */}
         <div
-          className="flex space-x-3 sm:space-x-8 overflow-x-auto lg:overflow-x-visible pb-4 snap-x snap-mandatory scrollbar-hide px-2 sm:px-0 lg:justify-center"
+          className="flex space-x-4 sm:space-x-8 overflow-x-auto lg:overflow-x-visible pb-4 snap-x snap-mandatory scrollbar-hide px-2 sm:px-0 lg:justify-center"
           style={{ overflowY: "hidden" }}
         >
           {categories.map((category, idx) => (
             <motion.div
               key={category.id}
-              className="min-w-[140px] sm:min-w-[180px] md:min-w-[220px] lg:min-w-[260px] rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-3 sm:p-5 md:p-6 text-center transition-transform duration-300 hover:-translate-y-2 bg-card/90"
+              className="min-w-[160px] sm:min-w-[200px] md:min-w-[240px] lg:min-w-[260px] bg-card text-muted-foreground border border-border rounded-2xl toy-shadow hover:playful-shadow flex-shrink-0 snap-start p-4 sm:p-5 md:p-6 text-center transition-all duration-300"
               whileHover={{
                 scale: 1.06,
-                boxShadow: "0 0 30px hsl(var(--toy-yellow) / 0.3)",
+                boxShadow: "0 0 30px hsl(var(--toy-yellow) / 0.35)",
               }}
             >
               {/* Image */}
               <motion.div
-                className="mb-2 sm:mb-3"
+                className="mb-3"
                 whileHover={{ rotate: [0, 8, -8, 0], scale: 1.08 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
               >
                 <img
                   src={category.image}
                   alt={category.name}
-                  className="w-full h-[90px] sm:h-[120px] md:h-[150px] object-cover rounded-xl"
+                  className="w-full h-[100px] sm:h-[130px] md:h-[150px] object-cover rounded-xl"
                 />
               </motion.div>
 
-              {/* Name with emoji */}
-              <h3 className="text-base sm:text-lg font-baloo font-bold text-foreground mb-2 sm:mb-3 flex items-center justify-center gap-1">
+              {/* Name */}
+              <h3 className="text-base sm:text-lg font-baloo font-bold mb-3 flex items-center justify-center gap-1">
                 {category.name} {idx % 2 === 0 ? "🚗" : "🏍️"}
               </h3>
 
-              {/* CTA */}
+              {/* Button */}
               <Link to={`/categories/${category.id}`}>
                 <Button
-                  variant="outline"
                   size="sm"
-                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground"
+                  className="w-full border border-primary text-muted-foreground hover:bg-primary hover:text-white transition-all"
                 >
                   Explore
                   <ArrowRight className="w-4 h-4 ml-1" />
@@ -122,12 +120,12 @@ const Categories = () => {
           ))}
         </div>
 
-        {/* View All Button */}
-        {location.pathname == "/" && (
+        {/* View All */}
+        {location.pathname === "/" && (
           <div className="text-center mt-10">
             <Link to="/categories">
               <Button variant="hero" size="lg">
-                View All Categories <span className="ml-1">🎲</span>
+                View All Categories 🎲
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </Link>

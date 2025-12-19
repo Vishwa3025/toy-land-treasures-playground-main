@@ -51,7 +51,7 @@ const Cart = () => {
           <h1 className="text-2xl md:text-3xl font-baloo font-bold text-foreground mb-4">
             Please Login First
           </h1>
-          <p className="text-sm md:text-base text-muted-foreground mb-8 font-poppins">
+          <p className="text-sm md:text-base text-foreground mb-8 font-poppins">
             You need to be logged in to view your cart.
           </p>
           <Link to="/login">
@@ -109,7 +109,7 @@ const Cart = () => {
           <h1 className="text-2xl md:text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-4">
             Ready for Checkout?
           </h1>
-          <p className="text-sm md:text-base lg:text-lg text-muted-foreground font-poppins">
+          <p className="text-sm md:text-base lg:text-lg text-foreground font-poppins">
             Review your magical toy collection before checkout
           </p>
         </div>
@@ -120,7 +120,7 @@ const Cart = () => {
             {cart.map((item) => (
               <Card
                 key={item.id}
-                className="toy-shadow bg-card/80 backdrop-blur-sm"
+                className="toy-shadow bg-card/20 backdrop-blur-sm"
               >
                 <CardContent className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -140,7 +140,7 @@ const Cart = () => {
                         <h3 className="font-baloo font-semibold text-base md:text-lg text-foreground hover:text-primary">
                           {item.Product?.name || "Unknown Product"}
                         </h3>
-                        <h6 className="font-poppins text-xs md:text-sm text-muted-foreground">
+                        <h6 className="font-poppins text-xs md:text-sm text-foreground">
                           {item.color}
                         </h6>
                       </Link>
@@ -165,7 +165,7 @@ const Cart = () => {
                           <Minus className="w-4 h-4" />
                         </Button>
 
-                        <span className="text-sm md:text-base font-baloo font-semibold min-w-[2rem] text-center">
+                        <span className="text-sm md:text-base text-foreground font-baloo font-semibold min-w-[2rem] text-center">
                           {item.quantity}
                         </span>
 
@@ -184,7 +184,7 @@ const Cart = () => {
                         variant="ghost"
                         size="icon"
                         onClick={() => removeFromCart(item.id)}
-                        className="text-destructive hover:text-destructive hover:bg-destructive/10"
+                        className="text-foreground hover:text-foreground hover:bg-foreground/10"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -197,14 +197,14 @@ const Cart = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <Card className="toy-shadow bg-card/80 backdrop-blur-sm sticky top-8">
+            <Card className="toy-shadow bg-card/20 backdrop-blur-sm sticky top-8">
               <CardContent className="p-6">
                 <h2 className="text-xl md:text-2xl font-baloo font-bold text-foreground mb-6">
                   Order Summary
                 </h2>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex justify-between text-sm md:text-base text-muted-foreground font-poppins">
+                  <div className="flex justify-between text-sm md:text-base text-foreground font-poppins">
                     <span>
                       Subtotal (
                       {cart.reduce((sum, item) => sum + item.quantity, 0)}{" "}
@@ -212,7 +212,7 @@ const Cart = () => {
                     </span>
                     <span>₹ {total.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between text-sm md:text-base text-muted-foreground font-poppins">
+                  <div className="flex justify-between text-sm md:text-base text-foreground font-poppins">
                     <span>Shipping</span>
                     <span className="text-accent">FREE</span>
                   </div>
@@ -241,7 +241,7 @@ const Cart = () => {
 
                 {/* Trust Badges */}
                 <div className="mt-6 pt-6 border-t border-toy-cream">
-                  <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground font-poppins">
+                  <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-foreground font-poppins">
                     <div className="flex items-center">
                       <span className="text-accent mr-1">🔒</span>
                       Secure checkout

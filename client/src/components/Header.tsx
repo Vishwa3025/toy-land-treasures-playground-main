@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import UseUser from "../hooks/UseUser";
-import { ShoppingCart, Search, Menu, X, Heart, User } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import useCartStore from "../store/CartStore";
 import logo from "../assets/logo.jpeg";
@@ -18,66 +17,43 @@ const Header = () => {
     fetchCart();
   }, []);
 
-  const cartCount = cart?.length || 0; // Use optional chaining to prevent the error
-
-  const handleCartClick = () => {
-    navigate("/cart");
-  };
+  const cartCount = cart?.length || 0;
 
   return (
-    <header className="bg-card/80 backdrop-blur-sm border-b-2 border-toy-cream sticky top-0 z-50">
+    <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-black">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary to-toy-yellow rounded-2xl flex items-center justify-center">
-              <img src={logo} alt="FS Toys Logo" className="text-2xl" />
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="w-12 h-12 rounded-2xl overflow-hidden border border-primary/40">
+              <img src={logo} alt="FS Toys Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="text-2xl font-baloo font-bold text-primary">
-                FS Toys
+                <span className="text-orange-600">F</span><span className="text-white">S</span> <span className="text-white">Toys</span>
               </h1>
-              <p className="text-sm text-accent font-baloo -mt-1">Factory</p>
+              <p className="text-sm text-white/80 font-baloo -mt-1">
+                Factory
+              </p>
             </div>
           </Link>
 
-          {/* Desktop Navigation (only visible on large screens) */}
+          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <Link
-              to="/"
-              className="text-foreground hover:text-primary font-poppins font-medium hover-bounce"
-            >
-              Home
-            </Link>
-            <Link
-              to="/products"
-              className="text-foreground hover:text-primary font-poppins font-medium hover-bounce"
-            >
-              Toys
-            </Link>
-            <Link
-              to="/categories"
-              className="text-foreground hover:text-primary font-poppins font-medium hover-bounce"
-            >
-              Categories
-            </Link>
-            <Link
-              to="/about"
-              className="text-foreground hover:text-primary font-poppins font-medium hover-bounce"
-            >
-              About
-            </Link>
-            <Link
-              to="/contact"
-              className="text-foreground hover:text-primary font-poppins font-medium hover-bounce"
-            >
-              Contact
-            </Link>
+            {["Home", "Products", "Categories", "About", "Contact"].map(item => (
+              <Link
+                key={item}
+                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                className="text-white/85 hover:text-primary font-poppins font-medium transition-colors"
+              >
+                {item}
+              </Link>
+            ))}
           </nav>
 
-          {/* Search Bar - only desktop (large screens) */}
+          {/* Search (Desktop) */}
           <form
-            className="hidden lg:flex items-center bg-toy-cream/50 rounded-2xl px-4 py-2 flex-1 max-w-md mx-8"
+            className="hidden lg:flex items-center bg-black/60 border border-white/10 rounded-2xl px-4 py-2 flex-1 max-w-md mx-8"
             onSubmit={e => {
               e.preventDefault();
               if (searchValue.trim()) {
@@ -85,101 +61,71 @@ const Header = () => {
               }
             }}
           >
-            <Search className="w-5 h-5 text-muted-foreground mr-2" />
+            <Search className="w-5 h-5 text-white/60 mr-2" />
             <input
               type="text"
-              placeholder="Search for magical toys..."
-              className="bg-transparent flex-1 outline-none text-foreground placeholder:text-muted-foreground"
+              placeholder="Search for toys..."
+              className="bg-transparent flex-1 outline-none text-white placeholder:text-white/50"
               value={searchValue}
               onChange={e => setSearchValue(e.target.value)}
             />
           </form>
 
-          {/* Action Buttons */}
+          {/* Actions */}
           <div className="flex items-center space-x-4">
-           
-
-            {/* Cart - all screens */}
+            {/* Cart */}
             <Link to="/cart">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative hover-bounce"
-              >
+              <Button variant="ghost" size="icon" className="relative text-white hover:text-primary">
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold animate-bounce-slow">
+                  <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold">
                     {cartCount}
                   </span>
                 )}
               </Button>
             </Link>
 
-            {/* User Profile / Login */}
+            {/* Profile / Login */}
             {isAuthenticated ? (
               <Link to="/profile">
-                <Button variant="ghost" size="icon" className="hover-bounce">
+                <Button variant="ghost" size="icon" className="text-white hover:text-primary">
                   <User className="w-5 h-5" />
                 </Button>
               </Link>
             ) : (
               <Link to="/login">
-                <Button variant="outline" size="sm">
+                <Button className="bg-primary text-white hover:bg-primary/90 rounded-full px-5">
                   Login
                 </Button>
               </Link>
             )}
 
-            {/* Hamburger menu - visible on tablet & mobile */}
+            {/* Mobile Menu */}
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden hover-bounce"
+              className="lg:hidden text-white"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              {isMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
+              {isMenuOpen ? <X /> : <Menu />}
             </Button>
           </div>
         </div>
 
-        {/* Mobile/Tablet Navigation */}
+        {/* Mobile Nav */}
         {isMenuOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t border-toy-cream/50 pt-4">
+          <div className="lg:hidden mt-4 pt-4 border-t border-white/10">
             <div className="flex flex-col space-y-4">
-              <Link
-                to="/"
-                className="text-foreground hover:text-primary font-poppins font-medium py-2"
-              >
-                Home
-              </Link>
-              <Link
-                to="/products"
-                className="text-foreground hover:text-primary font-poppins font-medium py-2"
-              >
-                Toys
-              </Link>
-              <Link
-                to="/categories"
-                className="text-foreground hover:text-primary font-poppins font-medium py-2"
-              >
-                Categories
-              </Link>
-              <Link
-                to="/about"
-                className="text-foreground hover:text-primary font-poppins font-medium py-2"
-              >
-                About
-              </Link>
-              <Link
-                to="/contact"
-                className="text-foreground hover:text-primary font-poppins font-medium py-2"
-              >
-                Contact
-              </Link>
+              {["Home", "Toys", "Categories", "About", "Contact"].map(item => (
+                <Link
+                  key={item}
+                  to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                  className="text-white/85 hover:text-primary font-poppins font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              ))}
             </div>
           </div>
         )}

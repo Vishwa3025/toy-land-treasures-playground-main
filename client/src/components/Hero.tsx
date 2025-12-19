@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { Link } from "react-router-dom";
 import { ArrowRight, Star, Gift } from 'lucide-react';
-import heroImage from '@/assets/hero-toys.jpg';
+import heroImage from '@/assets/hero-toys.png';
 import ToyBackground from './ToyBackground';
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-toy-cream via-toy-pale-blue to-background min-h-[80vh] flex items-center">
+    <section className="relative overflow-hidden min-h-[80vh] flex items-center bg-gradient-to-br from-black via-black to-primary">
       <ToyBackground />
 
       <div className="container mx-auto px-4 py-10 relative z-10">
@@ -24,11 +24,11 @@ const Hero = () => {
               <span className="text-primary">Welcome to</span>
               <br />
               <span className="bg-gradient-to-r from-toy-yellow via-accent to-secondary bg-clip-text text-transparent animate-float">
-                FS Toys Factory
+                <span className="text-orange-600">F</span><span className="text-white">S</span> <span className="text-white">Toys</span>  Factory
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mb-8 max-w-2xl font-poppins leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground mb-8 max-w-2xl font-poppins leading-relaxed">
               Discover a magical world of toys that spark imagination and create unforgettable memories. 
               From cuddly companions to educational adventures, we have the perfect toy for every child!
             </p>

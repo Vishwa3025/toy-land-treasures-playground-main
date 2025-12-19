@@ -35,14 +35,14 @@ import ToyBackground from './ToyBackground';
 
 const Testimonials = () => {
   return (
-    <section className="relative hidden md:block py-16 md:py-20 bg-gradient-to-b from-toy-cream/30 to-background overflow-hidden">
+    <section className="relative hidden md:block py-16 md:py-20 bg-gradient-to-b from-background via-background/95 to-background overflow-hidden">
       <ToyBackground />
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-12 md:mb-16">
           <div className="inline-flex items-center bg-toy-yellow/20 rounded-full px-4 py-2 md:px-6 md:py-3 mb-4 md:mb-6">
             <span className="text-xl md:text-2xl mr-2 animate-bounce-slow">💝</span>
-            <span className="text-toy-yellow-foreground font-baloo font-semibold text-sm md:text-base">
+            <span className="text-foreground font-baloo font-semibold text-sm md:text-base">
               Happy Families
             </span>
           </div>
@@ -50,7 +50,7 @@ const Testimonials = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-baloo font-bold text-foreground mb-3 md:mb-4">
             What Parents Say
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-poppins">
+          <p className="text-base sm:text-lg md:text-xl text-foreground max-w-2xl mx-auto font-poppins">
             Don't just take our word for it! Hear from the families who've experienced
             the magic of FS Toys Factory.
           </p>
@@ -86,7 +86,7 @@ const Testimonials = () => {
               </div>
 
               {/* Review Text */}
-              <p className="text-sm md:text-xs lg:text-base text-muted-foreground font-poppins leading-relaxed mb-4 md:mb-6 group-hover:text-foreground transition-colors duration-300">
+              <p className="text-sm md:text-xs lg:text-base text-muted-foreground font-poppins leading-relaxed mb-4 md:mb-6 group-hover:text-muted-foreground transition-colors duration-300">
                 "{testimonial.review}"
               </p>
 
@@ -96,7 +96,7 @@ const Testimonials = () => {
                   {testimonial.avatar}
                 </div>
                 <div>
-                  <h4 className="font-baloo font-semibold text-foreground text-base lg:text-lg">
+                  <h4 className="font-baloo font-semibold text-muted-foreground text-base lg:text-lg">
                     {testimonial.name}
                   </h4>
                 </div>
@@ -111,13 +111,13 @@ const Testimonials = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-12 md:mt-16 bg-gradient-to-r from-primary/10 via-toy-yellow/5 to-accent/10 rounded-2xl md:rounded-3xl p-6 md:p-8">
+        <div className="mt-12 md:mt-16 bg-gradient-to-r from-background via-background to-primary/15 rounded-2xl md:rounded-3xl p-6 md:p-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
             <div className="group hover-bounce">
               <div className="text-2xl md:text-4xl font-baloo font-bold text-primary mb-1 md:mb-2 group-hover:animate-bounce-slow">
                 10,000+
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-poppins">
+              <div className="text-xs md:text-sm text-foreground font-poppins">
                 Happy Children
               </div>
               <div className="text-lg md:text-2xl mt-1 md:mt-2">😊</div>
@@ -126,7 +126,7 @@ const Testimonials = () => {
               <div className="text-2xl md:text-4xl font-baloo font-bold text-accent mb-1 md:mb-2 group-hover:animate-bounce-slow">
                 5,000+
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-poppins">
+              <div className="text-xs md:text-sm text-foreground font-poppins">
                 Five-Star Reviews
               </div>
               <div className="text-lg md:text-2xl mt-1 md:mt-2">⭐</div>
@@ -135,16 +135,16 @@ const Testimonials = () => {
               <div className="text-2xl md:text-4xl font-baloo font-bold text-secondary mb-1 md:mb-2 group-hover:animate-bounce-slow">
                 500+
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-poppins">
+              <div className="text-xs md:text-sm text-foreground font-poppins">
                 Unique Toys
               </div>
               <div className="text-lg md:text-2xl mt-1 md:mt-2">🧸</div>
             </div>
             <div className="group hover-bounce">
-              <div className="text-2xl md:text-4xl font-baloo font-bold text-toy-yellow-foreground mb-1 md:mb-2 group-hover:animate-bounce-slow">
+              <div className="text-2xl md:text-4xl font-baloo font-bold text-toy-secondary mb-1 md:mb-2 group-hover:animate-bounce-slow">
                 99%
               </div>
-              <div className="text-xs md:text-sm text-muted-foreground font-poppins">
+              <div className="text-xs md:text-sm text-foreground font-poppins">
                 Satisfaction Rate
               </div>
               <div className="text-lg md:text-2xl mt-1 md:mt-2">💯</div>

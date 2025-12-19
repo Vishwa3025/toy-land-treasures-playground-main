@@ -60,13 +60,13 @@ app.use("/api/images", imageRoutes);
 app.use("/api/return", returnRoutes)
 
 // Serve React static files
-app.use(express.static(path.join(__dirname, 'client/dist')));
+// app.use(express.static(path.join(__dirname, 'client/dist')));
 
 
-// Fallback for SPA routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
-});
+// // Fallback for SPA routes
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'client/dist/index.html'));
+// });
 
 // Start server
 const PORT = process.env.PORT || 5000;

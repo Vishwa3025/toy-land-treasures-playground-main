@@ -210,19 +210,19 @@ const ProductDetails = () => {
         {/* Breadcrumb */}
         <nav className="mb-8">
           <div className="flex items-center space-x-2 text-sm font-poppins">
-            <Link to="/" className="text-muted-foreground hover:text-primary">
+            <Link to="/" className="text-foreground hover:text-primary">
               Home
             </Link>
-            <span className="text-muted-foreground">/</span>
+            <span className="text-foreground">/</span>
             {category && (
               <>
                 <Link
                   to={`/category/${category.id}`}
-                  className="text-muted-foreground hover:text-primary"
+                  className="text-foreground hover:text-primary"
                 >
                   {category.name}
                 </Link>
-                <span className="text-muted-foreground">/</span>
+                <span className="text-foreground">/</span>
               </>
             )}
             <span className="text-foreground font-semibold">
@@ -289,7 +289,7 @@ const ProductDetails = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline" className="font-baloo">
-                  <span className="text-gray-700">Ages 3-12 years</span>
+                  <span className="text-gray-200">Ages 3-12 years</span>
                 </Badge>
               </div>
 
@@ -297,7 +297,7 @@ const ProductDetails = () => {
                 {product.name}
               </h1>
 
-              <p className="text-sm sm:text-base md:text-lg text-muted-foreground font-poppins leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-foreground font-poppins leading-relaxed">
                 {product.description}
               </p>
 
@@ -311,7 +311,7 @@ const ProductDetails = () => {
               {/* Ratings */}
               <div className="flex items-center gap-4">
                 <div className="flex items-center text-yellow-400">★★★★☆</div>
-                <span className="text-muted-foreground font-poppins">
+                <span className="text-foreground font-poppins">
                   4.9 (156 reviews)
                 </span>
               </div>
@@ -325,14 +325,14 @@ const ProductDetails = () => {
               {product.strikedPrice &&
                 parseFloat(product.strikedPrice) >
                   parseFloat(product.price) && (
-                  <span className="text-sm sm:text-base md:text-lg text-muted-foreground line-through font-poppins">
+                  <span className="text-sm sm:text-base md:text-lg text-foreground line-through font-poppins">
                     MRP ₹ {parseFloat(product.strikedPrice).toFixed(2)}
                   </span>
                 )}
             </div>
 
             <div className="text-sm text-gray-700 mb-6">
-              <label className="block mb-2 font-medium">Color</label>
+              <label className="block mb-2 font-medium text-foreground">Color</label>
               <div className="flex gap-3 flex-wrap">
                 {product.color.split(",").map((c) => (
                   <button
@@ -359,16 +359,16 @@ const ProductDetails = () => {
               </h3>
 
               <ul className="space-y-2">
-                <li className="flex items-center text-muted-foreground font-poppins">
+                <li className="flex items-center text-foreground font-poppins">
                   <span className="text-accent mr-2">•</span>Die-cast body
                 </li>
-                <li className="flex items-center text-muted-foreground font-poppins">
+                <li className="flex items-center text-foreground font-poppins">
                   <span className="text-accent mr-2">•</span>Working wheels
                 </li>
-                <li className="flex items-center text-muted-foreground font-poppins">
+                <li className="flex items-center text-foreground font-poppins">
                   <span className="text-accent mr-2">•</span>Opening doors
                 </li>
-                <li className="flex items-center text-muted-foreground font-poppins">
+                <li className="flex items-center text-foreground font-poppins">
                   <span className="text-accent mr-2">•</span>Realistic decals
                 </li>
               </ul>
@@ -414,19 +414,19 @@ const ProductDetails = () => {
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-toy-cream">
               <div className="text-center">
                 <Shield className="w-6 h-6 text-accent mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground font-poppins">
+                <p className="text-xs text-foreground font-poppins">
                   Safe & Tested
                 </p>
               </div>
               <div className="text-center">
                 <Truck className="w-6 h-6 text-accent mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground font-poppins">
+                <p className="text-xs text-foreground font-poppins">
                   Free shipping
                 </p>
               </div>
               <div className="text-center">
                 <RotateCcw className="w-6 h-6 text-accent mx-auto mb-2" />
-                <p className="text-xs text-muted-foreground font-poppins">
+                <p className="text-xs text-foreground font-poppins">
                   30-day returns
                 </p>
               </div>
